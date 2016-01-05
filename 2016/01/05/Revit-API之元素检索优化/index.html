@@ -3,29 +3,26 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Revit API之元素检索优化 | GoldenBlue</title>
+  <title>Revit API之元素检索优化 | 秋味笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="简介虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
-在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredE">
+  <meta name="description" content="Revit API环境中进行元素检索优化的具体实践。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Revit API之元素检索优化">
-<meta property="og:url" content="http://goldenblue.cn/2016/01/05/Revit-API之元素检索优化/index.html">
-<meta property="og:site_name" content="GoldenBlue">
-<meta property="og:description" content="简介虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
-在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredE">
+<meta property="og:url" content="http://http://autumnflavor.com/2016/01/05/Revit-API之元素检索优化/index.html">
+<meta property="og:site_name" content="秋味笔记">
+<meta property="og:description" content="Revit API环境中进行元素检索优化的具体实践。">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/LINQSpeed.png">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/GoldenBlue_weixinPT.jpg">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/AutumnFlavorWx.png">
-<meta property="og:updated_time" content="2016-01-05T13:58:56.591Z">
+<meta property="og:updated_time" content="2016-01-05T14:11:26.325Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Revit API之元素检索优化">
-<meta name="twitter:description" content="简介虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
-在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredE">
+<meta name="twitter:description" content="Revit API环境中进行元素检索优化的具体实践。">
   
-    <link rel="alternative" href="/atom.xml" title="GoldenBlue" type="application/atom+xml">
+    <link rel="alternative" href="/atom.xml" title="秋味笔记" type="application/atom+xml">
   
   
-    <link rel="icon" href="/favicon.png">
+    <link rel="icon" href="/img/615.png">
   
   <link rel="stylesheet" href="/css/style.css" type="text/css">
   <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
@@ -40,7 +37,7 @@
     <header id="header" class="inner">
         <a href="/" class="profilepic">
             
-            <img lazy-src="/img/avatar.png" class="js-avatar">
+            <img lazy-src="/img/615.png" class="js-avatar">
             
         </a>
 
@@ -121,6 +118,8 @@
                             
                                 <li id="RSS"><a class="RSS" target="_blank" href="/atom.xml" title="RSS"></a></li>
                             
+                                <li id="微信"><a class="微信" target="_blank" href="http://7xpt80.com1.z0.glb.clouddn.com/AutumnFlavorWx.png" title="微信"></a></li>
+                            
                         </ul>
                     </nav>
                 </section>
@@ -128,7 +127,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <li><a href="/tags/BIM/" style="font-size: 10px;">BIM</a></li> <li><a href="/tags/FilteredElementCollector/" style="font-size: 10px;">FilteredElementCollector</a></li> <li><a href="/tags/Revit-API/" style="font-size: 20px;">Revit API</a></li> <li><a href="/tags/abc/" style="font-size: 10px;">abc</a></li>
+                        <li><a href="/tags/BIM/" style="font-size: 10px;">BIM</a></li> <li><a href="/tags/FilteredElementCollector/" style="font-size: 10px;">FilteredElementCollector</a></li> <li><a href="/tags/Revit-API/" style="font-size: 10px;">Revit API</a></li> <li><a href="/tags/abc/" style="font-size: 10px;">abc</a></li>
                     </div>
                 </section>
                 
@@ -168,7 +167,7 @@
     <div class="intrude-less">
         <header id="header" class="inner">
             <a href="/" class="profilepic">
-                <img lazy-src="/img/avatar.png" class="js-avatar">
+                <img lazy-src="/img/615.png" class="js-avatar">
             </a>
             <hgroup>
               <h1 class="header-author"><a href="/" title="回到主页">秋味</a></h1>
@@ -198,6 +197,8 @@
                                 <li id="GitHub"><a class="GitHub" target="_blank" href="https://github.com/LiuBoChangSha/LiuBoChangSha.github.io" title="GitHub"></a></li>
                             
                                 <li id="RSS"><a class="RSS" target="_blank" href="/atom.xml" title="RSS"></a></li>
+                            
+                                <li id="微信"><a class="微信" target="_blank" href="http://7xpt80.com1.z0.glb.clouddn.com/AutumnFlavorWx.png" title="微信"></a></li>
                             
                         </ul>
             </nav>
@@ -229,10 +230,14 @@
       
       <div class="article-info article-info-post">
         
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Revit-API/">Revit API</a>
+    </div>
+
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FilteredElementCollector/">FilteredElementCollector</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Revit-API/">Revit API</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FilteredElementCollector/">FilteredElementCollector</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -333,10 +338,10 @@
         <p><span>本文标题:</span><a href="/2016/01/05/Revit-API之元素检索优化/">Revit API之元素检索优化</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
         <p><span>发布时间:</span>2016年01月05日 - 21时19分</p>
-        <p><span>最后更新:</span>2016年01月05日 - 21时58分</p>
+        <p><span>最后更新:</span>2016年01月05日 - 22时11分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/01/05/Revit-API之元素检索优化/" title="Revit API之元素检索优化">http://goldenblue.cn/2016/01/05/Revit-API之元素检索优化/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://goldenblue.cn/2016/01/05/Revit-API之元素检索优化/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/01/05/Revit-API之元素检索优化/" title="Revit API之元素检索优化">http://http://autumnflavor.com/2016/01/05/Revit-API之元素检索优化/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2016/01/05/Revit-API之元素检索优化/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -426,7 +431,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/01/05/Revit-API之元素检索优化/" data-title="Revit API之元素检索优化" data-url="http://goldenblue.cn/2016/01/05/Revit-API之元素检索优化/"></div>
+    <div class="ds-thread" data-thread-key="2016/01/05/Revit-API之元素检索优化/" data-title="Revit API之元素检索优化" data-url="http://http://autumnflavor.com/2016/01/05/Revit-API之元素检索优化/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
