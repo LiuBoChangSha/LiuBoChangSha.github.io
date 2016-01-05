@@ -3,21 +3,24 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Hello World | GoldenBlue</title>
+  <title>Revit API之元素检索优化 | GoldenBlue</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+  <meta name="description" content="虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
+在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredEle">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Hello World">
-<meta property="og:url" content="http://goldenblue.cn/2016/01/05/hello-world/index.html">
+<meta property="og:title" content="Revit API之元素检索优化">
+<meta property="og:url" content="http://goldenblue.cn/2016/01/05/Revit-API之元素检索优化/index.html">
 <meta property="og:site_name" content="GoldenBlue">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
-<meta property="og:updated_time" content="2016-01-05T02:27:56.134Z">
+<meta property="og:description" content="虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
+在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredEle">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/LINQSpeed.png">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/GoldenBlue_weixinPT.jpg">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/AutumnFlavorWx.png">
+<meta property="og:updated_time" content="2016-01-05T13:21:32.490Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hello World">
-<meta name="twitter:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub.
-Quick">
+<meta name="twitter:title" content="Revit API之元素检索优化">
+<meta name="twitter:description" content="虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
+在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredEle">
   
     <link rel="alternative" href="/atom.xml" title="GoldenBlue" type="application/atom+xml">
   
@@ -201,11 +204,11 @@ Quick">
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Revit-API之元素检索优化" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/05/hello-world/" class="article-date">
-      <time datetime="2016-01-05T02:27:56.134Z" itemprop="datePublished">2016-01-05</time>
+      <a href="/2016/01/05/Revit-API之元素检索优化/" class="article-date">
+      <time datetime="2016-01-05T13:19:33.000Z" itemprop="datePublished">2016-01-05</time>
 </a>
     </div>
   
@@ -218,7 +221,7 @@ Quick">
         
   
     <h1 class="article-title" itemprop="name">
-      Hello World
+      Revit API之元素检索优化
     </h1>
   
 
@@ -226,14 +229,10 @@ Quick">
       
       <div class="article-info article-info-post">
         
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Test/">Test</a>
-    </div>
-
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/BIM/">BIM</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Revit-API/">Revit API</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/abc/">abc</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FilteredElementCollector/">FilteredElementCollector</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Revit-API/">Revit API</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -243,16 +242,24 @@ Quick">
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>Welcome to <a href="http://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="http://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="http://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick_Start"><a href="#Quick_Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create_a_new_post"><a href="#Create_a_new_post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run_server"><a href="#Run_server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<a id="more"></a> <!--以上是摘要以下是全文-->
-<h3 id="Generate_static_files"><a href="#Generate_static_files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy_to_remote_sites"><a href="#Deploy_to_remote_sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="http://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
+        <p>虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。</p>
+<p>在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（<em>Element</em>），元素的取得都依赖于元素检索器（<em>FilteredElementCollector</em>）。这样一来在一个应用中将可能需要大量的使用元素检索器来获取特定元素，如何有效率的使用检索器将对二次开发应用的效率产生显著的影响。事实上Jeremy也有一篇博文专门来阐述如何优化元素检索器，本文很多内容来自于Jeremy的文章，但是也加入了很多作者在自身开发经历中的一些自己的解读。下面给出原文链接，有兴趣阅读原文的同学可以自行查阅：<a href="http://thebuildingcoder.typepad.com/blog/2012/09/findelement-and-collector-optimisation.html" target="_blank" rel="external">TheBuildingCoder</a></p>
+<p>对于元素检索器，应当注意以下几点原则：</p>
+<ol>
+<li>尽力避免依赖于名称的检索器，尽可能的选择使用BuiltInParameters。</li>
+<li>如果非要使用名称的话，使用Parameter Filter的效率将远超LINQ。</li>
+<li>将一个filtered element collector 转换为一个.Net的collection（如IEnumerable<element>）的过程常常是可以避免的，这样做会把一个collector的所有成员拷贝到.Net collection中，在大集合中这样做对效率的影响尤其明显。</element></li>
+</ol>
+<p>下边是一个Anti patten，也就是不好的实践，我们应当避免这样使用元素检索器：<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">IEnumerable&lt;Element&gt; targetElems =  </span><br><span class="line">      <span class="keyword">from</span> element <span class="keyword">in</span> collector </span><br><span class="line">      <span class="keyword">where</span> element.Name.<span class="keyword">Equals</span>( targetName )</span><br><span class="line">      <span class="keyword">select</span> element;</span><br><span class="line"></span><br><span class="line">IList&lt;Element&gt; elems = targetElems.ToList();</span><br></pre></td></tr></table></figure></p>
+<p>在Revit SDK samples中经常看到有例子将collector转成iterator然后循环遍历，这样同样不是一个好的实践，事实上是直接用foreach循环将达到非常好的效率：<br><figure class="highlight asciidoc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FilteredElementCollector collector</span><br><span class="line"><span class="header">= new FilteredElementCollector( doc )</span></span><br><span class="line"><span class="code">  .OfCategory( BuiltInCategory.OST_Doors )</span></span><br><span class="line"><span class="code">  .OfClass( typeof( FamilySymbol ) ); </span></span><br><span class="line">foreach( FamilySymbol symbol in collector )</span><br><span class="line">&#123;    Family family = symbol.Family; </span><br><span class="line"><span class="code">  // Process reference to doors family  </span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>不但代码更加简洁，而且没有了collector的转换，性能上也有提升。</p>
+<p>然而在现实中我们经常地需要使用名称来过滤元素，例如Revit的族名称就取决于文件名，这常常让我们面对一个尴尬的现状：上面的代码用不上了。。当确实需要使用名称来匹配检索的时候，作者本人自己做过测试发现，使用LINQ来实现速度会比使用foreach循环快好多倍，更是甩iterator几条街，这是因为LINQ语句不需要像foreach那样循环从集合中第一个元素开始遍历。然而我接下来要讲的却并不是用LINQ来实现元素检索，否则Jeremy也不能被称之为大神了！我也是使用LINQ很久以后才发现在面对这种情况的时候Revit API提供了另一个强大的接口ElementParameterFilter。下面这个方法是此类问题的具体实现（作者对代码进行了修改）：<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Element GetFirstElementOfTypeWithBipString(&#10;    Document doc,&#10;    Type type,&#10;    BuiltInParameter bip,&#10;    string name)&#10;&#123;  &#10;  FilteredElementCollector a&#10;      = new FilteredElementCollector(doc).OfClass(type); &#10;  ParameterValueProvider provider &#10;      = new ParameterValueProvider( &#10;      new ElementId( bip ) ); &#10;  FilterStringRuleEvaluator evaluator &#10;      = new FilterStringEquals(); &#10;  FilterRule rule = new FilterStringRule( &#10;      provider, evaluator, name, true ); &#10;  ElementParameterFilter filter &#10;      = new ElementParameterFilter( rule ); &#10;  return a.WherePasses( filter ).FirstElement();&#10;&#125;</span><br></pre></td></tr></table></figure></p>
+<p>根据Jeremy对不同的检索方法做了测试<br>Retrieve specific named level:<br> |Percentage   |Seconds   |Calls   |Process       |<br> |——       |          |        |              |<br> | 0.00%       |0.00      |1000    |Empty method <em>|<br> |0.19%        |0.11      |1000    |Collector with no name check </em>|<br> |9.19%     | 5.46    |1000   |Parameter filter|<br> | 22.53%    | 13.37   | 1000   |Explicit|<br> |22.57%     |13.40   | 1000   |Anonymous named|<br>     |22.73%     |13.49   | 1000   |Anonymous|<br>     |22.73%     |13.49   | 1000   |Linq|<br>    |100.00%    | 59.35     |  1   |TOTAL TIME|</p>
+<p>根据结果我们可以看到，进行一千次调用所耗时间的一个对比，不使用名称进行检索的时候，检索效率已经降低到一个惊人的程度，这也是为什么Revit新的API中不再把以前的一些常用的Element作为Document公开属性的原因，这些元素可以被低代价地检索到，所用时间几乎可以忽略不计，而节省的内存资源和降低的软件复杂度却是可观的。</p>
+<p>虽然ElementParameterFilter的效率很高，然而它只也只能通过元素的Parameter来进行过滤，很多情况下我们可能无法通过Parameter来获取其名称，例如想要通过名称获取Element的过程中，我们能够在Level的参数列表中找到Name参数，但是在FamilySymbol中找到同样的参数，这个时候使用LINQ反而能够获得比其他方法更高的效率。下面是一段通过名称获取Element的LINQ代码：<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> static Element GetElementByName(</span><br><span class="line">            Document doc, </span><br><span class="line">            <span class="keyword">Type</span> <span class="keyword">type</span>, </span><br><span class="line">            string <span class="keyword">name</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            var element =</span><br><span class="line">                new FilteredElementCollector(doc)</span><br><span class="line">                    .OfClass(<span class="keyword">type</span>)</span><br><span class="line">                    .FirstOrDefault(</span><br><span class="line">                        elem =&gt; elem.<span class="keyword">Name</span> == <span class="keyword">name</span>);</span><br><span class="line">            <span class="keyword">return</span> element;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+<p>简单的做个对比：<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/LINQSpeed.png" alt="对比"></p>
+<p>好了，本期的文章到此结束，希望你的编码过程同样也充满乐趣！</p>
+<p>欢迎转载，请注明出处！欢迎关注微信公众号GoldenBlue_Dev <img src="http://7xpt80.com1.z0.glb.clouddn.com/GoldenBlue_weixinPT.jpg" alt="GoldenBlue_Dev"> ,有好的意见或者建议也可联系本人微信号:frobo<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/AutumnFlavorWx.png" alt="froboo">。</p>
 
            
     </div>
@@ -261,13 +268,13 @@ Quick">
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/01/05/hello-world/">Hello World</a></p>
+        <p><span>本文标题:</span><a href="/2016/01/05/Revit-API之元素检索优化/">Revit API之元素检索优化</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
-        <p><span>发布时间:</span>2016年01月05日 - 10时27分</p>
-        <p><span>最后更新:</span>2016年01月05日 - 10时27分</p>
+        <p><span>发布时间:</span>2016年01月05日 - 21时19分</p>
+        <p><span>最后更新:</span>2016年01月05日 - 21时21分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/01/05/hello-world/" title="Hello World">http://goldenblue.cn/2016/01/05/hello-world/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://goldenblue.cn/2016/01/05/hello-world/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2016/01/05/Revit-API之元素检索优化/" title="Revit API之元素检索优化">http://goldenblue.cn/2016/01/05/Revit-API之元素检索优化/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://goldenblue.cn/2016/01/05/Revit-API之元素检索优化/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -280,12 +287,12 @@ Quick">
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
+        
+            <div id="article-nav-older" class="article-nav-title">
                 <a href="/2016/01/05/My-New-Post/">
                     My New Post
                 </a>
             </div>
-        
         
     </nav>
 
@@ -294,7 +301,7 @@ Quick">
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Quick_Start"><span class="toc-number">1.</span> <span class="toc-text">Quick Start</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Create_a_new_post"><span class="toc-number">1.1.</span> <span class="toc-text">Create a new post</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Run_server"><span class="toc-number">1.2.</span> <span class="toc-text">Run server</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Generate_static_files"><span class="toc-number">1.3.</span> <span class="toc-text">Generate static files</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Deploy_to_remote_sites"><span class="toc-number">1.4.</span> <span class="toc-text">Deploy to remote sites</span></a></li></ol></li></ol>
+    
 </div>
 <style>
     .left-col .switch-btn {
@@ -357,7 +364,7 @@ Quick">
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/01/05/hello-world/" data-title="Hello World" data-url="http://goldenblue.cn/2016/01/05/hello-world/"></div>
+    <div class="ds-thread" data-thread-key="2016/01/05/Revit-API之元素检索优化/" data-title="Revit API之元素检索优化" data-url="http://goldenblue.cn/2016/01/05/Revit-API之元素检索优化/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -381,15 +388,15 @@ Quick">
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/01/05/My-New-Post/" title="上一篇: My New Post">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2016/01/05/My-New-Post/" title="下一篇: My New Post">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
 
