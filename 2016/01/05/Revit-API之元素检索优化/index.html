@@ -5,22 +5,22 @@
   
   <title>Revit API之元素检索优化 | GoldenBlue</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
-在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredEle">
+  <meta name="description" content="简介虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
+在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Revit API之元素检索优化">
 <meta property="og:url" content="http://goldenblue.cn/2016/01/05/Revit-API之元素检索优化/index.html">
 <meta property="og:site_name" content="GoldenBlue">
-<meta property="og:description" content="虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
-在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredEle">
+<meta property="og:description" content="简介虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
+在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredE">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/LINQSpeed.png">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/GoldenBlue_weixinPT.jpg">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/AutumnFlavorWx.png">
-<meta property="og:updated_time" content="2016-01-05T13:45:19.644Z">
+<meta property="og:updated_time" content="2016-01-05T13:53:17.444Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Revit API之元素检索优化">
-<meta name="twitter:description" content="虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
-在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredEle">
+<meta name="twitter:description" content="简介虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
+在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredE">
   
     <link rel="alternative" href="/atom.xml" title="GoldenBlue" type="application/atom+xml">
   
@@ -242,15 +242,17 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。</p>
+        <h3 id="u7B80_u4ECB"><a href="#u7B80_u4ECB" class="headerlink" title="简介"></a>简介</h3><p>虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。</p>
 <p>在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（<em>Element</em>），元素的取得都依赖于元素检索器（<em>FilteredElementCollector</em>）。这样一来在一个应用中将可能需要大量的使用元素检索器来获取特定元素，如何有效率的使用检索器将对二次开发应用的效率产生显著的影响。<a id="more"></a>事实上Jeremy也有一篇博文专门来阐述如何优化元素检索器，本文很多内容来自于Jeremy的文章，但是也加入了很多作者在自身开发经历中的一些自己的解读。下面给出原文链接，有兴趣阅读原文的同学可以自行查阅：<a href="http://thebuildingcoder.typepad.com/blog/2012/09/findelement-and-collector-optimisation.html" target="_blank" rel="external">TheBuildingCoder</a></p>
-<p>对于元素检索器，应当注意以下几点原则：</p>
+<hr>
+<h3 id="u539F_u5219"><a href="#u539F_u5219" class="headerlink" title="原则"></a>原则</h3><p>对于元素检索器，应当注意以下几点原则：</p>
 <ol>
 <li>尽力避免依赖于名称的检索器，尽可能的选择使用BuiltInParameters。</li>
 <li>如果非要使用名称的话，使用Parameter Filter的效率将远超LINQ。</li>
 <li>将一个filtered element collector 转换为一个.Net的collection（如IEnumerable<element>）的过程常常是可以避免的，这样做会把一个collector的所有成员拷贝到.Net collection中，在大集合中这样做对效率的影响尤其明显。</element></li>
 </ol>
-<p>下边是一个Anti patten，也就是不好的实践，我们应当避免这样使用元素检索器：<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">IEnumerable&lt;Element&gt; targetElems =  </span><br><span class="line">      <span class="keyword">from</span> element <span class="keyword">in</span> collector </span><br><span class="line">      <span class="keyword">where</span> element.Name.<span class="keyword">Equals</span>( targetName )</span><br><span class="line">      <span class="keyword">select</span> element;</span><br><span class="line"></span><br><span class="line">IList&lt;Element&gt; elems = targetElems.ToList();</span><br></pre></td></tr></table></figure></p>
+<hr>
+<h3 id="Anti_patten"><a href="#Anti_patten" class="headerlink" title="Anti patten"></a>Anti patten</h3><p>下边是一个Anti patten，也就是不好的实践，我们应当避免这样使用元素检索器：<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">IEnumerable&lt;Element&gt; targetElems =  </span><br><span class="line">      <span class="keyword">from</span> element <span class="keyword">in</span> collector </span><br><span class="line">      <span class="keyword">where</span> element.Name.<span class="keyword">Equals</span>( targetName )</span><br><span class="line">      <span class="keyword">select</span> element;</span><br><span class="line"></span><br><span class="line">IList&lt;Element&gt; elems = targetElems.ToList();</span><br></pre></td></tr></table></figure></p>
 <p>在Revit SDK samples中经常看到有例子将collector转成iterator然后循环遍历，这样同样不是一个好的实践，事实上是直接用foreach循环将达到非常好的效率：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FilteredElementCollector collector</span><br><span class="line">  = <span class="keyword">new</span> FilteredElementCollector( doc )</span><br><span class="line">          .OfCategory( BuiltInCategory.OST_Doors )</span><br><span class="line">          .OfClass( <span class="keyword">typeof</span>( FamilySymbol ) ); </span><br><span class="line">          <span class="keyword">foreach</span>( FamilySymbol symbol <span class="keyword">in</span> collector )</span><br><span class="line">          &#123;    Family family = symbol.Family; </span><br><span class="line">              <span class="comment">// Process reference to doors family  </span></span><br><span class="line">          &#125;</span><br></pre></td></tr></table></figure></p>
 <p>不但代码更加简洁，而且没有了collector的转换，性能上也有提升。</p>
 <p>然而在现实中我们经常地需要使用名称来过滤元素，例如Revit的族名称就取决于文件名，这常常让我们面对一个尴尬的现状：上面的代码用不上了。。当确实需要使用名称来匹配检索的时候，作者本人自己做过测试发现，使用LINQ来实现速度会比使用foreach循环快好多倍，更是甩iterator几条街，这是因为LINQ语句不需要像foreach那样循环从集合中第一个元素开始遍历。然而我接下来要讲的却并不是用LINQ来实现元素检索，否则Jeremy也不能被称之为大神了！我也是使用LINQ很久以后才发现在面对这种情况的时候Revit API提供了另一个强大的接口ElementParameterFilter。下面这个方法是此类问题的具体实现（作者对代码进行了修改）：<br><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Element GetFirstElementOfTypeWithBipString(</span><br><span class="line">    Document doc,</span><br><span class="line">    Type <span class="class"><span class="keyword">type</span>,</span></span><br><span class="line">    BuiltInParameter bip,</span><br><span class="line">    string name)</span><br><span class="line">&#123;  </span><br><span class="line">  FilteredElementCollector a</span><br><span class="line">      = <span class="keyword">new</span> FilteredElementCollector(doc).OfClass(<span class="class"><span class="keyword">type</span>); </span></span><br><span class="line">  ParameterValueProvider provider </span><br><span class="line">      = <span class="keyword">new</span> ParameterValueProvider( </span><br><span class="line">      <span class="keyword">new</span> ElementId( bip ) ); </span><br><span class="line">  FilterStringRuleEvaluator evaluator </span><br><span class="line">      = <span class="keyword">new</span> FilterStringEquals(); </span><br><span class="line">  FilterRule rule = <span class="keyword">new</span> FilterStringRule( </span><br><span class="line">      provider, evaluator, name, <span class="keyword">true</span> ); </span><br><span class="line">  ElementParameterFilter filter </span><br><span class="line">      = <span class="keyword">new</span> ElementParameterFilter( rule ); </span><br><span class="line">  <span class="keyword">return</span> a.WherePasses( filter ).FirstElement();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -331,7 +333,7 @@
         <p><span>本文标题:</span><a href="/2016/01/05/Revit-API之元素检索优化/">Revit API之元素检索优化</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
         <p><span>发布时间:</span>2016年01月05日 - 21时19分</p>
-        <p><span>最后更新:</span>2016年01月05日 - 21时45分</p>
+        <p><span>最后更新:</span>2016年01月05日 - 21时53分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/01/05/Revit-API之元素检索优化/" title="Revit API之元素检索优化">http://goldenblue.cn/2016/01/05/Revit-API之元素检索优化/</a>
             <span class="copy-path" data-clipboard-text="原文: http://goldenblue.cn/2016/01/05/Revit-API之元素检索优化/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
@@ -361,7 +363,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u7B80_u4ECB"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u539F_u5219"><span class="toc-number">2.</span> <span class="toc-text">原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Anti_patten"><span class="toc-number">3.</span> <span class="toc-text">Anti patten</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
