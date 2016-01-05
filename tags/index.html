@@ -267,61 +267,97 @@
 
 
     <!-- Tag Cloud Page -->
-    <hr>
-    <br>
-    
+<hr>
+<br>
 
-    <p class="count"></p>
 
-    <div class="tags">
-        
-    </div>
-    <style>
-        .category-list li{
-            display: inline-block;
-            margin: 0 1em .5em 0;
-            padding: 4px;
-            border: 1px solid lightgray;
-            font-size: 1.2em;
+<script src="/js/tagcanvas.js" type="text/javascript"></script>
+
+<div class="tags" id="myTags">
+ <canvas width="350" height="350" id="my3DTags">
+    <p>Anything in here will be replaced on browsers that support the canvas element</p>
+</canvas>
+</div>
+<div class="tags" id="tags">
+ <ul>
+  
+ </ul>
+</div>
+<style type="text/css">
+    .category-list li, .tags li{
+        display: inline;
+        font-size: 1.2em;
+        margin-right: 1em;
+        line-height: 60px;
+        border: 1px solid lightgray;
+        padding: 6px;
+    }
+    .category-list a {
+        color: gray;
+    }
+    .category-list:hover a {
+        color: gray;
+        text-decoration: none;
+        font-weight: bold;
+    }
+    .category-list-count {
+        margin-left: 2px;
+        font-size: .9em;
+    }
+    .article-entry ul li:before{
+        display: none;
+    }
+    .article-inner  {
+        text-align: center;
+    }
+    .article-meta {
+        display: none;
+    }
+    .article-header {
+        padding-right: 35px;
+    }
+    #container .article .article-title {
+        padding-right: 0;
+    }
+    .tags {
+        max-width: 40em;
+        margin: 2em auto;
+        margin-top: 0em;
+    }
+    .tags a {
+        margin-right: 1em;
+        line-height: 65px;
+        border-bottom: 1px solid gray;
+    }
+    .tags a:hover {
+        font-weight: bold;
+        text-decoration: none;
+    }
+    .category-list-child {
+        display: none;
+    }
+</style>
+
+    <script type="text/javascript">
+      window.onload = function() {
+        try {
+          TagCanvas.Start('my3DTags','tags',{
+            textFont: 'Georgia,Optima',
+            textColour: null,
+            outlineColour: '#ff00ff',
+            weight: true,
+            reverse: true,
+            depth: 0.8,
+            maxSpeed: 0.05,
+            bgRadius: 1,
+            freezeDecel: true
+          });
+        } catch(e) {
+          // something went wrong, hide the canvas container
+          document.getElementById('myTags').style.display = 'none';
         }
-        .category-list a {
-            color: gray;
-        }
-        .category-list-item:hover a {
-            color: gray;
-            text-decoration: none;
-        }
-        .category-list-count {
-            margin-left: 2px;
-            font-size: .9em;
-        }
-        .article-entry ul li:before{
-            display: none;
-        }
-        .article-inner  {
-            text-align: center;
-        }
-        .tags {
-            max-width: 40em;
-            margin: 2em auto;
-            margin-top: 0em;
-        }
-        .tags a {
-            margin-right: 1em;
-            line-height: 65px;
-            border-bottom: 1px solid gray;
-            white-space: nowrap;
-        }
-        .tags a:hover {
-            border-bottom: 2px solid black;
-            text-decoration: none;
-            font-style: italic;
-        }
-        #count > span {
-            margin: auto .2em;
-            font-weight: bold;
-        }
-    </style>
+      };
+    </script>
 
     <!-- Count tags and categories -->
     <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
