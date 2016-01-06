@@ -5,19 +5,22 @@
   
   <title>Revit API之元素检索优化 | 秋味笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Revit API环境中进行元素检索优化的具体实践。">
+  <meta name="description" content="简介虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
+在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredE">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Revit API之元素检索优化">
 <meta property="og:url" content="http://http://autumnflavor.com/2016/01/05/Revit-API之元素检索优化/index.html">
 <meta property="og:site_name" content="秋味笔记">
-<meta property="og:description" content="Revit API环境中进行元素检索优化的具体实践。">
+<meta property="og:description" content="简介虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
+在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredE">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/LINQSpeed.png">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/GoldenBlue_weixinPT.jpg">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/AutumnFlavorWx.png">
-<meta property="og:updated_time" content="2016-01-05T14:11:26.325Z">
+<meta property="og:updated_time" content="2016-01-05T14:36:15.553Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Revit API之元素检索优化">
-<meta name="twitter:description" content="Revit API环境中进行元素检索优化的具体实践。">
+<meta name="twitter:description" content="简介虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
+在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredE">
   
     <link rel="alternative" href="/atom.xml" title="秋味笔记" type="application/atom+xml">
   
@@ -37,7 +40,7 @@
     <header id="header" class="inner">
         <a href="/" class="profilepic">
             
-            <img lazy-src="/img/615.png" class="js-avatar">
+            <img lazy-src="/img/avatar.png" class="js-avatar">
             
         </a>
 
@@ -140,8 +143,6 @@
                     
                       <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
                     
-                      <a target="_blank" class="main-nav-link switch-friends-link" href="http://moxfive.xyz/">MOxFIVE</a>
-                    
                     </div>
                 </section>
                 
@@ -150,7 +151,7 @@
                 
                 <section class="switch-part switch-part4">
                 
-                    <div id="js-aboutme">专注于前端</div>
+                    <div id="js-aboutme">致力于推进下一代计算机辅助设计</div>
                 </section>
                 
             </div>
@@ -167,7 +168,7 @@
     <div class="intrude-less">
         <header id="header" class="inner">
             <a href="/" class="profilepic">
-                <img lazy-src="/img/615.png" class="js-avatar">
+                <img lazy-src="/img/avatar.png" class="js-avatar">
             </a>
             <hgroup>
               <h1 class="header-author"><a href="/" title="回到主页">秋味</a></h1>
@@ -338,7 +339,7 @@
         <p><span>本文标题:</span><a href="/2016/01/05/Revit-API之元素检索优化/">Revit API之元素检索优化</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
         <p><span>发布时间:</span>2016年01月05日 - 21时19分</p>
-        <p><span>最后更新:</span>2016年01月05日 - 22时11分</p>
+        <p><span>最后更新:</span>2016年01月05日 - 22时36分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/01/05/Revit-API之元素检索优化/" title="Revit API之元素检索优化">http://http://autumnflavor.com/2016/01/05/Revit-API之元素检索优化/</a>
             <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2016/01/05/Revit-API之元素检索优化/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
