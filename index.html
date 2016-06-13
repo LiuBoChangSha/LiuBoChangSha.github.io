@@ -231,29 +231,10 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>好久没有更新博客了，刚开始定的目标是一个月写四篇，这也是叶大神当时给自己定的目标，听起来很容易实现，然而一个月过了以后我都不记得还有博客了……很多东西看起来简单，难在持之以恒。今年无论是工作上还是生活上事情太多，完全打乱了我的节奏。</p>
+              <p>好久没有更新博客了，刚开始定的目标是一个月写四篇，这也是叶大神当时给自己定的目标，听起来很容易实现，然而一个月过了以后我都不记得还有博客了……很多东西看起来简单，难在持之以恒。今年无论是工作上还是生活上事情太多，完全打乱了我的节奏。</p>
 <p>下面进入本篇的主题，在Revit API中有一些类的功能比较特殊，它能够解决一些非常棘手的问题，但是这些类的命名方式和其他类有比价大的区别，因此这些功能往往隐藏得比较深，不深入探索一下都不会知道API原来还有这样的功能。笔者有时也不知不觉造了好多车轮子以后才发现API竟然提供了相应的功能，只能吐一口老血。</p>
-<p>本篇要讲的是ExporterIFCUtils这个类，这是一个毫不起眼的类，甚至不再Revit.DB的Assembly中，因为我没有想要导出IFC，所以也从对它未给予过重视。今天才发现其中有很多通用功能，并不完全是基于导出IFC设定的。其中包括获取墙立面轮廓线和墙洞口轮廓线的功能，这两个功能要通过几何分析来实现的话着实是一件让人蛋疼的工作。</p>
-<h3 id="u83B7_u53D6_u95E8_u7A97_u6D1E_u53E3"><a href="#u83B7_u53D6_u95E8_u7A97_u6D1E_u53E3" class="headerlink" title="获取门窗洞口"></a>获取门窗洞口</h3><ul>
-<li>GetInstanceCutoutFromWall<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static CurveLoop GetInstanceCutoutFromW<span class="literal">all</span>(</span><br><span class="line">	Document pADoc,</span><br><span class="line">	W<span class="literal">all</span> pVW<span class="literal">all</span>,</span><br><span class="line">	FamilyInstance pFamInst,</span><br><span class="line">	<span class="keyword">out</span> XYZ pCutDir</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>门窗的几何中包含了门框、窗框的信息，而对建筑设计来说洞口的尺寸往往更重要，而要通过几何分析把洞口的尺寸找出来是很费劲的，比如通过墙的几何可以获取洞口，但是这个洞口属于哪个门窗需要进一步的几何判断。这个GetInstanceCutoutFromWall()获取的刚好就是洞口的轮廓线，返回一个CurveLoop对象。<br><figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Wall wall = door.Host as Wall;</span><br><span class="line">Document <span class="annotation">doc</span> = door.Document;</span><br><span class="line">XYZ dir = wall.Orientation;</span><br><span class="line">CurveLoop curveLoop = ExporterIFCUtils.GetInstanceCutoutFromWall(</span><br><span class="line">                    <span class="annotation">doc</span>, wall, door, <span class="keyword">out</span> dir);</span><br><span class="line">foreach (Curve curve <span class="keyword">in</span> curveLoop)</span><br><span class="line">&#123;  </span><br><span class="line">  <span class="annotation">doc</span>.Create.NewModelCurve(curve, SketchPlane.Create(<span class="annotation">doc</span>, <span class="keyword">new</span> Plane(dir, curve.GetEndPoint(<span class="number">0</span>))));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>调用方式非常简洁直观，下边是得到的窗户的轮廓线。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/GetInstanceCutoutFromWall.png" alt="洞口轮廓"></p>
-<h3 id="u83B7_u53D6_u5899_u7ACB_u9762_u8F6E_u5ED3"><a href="#u83B7_u53D6_u5899_u7ACB_u9762_u8F6E_u5ED3" class="headerlink" title="获取墙立面轮廓"></a>获取墙立面轮廓</h3><ul>
-<li>GetDoor2DArcsFromFamily<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static IList<span class="variable">&lt;CurveLoop&gt;</span> GetElevationProfile(</span><br><span class="line">	W<span class="literal">all</span> pVW<span class="literal">all</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>这个方法意外地不能执行，报错信息是Autodesk.Revit.Exceptions.ArgumentException: The wall does not have an elevation profile.墙没有立面轮廓，很奇怪，因此要获取墙立面目前来看只能通过几何分析的方式。<a href="http://thebuildingcoder.typepad.com/blog/2015/04/curved-wall-elevation-profile-and-creator-class-update.html" target="_blank" rel="external">BuildingCoder</a>有详细的解决方案。</p>
-<h3 id="u5176_u4ED6_u6709_u8DA3_u7684_u529F_u80FD"><a href="#u5176_u4ED6_u6709_u8DA3_u7684_u529F_u80FD" class="headerlink" title="其他有趣的功能"></a>其他有趣的功能</h3><ul>
-<li>GetDoor2DArcsFromFamily</li>
-</ul>
-<p>获取门在二维视图中标示开启方向的指示弧线。</p>
-<ul>
-<li>SortCurveLoops</li>
-</ul>
-<p>可以区分轮廓线的“里”“外”。</p>
-
+<p>本篇要讲的是ExporterIFCUtils这个类，这是一个毫不起眼的类，甚至不再Revit.DB的Assembly中，因为我没有想要导出IFC，所以也从对它未给予过重视。今天才发现其中有很多通用功能，并不完全是基于导出IFC设定的。其中包括获取墙立面轮廓线和墙洞口轮廓线的功能，这两个功能要通过几何分析来实现的话着实是一件让人蛋疼的工作。<br>
+          
            
     </div>
     
@@ -270,6 +251,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ExporterIFCUtils/">ExporterIFCUtils</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oppening/">oppening</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/profile/">profile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wall/">wall</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a  href="/2016/06/13/Revit-API-ExporterIFCUtils获取墙洞口及轮廓线/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
