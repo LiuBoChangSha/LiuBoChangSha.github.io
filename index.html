@@ -126,7 +126,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <li><a href="/tags/64位/" style="font-size: 10px;">64位</a></li> <li><a href="/tags/Access/" style="font-size: 10px;">Access</a></li> <li><a href="/tags/ExporterIFCUtils/" style="font-size: 10px;">ExporterIFCUtils</a></li> <li><a href="/tags/FilteredElementCollector/" style="font-size: 10px;">FilteredElementCollector</a></li> <li><a href="/tags/Modelo/" style="font-size: 10px;">Modelo</a></li> <li><a href="/tags/Revit/" style="font-size: 20px;">Revit</a></li> <li><a href="/tags/VR/" style="font-size: 10px;">VR</a></li> <li><a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a></li> <li><a href="/tags/mdb/" style="font-size: 10px;">mdb</a></li> <li><a href="/tags/oppening/" style="font-size: 10px;">oppening</a></li> <li><a href="/tags/profile/" style="font-size: 10px;">profile</a></li> <li><a href="/tags/shader/" style="font-size: 10px;">shader</a></li> <li><a href="/tags/wall/" style="font-size: 10px;">wall</a></li> <li><a href="/tags/族名称/" style="font-size: 10px;">族名称</a></li>
+                        <li><a href="/tags/64位/" style="font-size: 10px;">64位</a></li> <li><a href="/tags/AVF/" style="font-size: 10px;">AVF</a></li> <li><a href="/tags/Access/" style="font-size: 10px;">Access</a></li> <li><a href="/tags/ExporterIFCUtils/" style="font-size: 10px;">ExporterIFCUtils</a></li> <li><a href="/tags/FilteredElementCollector/" style="font-size: 10px;">FilteredElementCollector</a></li> <li><a href="/tags/Modelo/" style="font-size: 10px;">Modelo</a></li> <li><a href="/tags/Revit/" style="font-size: 20px;">Revit</a></li> <li><a href="/tags/VR/" style="font-size: 10px;">VR</a></li> <li><a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a></li> <li><a href="/tags/mdb/" style="font-size: 10px;">mdb</a></li> <li><a href="/tags/oppening/" style="font-size: 10px;">oppening</a></li> <li><a href="/tags/profile/" style="font-size: 10px;">profile</a></li> <li><a href="/tags/shader/" style="font-size: 10px;">shader</a></li> <li><a href="/tags/wall/" style="font-size: 10px;">wall</a></li> <li><a href="/tags/地形/" style="font-size: 10px;">地形</a></li> <li><a href="/tags/地理空间数据云/" style="font-size: 10px;">地理空间数据云</a></li> <li><a href="/tags/族名称/" style="font-size: 10px;">族名称</a></li>
                     </div>
                 </section>
                 
@@ -203,6 +203,171 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-没有地形文件的情况下建立项目地形" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/16/没有地形文件的情况下建立项目地形/" class="article-date">
+      <time datetime="2016-07-16T06:53:15.000Z" itemprop="datePublished">2016-07-16</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/16/没有地形文件的情况下建立项目地形/">没有地形文件的情况下建立项目地形</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>在项目投标阶段，设计资料往往并不齐全，投标方案怎样依据有限的资料做出尽量充实的结果来表达设计意图是一个难题。本篇主要记录在没有地形文件的情况下，怎样利用dem高程数据来获取一个粗略的地形数据。</p>
+<h3 id="dem_u9AD8_u7A0B_u6570_u636E"><a href="#dem_u9AD8_u7A0B_u6570_u636E" class="headerlink" title="dem高程数据"></a>dem高程数据</h3><p>因为Great Wall的原因，想要从国外网站获取到想要的数据可能会需要一些科学的手段。不过国内的网站<a href="http://www.gscloud.cn/" target="_blank" rel="external">地理空间数据云</a>帮我们解决了这个问题。网站近期进行了版本更新，使用方式也更加友好了。进入网站后，点击左上角的“高级检索”功能，在接下来的对话框中选择DEM数字高程数据集。如下图所示，注意不要选择坡度数据。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/dem%E9%AB%98%E7%A8%8B%E6%95%B0%E6%8D%AE%E9%9B%86.png" alt="dem高程数据集"></p>
+<p>国内数据可以通过行政区来详细定位，国外数据则只能通过经纬度或者在地图上选择区域，且地图的显示精度也比较低。也可以使用gis软件的矢量文件来确定区域范围。这里介绍框选的方法，以巴拿马的一个区域为例，地图的精度比较低难以定位，不过没关系，可以框选一个稍大的区域，然后在后面的步骤中进行裁切处理。如下图所示，使用矩形工具选取一块稍大的区域，框选以后点击搜索，此时数据已经准备好在下方栏目中，点击下载即可将数据下回到本地。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8B%E8%BD%BD.png" alt="数据集下载"></p>
+<p>从地理空间数据云下载的高程数据格式为img的格式，但是放在了一个zip压缩文件中，这个文件不需要解压，在后面的软件中可以直接进行处理。</p>
+<h3 id="u5904_u7406dem_u9AD8_u7A0B_u6570_u636E"><a href="#u5904_u7406dem_u9AD8_u7A0B_u6570_u636E" class="headerlink" title="处理dem高程数据"></a>处理dem高程数据</h3><p>很多gis软件都可以处理dem高程数据，本篇使用了Global Mapper来对数据进行处理。打开Global Mapper，使用打开数据文件功能打开刚刚下载的高程文件（zip格式）。此时可以在模型窗口看到彩色显示的地形。然后在菜单栏里的分析选项下选择生成等高线，可以全图生成也可以选择范围生成。点击确定即可生成等高线。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E7%AD%89%E9%AB%98%E7%BA%BF%E7%94%9F%E6%88%90%E7%95%8C%E9%9D%A2.png" alt="生成等高线"></p>
+<p>由于国外项目范围可能不好确定，可以先在Google Earth上先把范围确定下来，然后保存为kml或者kmz，打开Global Mapper，先将kml文件导入，即可看到kml的范围，然后再导入dem高程数据，此时框选范围就非常好确定了。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/GoogleEarth%20kml.png" alt="kml"><br>生成等高线以后，可以将高程线导出为dwg格式的等高线，在这之前要在工具栏菜单下的设置里改一下投影，投影采用UTM投影，基准为WGS84。导出dwg格式，注意输出选项里选择的是矢量格式。这样就生成了一个鸿业等软件都可以识别的地形文件,也可以用Rhino进行处理，沿等高线生成点导入Revit。</p>
+
+           
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/BIM/">BIM</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/地形/">地形</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/地理空间数据云/">地理空间数据云</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+        <script>
+            var yiliaConfig = {
+            fancybox: true,
+            mathjax: true,
+            animate: true,
+            isHome: true,
+            isPost: false,
+            isArchive: false,
+            isTag: false,
+            isCategory: false,
+            open_in_new: false
+            }
+        </script>
+        
+
+
+
+  
+    <article id="post-Revit-API-Analysis-Visualisation-Framework" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2016/07/04/Revit-API-Analysis-Visualisation-Framework/" class="article-date">
+      <time datetime="2016-07-04T14:22:36.000Z" itemprop="datePublished">2016-07-04</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2016/07/04/Revit-API-Analysis-Visualisation-Framework/">Revit API - Analysis Visualisation Framework</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <p>一直想总结一下Analysis Visualisation Framework (AVF)，这个API提供了一部分比较绚的功能，但也有很多槽点，前几天盈建科的开发工程师过来宣传，他们的应力分析显示模块就没有使用AVF，而是直接用模型线在视图上强行画出来,着实有些奇怪，大概是因为AVF的一些功能上的限制吧。AVF在Revit里边并不是一个常见的功能，因为在UI界面上是没有对应的选项的，顾名思义，它主要是面向第三方分析程序用来展示分析结果的。初次看到Revit是试用一个照明插件Elum Tools，这个插件比较好玩，能够根据照明设备的数据分析建筑的照度，还外挂了一个OSG的显示模块用来看效果，虽然这个模块的显示效果并不理想。另外就是AVF的分析结果展示了。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/AVF2d.png" alt="Elum Tools的AVF二维效果"><br>Elum Tools的AVF二维效果<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/avf3d.png" alt="Elum Tools的AVF三维效果"><br>Elum Tools的AVF三维效果<br>分析展示风格对应的类是AnalysisDisplayStyle，这个类可以设置分析结果展示的样式，API中提供5个重载的静态工厂方法（AnalysisDisplayStyle.CreateAnalysisDisplayStyle）来创建下图中的不同风格样式，其中Elum Tools使用的2D样式为带文字的标记，3D样式为有色表面。盈建科需要的应该是第三种：带文字的图标来展示结构的应力分析结果。第四种用来展示水流流向方式非常合适，第五种可以用来展示结构的位移分析结果。可以看出AVF的功能还是非常全面的。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/5DisplayStyle.png" alt="5DisplayStyle"><br>首先来讲带文字的标记风格，也就是Elum Tools中使用的二维结果展示风格。AnalysisDisplayStyle.CreateAnalysisDisplayStyle()方法中需要调用三个类：AnalysisDisplayMarkersAndTextSettings，AnalysisDisplayColorSettings和AnalysisDisplayLegendSettings，分别对应标记文字、颜色和图例。标记有三种选择，原型、方形和三角形。在创建好以后，在当前视图的属性菜单中可以看到“默认分析显示样式”的栏目中已经有值了。选中它此时也可以在ＵＩ界面中对其进行编辑。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/AVFDisplayStyle.png" alt="AnalysisDisplayStyle"></p>
+
+           
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Revit-API/">Revit API</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/AVF/">AVF</a></li></ul>
+    </div>
+
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+        <script>
+            var yiliaConfig = {
+            fancybox: true,
+            mathjax: true,
+            animate: true,
+            isHome: true,
+            isPost: false,
+            isArchive: false,
+            isTag: false,
+            isCategory: false,
+            open_in_new: false
+            }
+        </script>
+        
+
+
+
   
     <article id="post-Revit-API-ExporterIFCUtils获取墙洞口及轮廓线" class="article article-type-post" itemscope itemprop="blogPost">
   
