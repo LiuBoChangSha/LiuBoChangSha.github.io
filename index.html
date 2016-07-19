@@ -231,13 +231,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>在项目投标阶段，设计资料往往并不齐全，投标方案怎样依据有限的资料做出尽量充实的结果来表达设计意图是一个难题。本篇主要记录在没有地形文件的情况下，怎样利用dem高程数据来获取一个粗略的地形数据。</p>
-<h3 id="dem_u9AD8_u7A0B_u6570_u636E"><a href="#dem_u9AD8_u7A0B_u6570_u636E" class="headerlink" title="dem高程数据"></a>dem高程数据</h3><p>因为Great Wall的原因，想要从国外网站获取到想要的数据可能会需要一些科学的手段。不过国内的网站<a href="http://www.gscloud.cn/" target="_blank" rel="external">地理空间数据云</a>帮我们解决了这个问题。网站近期进行了版本更新，使用方式也更加友好了。进入网站后，点击左上角的“高级检索”功能，在接下来的对话框中选择DEM数字高程数据集。如下图所示，注意不要选择坡度数据。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/dem%E9%AB%98%E7%A8%8B%E6%95%B0%E6%8D%AE%E9%9B%86.png" alt="dem高程数据集"></p>
-<p>国内数据可以通过行政区来详细定位，国外数据则只能通过经纬度或者在地图上选择区域，且地图的显示精度也比较低。也可以使用gis软件的矢量文件来确定区域范围。这里介绍框选的方法，以巴拿马的一个区域为例，地图的精度比较低难以定位，不过没关系，可以框选一个稍大的区域，然后在后面的步骤中进行裁切处理。如下图所示，使用矩形工具选取一块稍大的区域，框选以后点击搜索，此时数据已经准备好在下方栏目中，点击下载即可将数据下回到本地。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8B%E8%BD%BD.png" alt="数据集下载"></p>
-<p>从地理空间数据云下载的高程数据格式为img的格式，但是放在了一个zip压缩文件中，这个文件不需要解压，在后面的软件中可以直接进行处理。</p>
-<h3 id="u5904_u7406dem_u9AD8_u7A0B_u6570_u636E"><a href="#u5904_u7406dem_u9AD8_u7A0B_u6570_u636E" class="headerlink" title="处理dem高程数据"></a>处理dem高程数据</h3><p>很多gis软件都可以处理dem高程数据，本篇使用了Global Mapper来对数据进行处理。打开Global Mapper，使用打开数据文件功能打开刚刚下载的高程文件（zip格式）。此时可以在模型窗口看到彩色显示的地形。然后在菜单栏里的分析选项下选择生成等高线，可以全图生成也可以选择范围生成。点击确定即可生成等高线。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E7%AD%89%E9%AB%98%E7%BA%BF%E7%94%9F%E6%88%90%E7%95%8C%E9%9D%A2.png" alt="生成等高线"></p>
-<p>由于国外项目范围可能不好确定，可以先在Google Earth上先把范围确定下来，然后保存为kml或者kmz，打开Global Mapper，先将kml文件导入，即可看到kml的范围，然后再导入dem高程数据，此时框选范围就非常好确定了。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/GoogleEarth%20kml.png" alt="kml"><br>生成等高线以后，可以将高程线导出为dwg格式的等高线，在这之前要在工具栏菜单下的设置里改一下投影，投影采用UTM投影，基准为WGS84。导出dwg格式，注意输出选项里选择的是矢量格式。这样就生成了一个鸿业等软件都可以识别的地形文件,也可以用Rhino进行处理，沿等高线生成点导入Revit。</p>
-
+              <p>在项目投标阶段，设计资料往往并不齐全，投标方案怎样依据有限的资料做出尽量充实的结果来表达设计意图是一个难题。本篇主要记录在没有地形文件的情况下，怎样利用dem高程数据来获取一个粗略的地形数据。</p>
+<h3 id="dem_u9AD8_u7A0B_u6570_u636E"><a href="#dem_u9AD8_u7A0B_u6570_u636E" class="headerlink" title="dem高程数据"></a>dem高程数据</h3><p>因为Great Wall的原因，想要从国外网站获取到想要的数据可能会需要一些科学的手段。不过国内的网站<a href="http://www.gscloud.cn/">地理空间数据云</a>帮我们解决了这个问题。网站近期进行了版本更新，使用方式也更加友好了。进入网站后，点击左上角的“高级检索”功能，在接下来的对话框中选择DEM数字高程数据集。如下图所示，注意不要选择坡度数据。<br>
+          
            
     </div>
     
@@ -254,6 +250,10 @@
         <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/地形/">地形</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/地理空间数据云/">地理空间数据云</a></li></ul>
     </div>
 
+      
+        <p class="article-more-link">
+          <a  href="/2016/07/16/没有地形文件的情况下建立项目地形/#more">more >></a>
+        </p>
       
       <div class="clearfix"></div>
     </div>
