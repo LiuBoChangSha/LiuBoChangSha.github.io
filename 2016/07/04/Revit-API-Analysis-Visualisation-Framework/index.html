@@ -5,20 +5,20 @@
   
   <title>Revit API - Analysis Visualisation Framework | 秋味笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="一直想总结一下Analysis Visualisation Framework (AVF)，这个API提供了一部分比较绚的功能，但也有很多槽点，前几天盈建科的开发工程师过来宣传，他们的应力分析显示模块就没有使用AVF，而是直接用模型线在视图上强行画出来,着实有些奇怪，大概是因为AVF的一些功能上的限制吧。AVF在Revit里边并不是一个常见的功能，因为在UI界面上是没有对应的选项的，顾名思义，它主">
+  <meta name="description" content="一直想总结一下Analysis Visualisation Framework (AVF)，这个API提供了一部分比较绚的功能，属于结果展示的部分，但也有很多槽点，前几天盈建科的开发工程师过来宣传，他们的应力分析显示模块就没有使用AVF，而是直接用模型线在视图上强行画出来,着实有些奇怪，大概是因为AVF的一些功能上的限制吧。AVF在Revit里边并不是一个常见的功能，因为在UI界面上是没有对应的选">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Revit API - Analysis Visualisation Framework">
 <meta property="og:url" content="http://http://autumnflavor.com/2016/07/04/Revit-API-Analysis-Visualisation-Framework/index.html">
 <meta property="og:site_name" content="秋味笔记">
-<meta property="og:description" content="一直想总结一下Analysis Visualisation Framework (AVF)，这个API提供了一部分比较绚的功能，但也有很多槽点，前几天盈建科的开发工程师过来宣传，他们的应力分析显示模块就没有使用AVF，而是直接用模型线在视图上强行画出来,着实有些奇怪，大概是因为AVF的一些功能上的限制吧。AVF在Revit里边并不是一个常见的功能，因为在UI界面上是没有对应的选项的，顾名思义，它主">
+<meta property="og:description" content="一直想总结一下Analysis Visualisation Framework (AVF)，这个API提供了一部分比较绚的功能，属于结果展示的部分，但也有很多槽点，前几天盈建科的开发工程师过来宣传，他们的应力分析显示模块就没有使用AVF，而是直接用模型线在视图上强行画出来,着实有些奇怪，大概是因为AVF的一些功能上的限制吧。AVF在Revit里边并不是一个常见的功能，因为在UI界面上是没有对应的选">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/AVF2d.png">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/avf3d.png">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/5DisplayStyle.png">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/AVFDisplayStyle.png">
-<meta property="og:updated_time" content="2016-07-19T14:43:02.094Z">
+<meta property="og:updated_time" content="2016-07-19T14:44:45.088Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Revit API - Analysis Visualisation Framework">
-<meta name="twitter:description" content="一直想总结一下Analysis Visualisation Framework (AVF)，这个API提供了一部分比较绚的功能，但也有很多槽点，前几天盈建科的开发工程师过来宣传，他们的应力分析显示模块就没有使用AVF，而是直接用模型线在视图上强行画出来,着实有些奇怪，大概是因为AVF的一些功能上的限制吧。AVF在Revit里边并不是一个常见的功能，因为在UI界面上是没有对应的选项的，顾名思义，它主">
+<meta name="twitter:description" content="一直想总结一下Analysis Visualisation Framework (AVF)，这个API提供了一部分比较绚的功能，属于结果展示的部分，但也有很多槽点，前几天盈建科的开发工程师过来宣传，他们的应力分析显示模块就没有使用AVF，而是直接用模型线在视图上强行画出来,着实有些奇怪，大概是因为AVF的一些功能上的限制吧。AVF在Revit里边并不是一个常见的功能，因为在UI界面上是没有对应的选">
   
     <link rel="alternative" href="/atom.xml" title="秋味笔记" type="application/atom+xml">
   
@@ -246,7 +246,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>一直想总结一下Analysis Visualisation Framework (AVF)，这个API提供了一部分比较绚的功能，但也有很多槽点，前几天盈建科的开发工程师过来宣传，他们的应力分析显示模块就没有使用AVF，而是直接用模型线在视图上强行画出来,着实有些奇怪，大概是因为AVF的一些功能上的限制吧。AVF在Revit里边并不是一个常见的功能，因为在UI界面上是没有对应的选项的，顾名思义，它主要是面向第三方分析程序用来展示分析结果的。初次看到Revit是试用一个照明插件Elum Tools，这个插件比较好玩，能够根据照明设备的数据分析建筑的照度，还外挂了一个OSG的显示模块用来看效果，虽然这个模块的显示效果并不理想。另外就是AVF的分析结果展示了。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/AVF2d.png" alt="Elum Tools的AVF二维效果"><br><a id="more"></a><br>Elum Tools的AVF二维效果<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/avf3d.png" alt="Elum Tools的AVF三维效果"><br>Elum Tools的AVF三维效果<br>分析展示风格对应的类是AnalysisDisplayStyle，这个类可以设置分析结果展示的样式，API中提供5个重载的静态工厂方法（AnalysisDisplayStyle.CreateAnalysisDisplayStyle）来创建下图中的不同风格样式，其中Elum Tools使用的2D样式为带文字的标记，3D样式为有色表面。盈建科需要的应该是第三种：带文字的图标来展示结构的应力分析结果。第四种用来展示水流流向方式非常合适，第五种可以用来展示结构的位移分析结果。可以看出AVF的功能还是非常全面的。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/5DisplayStyle.png" alt="5DisplayStyle"><br>首先来讲带文字的标记风格，也就是Elum Tools中使用的二维结果展示风格。AnalysisDisplayStyle.CreateAnalysisDisplayStyle()方法中需要调用三个类：AnalysisDisplayMarkersAndTextSettings，AnalysisDisplayColorSettings和AnalysisDisplayLegendSettings，分别对应标记文字、颜色和图例。标记有三种选择，原型、方形和三角形。在创建好以后，在当前视图的属性菜单中可以看到“默认分析显示样式”的栏目中已经有值了。选中它此时也可以在ＵＩ界面中对其进行编辑。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/AVFDisplayStyle.png" alt="AnalysisDisplayStyle"></p>
+        <p>一直想总结一下Analysis Visualisation Framework (AVF)，这个API提供了一部分比较绚的功能，属于结果展示的部分，但也有很多槽点，前几天盈建科的开发工程师过来宣传，他们的应力分析显示模块就没有使用AVF，而是直接用模型线在视图上强行画出来,着实有些奇怪，大概是因为AVF的一些功能上的限制吧。AVF在Revit里边并不是一个常见的功能，因为在UI界面上是没有对应的选项的，顾名思义，它主要是面向第三方分析程序用来展示分析结果的。初次看到Revit是试用一个照明插件Elum Tools，这个插件比较好玩，能够根据照明设备的数据分析建筑的照度，还外挂了一个OSG的显示模块用来看效果，虽然这个模块的显示效果并不理想。另外就是AVF的分析结果展示了。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/AVF2d.png" alt="Elum Tools的AVF二维效果"><br><a id="more"></a><br>Elum Tools的AVF二维效果<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/avf3d.png" alt="Elum Tools的AVF三维效果"><br>Elum Tools的AVF三维效果<br>分析展示风格对应的类是AnalysisDisplayStyle，这个类可以设置分析结果展示的样式，API中提供5个重载的静态工厂方法（AnalysisDisplayStyle.CreateAnalysisDisplayStyle）来创建下图中的不同风格样式，其中Elum Tools使用的2D样式为带文字的标记，3D样式为有色表面。盈建科需要的应该是第三种：带文字的图标来展示结构的应力分析结果。第四种用来展示水流流向方式非常合适，第五种可以用来展示结构的位移分析结果。可以看出AVF的功能还是非常全面的。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/5DisplayStyle.png" alt="5DisplayStyle"><br>首先是带文字的标记风格，也就是Elum Tools中使用的二维结果展示风格。AnalysisDisplayStyle.CreateAnalysisDisplayStyle()方法中需要调用三个类：AnalysisDisplayMarkersAndTextSettings，AnalysisDisplayColorSettings和AnalysisDisplayLegendSettings，分别对应标记文字、颜色和图例。标记有三种选择，原型、方形和三角形。在创建好以后，在当前视图的属性菜单中可以看到“默认分析显示样式”的栏目中已经有值了。选中它此时也可以在ＵＩ界面中对其进行编辑。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/AVFDisplayStyle.png" alt="AnalysisDisplayStyle"></p>
 <p>未完待续。。。</p>
 
            
@@ -259,7 +259,7 @@
         <p><span>本文标题:</span><a href="/2016/07/04/Revit-API-Analysis-Visualisation-Framework/">Revit API - Analysis Visualisation Framework</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
         <p><span>发布时间:</span>2016年07月04日 - 22时22分</p>
-        <p><span>最后更新:</span>2016年07月19日 - 22时43分</p>
+        <p><span>最后更新:</span>2016年07月19日 - 22时44分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/07/04/Revit-API-Analysis-Visualisation-Framework/" title="Revit API - Analysis Visualisation Framework">http://http://autumnflavor.com/2016/07/04/Revit-API-Analysis-Visualisation-Framework/</a>
             <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2016/07/04/Revit-API-Analysis-Visualisation-Framework/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
