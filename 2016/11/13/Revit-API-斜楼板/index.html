@@ -5,16 +5,19 @@
   
   <title>Revit API 斜楼板 | 秋味笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="写点干货，其实也不是很干，不过在TheBuildingCoder，Forum还有叶老师的博客里边都找不到对应的资料。问题其实很简单，如何用Revit API创建斜楼板。Revit API中的NewFloor()一般用来创建楼板，不过方法中只接受平面的轮廓线，若轮廓线不在平面上则报错，提示轮廓线无效。叶老师的博客中介绍斜楼板无法使用NewFloor()，需要使用NewSlab()方法。TheBuil">
+  <meta name="description" content="写点干货，其实也不是很干，不过在TheBuildingCoder，Forum还有叶老师的博客里边都找不到对应的资料。问题其实很简单，如何用Revit API创建斜楼板。
+Revit API中的NewFloor()一般用来创建楼板，不过方法中只接受平面的轮廓线，若轮廓线不在平面上则报错，提示轮廓线无效。叶老师的博客中介绍斜楼板无法使用NewFloor()，需要使用NewSlab()方法。TheBui">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Revit API 斜楼板">
 <meta property="og:url" content="http://http://autumnflavor.com/2016/11/13/Revit-API-斜楼板/index.html">
 <meta property="og:site_name" content="秋味笔记">
-<meta property="og:description" content="写点干货，其实也不是很干，不过在TheBuildingCoder，Forum还有叶老师的博客里边都找不到对应的资料。问题其实很简单，如何用Revit API创建斜楼板。Revit API中的NewFloor()一般用来创建楼板，不过方法中只接受平面的轮廓线，若轮廓线不在平面上则报错，提示轮廓线无效。叶老师的博客中介绍斜楼板无法使用NewFloor()，需要使用NewSlab()方法。TheBuil">
-<meta property="og:updated_time" content="2016-11-13T07:15:49.201Z">
+<meta property="og:description" content="写点干货，其实也不是很干，不过在TheBuildingCoder，Forum还有叶老师的博客里边都找不到对应的资料。问题其实很简单，如何用Revit API创建斜楼板。
+Revit API中的NewFloor()一般用来创建楼板，不过方法中只接受平面的轮廓线，若轮廓线不在平面上则报错，提示轮廓线无效。叶老师的博客中介绍斜楼板无法使用NewFloor()，需要使用NewSlab()方法。TheBui">
+<meta property="og:updated_time" content="2016-11-13T07:18:52.377Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Revit API 斜楼板">
-<meta name="twitter:description" content="写点干货，其实也不是很干，不过在TheBuildingCoder，Forum还有叶老师的博客里边都找不到对应的资料。问题其实很简单，如何用Revit API创建斜楼板。Revit API中的NewFloor()一般用来创建楼板，不过方法中只接受平面的轮廓线，若轮廓线不在平面上则报错，提示轮廓线无效。叶老师的博客中介绍斜楼板无法使用NewFloor()，需要使用NewSlab()方法。TheBuil">
+<meta name="twitter:description" content="写点干货，其实也不是很干，不过在TheBuildingCoder，Forum还有叶老师的博客里边都找不到对应的资料。问题其实很简单，如何用Revit API创建斜楼板。
+Revit API中的NewFloor()一般用来创建楼板，不过方法中只接受平面的轮廓线，若轮廓线不在平面上则报错，提示轮廓线无效。叶老师的博客中介绍斜楼板无法使用NewFloor()，需要使用NewSlab()方法。TheBui">
   
     <link rel="alternative" href="/atom.xml" title="秋味笔记" type="application/atom+xml">
   
@@ -242,7 +245,8 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>写点干货，其实也不是很干，不过在TheBuildingCoder，Forum还有叶老师的博客里边都找不到对应的资料。问题其实很简单，如何用Revit API创建斜楼板。Revit API中的NewFloor()一般用来创建楼板，不过方法中只接受平面的轮廓线，若轮廓线不在平面上则报错，提示轮廓线无效。叶老师的博客中介绍斜楼板无法使用NewFloor()，需要使用NewSlab()方法。TheBuildingCoder中的介绍也类似，不过为使得模型前后更一致切符合用户习惯，本文记录了我在Revit中使用NewFloor() API来成功创建斜楼板的过程。</p>
+        <p>写点干货，其实也不是很干，不过在TheBuildingCoder，Forum还有叶老师的博客里边都找不到对应的资料。问题其实很简单，如何用Revit API创建斜楼板。</p>
+<p>Revit API中的NewFloor()一般用来创建楼板，不过方法中只接受平面的轮廓线，若轮廓线不在平面上则报错，提示轮廓线无效。叶老师的博客中介绍斜楼板无法使用NewFloor()，需要使用NewSlab()方法。TheBuildingCoder中的介绍也类似，不过为使得模型前后更一致切符合用户习惯，本文记录了我在Revit中使用NewFloor() API来成功创建斜楼板的过程。</p>
 <h3 id="u73B0_u6709_u8D44_u6599"><a href="#u73B0_u6709_u8D44_u6599" class="headerlink" title="现有资料"></a>现有资料</h3><p>叶老师的博客：<a href="http://blog.csdn.net/joexiongjin/article/details/20150887" target="_blank" rel="external">如何用API来创建斜板 </a></p>
 <p>TheBuildingCoder：<a href="/"></a>（爬墙失败，链接后面再补）<br><a id="more"></a></p>
 <h3 id="UI_u4E0A_u7684_u64CD_u4F5C"><a href="#UI_u4E0A_u7684_u64CD_u4F5C" class="headerlink" title="UI上的操作"></a>UI上的操作</h3><p>UI上也是无法直接创建斜楼板的，需要先创建一块平楼板，然后在修改菜单中的形状编辑栏使用修改子图元工具来编辑楼板上的点，通过设置每个点的偏移来创建斜楼板。</p>
@@ -259,7 +263,7 @@
         <p><span>本文标题:</span><a href="/2016/11/13/Revit-API-斜楼板/">Revit API 斜楼板</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
         <p><span>发布时间:</span>2016年11月13日 - 14时10分</p>
-        <p><span>最后更新:</span>2016年11月13日 - 15时15分</p>
+        <p><span>最后更新:</span>2016年11月13日 - 15时18分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/11/13/Revit-API-斜楼板/" title="Revit API 斜楼板">http://http://autumnflavor.com/2016/11/13/Revit-API-斜楼板/</a>
             <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2016/11/13/Revit-API-斜楼板/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
