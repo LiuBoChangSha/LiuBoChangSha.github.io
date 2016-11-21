@@ -5,21 +5,21 @@
   
   <title>GH | 凯威特单层网壳 | 秋味笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="凯威特单层球面网壳是工程上常用的空间网壳结构，具有网格均匀，内力分布均匀，刚度大重量轻的特点，具有良好的受力性能，适用于大跨度结构。根据凯威特结构的特点可知，其结构主要参数有四个：网壳直径、矢高、径向分割数以及扇形的数量（其实不是偶数也挺好看）。控制参数的个数并不多，还是比较好实现参数化的，不需要掌握太多花哨的插件，只需要需要对GH集合有比较清晰的概念。以下是在Grasshopper中实现全参数化">
+  <meta name="description" content="凯威特单层球面网壳是工程上常用的空间网壳结构，具有网格均匀，内力分布均匀，刚度大重量轻的特点，具有良好的受力性能，适用于大跨度结构。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="GH | 凯威特单层网壳">
 <meta property="og:url" content="http://http://autumnflavor.com/2016/11/21/GH-单层凯威特网架/index.html">
 <meta property="og:site_name" content="秋味笔记">
-<meta property="og:description" content="凯威特单层球面网壳是工程上常用的空间网壳结构，具有网格均匀，内力分布均匀，刚度大重量轻的特点，具有良好的受力性能，适用于大跨度结构。根据凯威特结构的特点可知，其结构主要参数有四个：网壳直径、矢高、径向分割数以及扇形的数量（其实不是偶数也挺好看）。控制参数的个数并不多，还是比较好实现参数化的，不需要掌握太多花哨的插件，只需要需要对GH集合有比较清晰的概念。以下是在Grasshopper中实现全参数化">
+<meta property="og:description" content="凯威特单层球面网壳是工程上常用的空间网壳结构，具有网格均匀，内力分布均匀，刚度大重量轻的特点，具有良好的受力性能，适用于大跨度结构。">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E7%BB%93%E6%9E%84%E7%89%B9%E7%82%B9.png?attname=">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E5%B9%BB%E7%81%AF%E7%89%871.PNG">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E5%B9%BB%E7%81%AF%E7%89%872.PNG">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E5%B9%BB%E7%81%AF%E7%89%873.PNG">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E5%87%AF%E5%A8%81%E7%89%B9%E7%BD%91%E6%9E%B6Revit%E6%A8%A1%E5%9E%8B.png">
-<meta property="og:updated_time" content="2016-11-21T16:37:55.146Z">
+<meta property="og:updated_time" content="2016-11-21T16:40:06.962Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="GH | 凯威特单层网壳">
-<meta name="twitter:description" content="凯威特单层球面网壳是工程上常用的空间网壳结构，具有网格均匀，内力分布均匀，刚度大重量轻的特点，具有良好的受力性能，适用于大跨度结构。根据凯威特结构的特点可知，其结构主要参数有四个：网壳直径、矢高、径向分割数以及扇形的数量（其实不是偶数也挺好看）。控制参数的个数并不多，还是比较好实现参数化的，不需要掌握太多花哨的插件，只需要需要对GH集合有比较清晰的概念。以下是在Grasshopper中实现全参数化">
+<meta name="twitter:description" content="凯威特单层球面网壳是工程上常用的空间网壳结构，具有网格均匀，内力分布均匀，刚度大重量轻的特点，具有良好的受力性能，适用于大跨度结构。">
   
     <link rel="alternative" href="/atom.xml" title="秋味笔记" type="application/atom+xml">
   
@@ -247,7 +247,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>凯威特单层球面网壳是工程上常用的空间网壳结构，具有网格均匀，内力分布均匀，刚度大重量轻的特点，具有良好的受力性能，适用于大跨度结构。<img src="http://7xpt80.com1.z0.glb.clouddn.com/%E7%BB%93%E6%9E%84%E7%89%B9%E7%82%B9.png?attname=" alt="凯威特结构特点"><br>根据凯威特结构的特点可知，其结构主要参数有四个：网壳直径、矢高、径向分割数以及扇形的数量（其实不是偶数也挺好看）。控制参数的个数并不多，还是比较好实现参数化的，不需要掌握太多花哨的插件，只需要需要对GH集合有比较清晰的概念。<br>以下是在Grasshopper中实现全参数化控制的效果，懒得截电池的图了，<a href="https://github.com/LiuBoChangSha/LiuBoChangSha.github.io/blob/40a6f6bfc4eae77a0f45a45211aba60dba032760/2016/11/21/GH-%E5%8D%95%E5%B1%82%E5%87%AF%E5%A8%81%E7%89%B9%E7%BD%91%E6%9E%B6/%E5%87%AF%E5%A8%81%E7%89%B9%E5%8D%95%E5%B1%82%E7%BD%91%E6%9E%B6%2011.21.gh" target="_blank" rel="external">点此下载</a>GH源文件。</p>
+        <p>凯威特单层球面网壳是工程上常用的空间网壳结构，具有网格均匀，内力分布均匀，刚度大重量轻的特点，具有良好的受力性能，适用于大跨度结构。<img src="http://7xpt80.com1.z0.glb.clouddn.com/%E7%BB%93%E6%9E%84%E7%89%B9%E7%82%B9.png?attname=" alt="凯威特结构特点"><br><a id="more"></a><br>根据凯威特结构的特点可知，其结构主要参数有四个：网壳直径、矢高、径向分割数以及扇形的数量（其实不是偶数也挺好看）。控制参数的个数并不多，还是比较好实现参数化的，不需要掌握太多花哨的插件，只需要需要对GH集合有比较清晰的概念。<br>以下是在Grasshopper中实现全参数化控制的效果，懒得截电池的图了，<a href="https://github.com/LiuBoChangSha/LiuBoChangSha.github.io/blob/40a6f6bfc4eae77a0f45a45211aba60dba032760/2016/11/21/GH-%E5%8D%95%E5%B1%82%E5%87%AF%E5%A8%81%E7%89%B9%E7%BD%91%E6%9E%B6/%E5%87%AF%E5%A8%81%E7%89%B9%E5%8D%95%E5%B1%82%E7%BD%91%E6%9E%B6%2011.21.gh" target="_blank" rel="external">点此下载</a>GH源文件。</p>
 <ul>
 <li>参数1：<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E5%B9%BB%E7%81%AF%E7%89%871.PNG" alt=""></li>
 <li>参数2：<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E5%B9%BB%E7%81%AF%E7%89%872.PNG" alt=""></li>
@@ -265,7 +265,7 @@
         <p><span>本文标题:</span><a href="/2016/11/21/GH-单层凯威特网架/">GH | 凯威特单层网壳</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
         <p><span>发布时间:</span>2016年11月21日 - 22时58分</p>
-        <p><span>最后更新:</span>2016年11月22日 - 00时37分</p>
+        <p><span>最后更新:</span>2016年11月22日 - 00时40分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2016/11/21/GH-单层凯威特网架/" title="GH | 凯威特单层网壳">http://http://autumnflavor.com/2016/11/21/GH-单层凯威特网架/</a>
             <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2016/11/21/GH-单层凯威特网架/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
