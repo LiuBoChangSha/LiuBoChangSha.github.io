@@ -3,24 +3,18 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Revit API之元素检索优化 | 秋味笔记</title>
+  <title>Dynamo|单层凯威特空间网壳 | 秋味笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="简介虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
-在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredE">
+  <meta name="description" content="上一篇文章作者用Grasshopper实现了单层凯威特网壳的参数化（传送门），利用矢高、网壳直径、径向分段数和扇形数量这四个参数来驱动网壳。这一篇主要介绍用另外一个参数化工具Dynamo来达到单层凯威特空间网壳的参数化。下面是Dy中实现的效果：">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Revit API之元素检索优化">
-<meta property="og:url" content="http://http://autumnflavor.com/2016/01/05/Revit-API之元素检索优化/index.html">
+<meta property="og:title" content="Dynamo|单层凯威特空间网壳">
+<meta property="og:url" content="http://http://autumnflavor.com/2017/02/18/Dynamo-单层凯威特空间网架/index.html">
 <meta property="og:site_name" content="秋味笔记">
-<meta property="og:description" content="简介虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
-在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredE">
-<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/LINQSpeed.png">
-<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/GoldenBlue_weixinPT.jpg">
-<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/AutumnFlavorWx.png">
-<meta property="og:updated_time" content="2016-01-05T14:36:15.553Z">
+<meta property="og:description" content="上一篇文章作者用Grasshopper实现了单层凯威特网壳的参数化（传送门），利用矢高、网壳直径、径向分段数和扇形数量这四个参数来驱动网壳。这一篇主要介绍用另外一个参数化工具Dynamo来达到单层凯威特空间网壳的参数化。下面是Dy中实现的效果：">
+<meta property="og:updated_time" content="2017-02-18T15:31:47.621Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Revit API之元素检索优化">
-<meta name="twitter:description" content="简介虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。
-在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（Element），元素的取得都依赖于元素检索器（FilteredE">
+<meta name="twitter:title" content="Dynamo|单层凯威特空间网壳">
+<meta name="twitter:description" content="上一篇文章作者用Grasshopper实现了单层凯威特网壳的参数化（传送门），利用矢高、网壳直径、径向分段数和扇形数量这四个参数来驱动网壳。这一篇主要介绍用另外一个参数化工具Dynamo来达到单层凯威特空间网壳的参数化。下面是Dy中实现的效果：">
   
     <link rel="alternative" href="/atom.xml" title="秋味笔记" type="application/atom+xml">
   
@@ -206,11 +200,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-Revit-API之元素检索优化" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Dynamo-单层凯威特空间网架" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/05/Revit-API之元素检索优化/" class="article-date">
-      <time datetime="2016-01-05T13:19:33.000Z" itemprop="datePublished">2016-01-05</time>
+      <a href="/2017/02/18/Dynamo-单层凯威特空间网架/" class="article-date">
+      <time datetime="2017-02-18T14:52:07.000Z" itemprop="datePublished">2017-02-18</time>
 </a>
     </div>
   
@@ -223,7 +217,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Revit API之元素检索优化
+      Dynamo|单层凯威特空间网壳
     </h1>
   
 
@@ -232,13 +226,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Revit-API/">Revit API</a>
+    <a class="article-category-link" href="/categories/Dynamo/">Dynamo</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/FilteredElementCollector/">FilteredElementCollector</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/凯威特/">凯威特</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/网架，参数化/">网架，参数化</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -248,86 +242,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="u7B80_u4ECB"><a href="#u7B80_u4ECB" class="headerlink" title="简介"></a>简介</h3><p>虽然计算机的性能越来越强大，二次开发者常常不再需要为软件的效率而伤脑经，然而想要做出商业化的应用，仍然需要我们精益求精。相信大家都十分关心如何提高程序运行的效率。本篇推文将介绍在Revit API环境中进行元素检索优化的具体实践。</p>
-<p>在Revit 2012之后的API环境中，从当前的Document的属性列表中无法再取到任何元素（<em>Element</em>），元素的取得都依赖于元素检索器（<em>FilteredElementCollector</em>）。这样一来在一个应用中将可能需要大量的使用元素检索器来获取特定元素，如何有效率的使用检索器将对二次开发应用的效率产生显著的影响。<a id="more"></a>事实上Jeremy也有一篇博文专门来阐述如何优化元素检索器，本文很多内容来自于Jeremy的文章，但是也加入了很多作者在自身开发经历中的一些自己的解读。下面给出原文链接，有兴趣阅读原文的同学可以自行查阅：<a href="http://thebuildingcoder.typepad.com/blog/2012/09/findelement-and-collector-optimisation.html" target="_blank" rel="external">TheBuildingCoder</a></p>
-<hr>
-<h3 id="u539F_u5219"><a href="#u539F_u5219" class="headerlink" title="原则"></a>原则</h3><p>对于元素检索器，应当注意以下几点原则：</p>
-<ol>
-<li>尽力避免依赖于名称的检索器，尽可能的选择使用BuiltInParameters。</li>
-<li>如果非要使用名称的话，使用Parameter Filter的效率将远超LINQ。</li>
-<li>将一个filtered element collector 转换为一个.Net的collection（如IEnumerable<element>）的过程常常是可以避免的，这样做会把一个collector的所有成员拷贝到.Net collection中，在大集合中这样做对效率的影响尤其明显。</element></li>
-</ol>
-<hr>
-<h3 id="Anti_patten"><a href="#Anti_patten" class="headerlink" title="Anti patten"></a>Anti patten</h3><p>下边是一个Anti patten，也就是不好的实践，我们应当避免这样使用元素检索器：<br><figure class="highlight oxygene"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">IEnumerable&lt;Element&gt; targetElems =  </span><br><span class="line">      <span class="keyword">from</span> element <span class="keyword">in</span> collector </span><br><span class="line">      <span class="keyword">where</span> element.Name.<span class="keyword">Equals</span>( targetName )</span><br><span class="line">      <span class="keyword">select</span> element;</span><br><span class="line"></span><br><span class="line">IList&lt;Element&gt; elems = targetElems.ToList();</span><br></pre></td></tr></table></figure></p>
-<h3 id="u6B63_u786E_u7684_u505A_u6CD5"><a href="#u6B63_u786E_u7684_u505A_u6CD5" class="headerlink" title="正确的做法"></a>正确的做法</h3><p>在Revit SDK samples中经常看到有例子将collector转成iterator然后循环遍历，这样同样不是一个好的实践，事实上是直接用foreach循环将达到非常好的效率：<br><figure class="highlight cs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">FilteredElementCollector collector</span><br><span class="line">  = <span class="keyword">new</span> FilteredElementCollector( doc )</span><br><span class="line">          .OfCategory( BuiltInCategory.OST_Doors )</span><br><span class="line">          .OfClass( <span class="keyword">typeof</span>( FamilySymbol ) ); </span><br><span class="line">          <span class="keyword">foreach</span>( FamilySymbol symbol <span class="keyword">in</span> collector )</span><br><span class="line">          &#123;    Family family = symbol.Family; </span><br><span class="line">              <span class="comment">// Process reference to doors family  </span></span><br><span class="line">          &#125;</span><br></pre></td></tr></table></figure></p>
-<p>不但代码更加简洁，而且没有了collector的转换，性能上也有提升。</p>
-<h3 id="ElementParameterFilter"><a href="#ElementParameterFilter" class="headerlink" title="ElementParameterFilter"></a>ElementParameterFilter</h3><p>然而在现实中我们经常地需要使用名称来过滤元素，例如Revit的族名称就取决于文件名，这常常让我们面对一个尴尬的现状：上面的代码用不上了。。当确实需要使用名称来匹配检索的时候，作者本人自己做过测试发现，使用LINQ来实现速度会比使用foreach循环快好多倍，更是甩iterator几条街，这是因为LINQ语句不需要像foreach那样循环从集合中第一个元素开始遍历。然而我接下来要讲的却并不是用LINQ来实现元素检索，否则Jeremy也不能被称之为大神了！我也是使用LINQ很久以后才发现在面对这种情况的时候Revit API提供了另一个强大的接口ElementParameterFilter。下面这个方法是此类问题的具体实现（作者对代码进行了修改）：<br><figure class="highlight fsharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">Element GetFirstElementOfTypeWithBipString(</span><br><span class="line">    Document doc,</span><br><span class="line">    Type <span class="class"><span class="keyword">type</span>,</span></span><br><span class="line">    BuiltInParameter bip,</span><br><span class="line">    string name)</span><br><span class="line">&#123;  </span><br><span class="line">  FilteredElementCollector a</span><br><span class="line">      = <span class="keyword">new</span> FilteredElementCollector(doc).OfClass(<span class="class"><span class="keyword">type</span>); </span></span><br><span class="line">  ParameterValueProvider provider </span><br><span class="line">      = <span class="keyword">new</span> ParameterValueProvider( </span><br><span class="line">      <span class="keyword">new</span> ElementId( bip ) ); </span><br><span class="line">  FilterStringRuleEvaluator evaluator </span><br><span class="line">      = <span class="keyword">new</span> FilterStringEquals(); </span><br><span class="line">  FilterRule rule = <span class="keyword">new</span> FilterStringRule( </span><br><span class="line">      provider, evaluator, name, <span class="keyword">true</span> ); </span><br><span class="line">  ElementParameterFilter filter </span><br><span class="line">      = <span class="keyword">new</span> ElementParameterFilter( rule ); </span><br><span class="line">  <span class="keyword">return</span> a.WherePasses( filter ).FirstElement();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>根据Jeremy对不同的检索方法做了测试<br>Retrieve specific named level:</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:left">Percentage</th>
-<th style="text-align:left">Seconds</th>
-<th style="text-align:left">Calls</th>
-<th style="text-align:left">Process</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:left">0.00%</td>
-<td style="text-align:left">0.00</td>
-<td style="text-align:left">1000</td>
-<td style="text-align:left">Empty method *</td>
-</tr>
-<tr>
-<td style="text-align:left">0.19%</td>
-<td style="text-align:left">0.11</td>
-<td style="text-align:left">1000</td>
-<td style="text-align:left">Collector with no name check *</td>
-</tr>
-<tr>
-<td style="text-align:left">9.19%</td>
-<td style="text-align:left">5.46</td>
-<td style="text-align:left">1000</td>
-<td style="text-align:left">Parameter filter</td>
-</tr>
-<tr>
-<td style="text-align:left">22.53%</td>
-<td style="text-align:left">13.37</td>
-<td style="text-align:left">1000</td>
-<td style="text-align:left">Explicit</td>
-</tr>
-<tr>
-<td style="text-align:left">22.57%</td>
-<td style="text-align:left">13.40</td>
-<td style="text-align:left">1000</td>
-<td style="text-align:left">Anonymous named</td>
-</tr>
-<tr>
-<td style="text-align:left">22.73%</td>
-<td style="text-align:left">13.49</td>
-<td style="text-align:left">1000</td>
-<td style="text-align:left">Anonymous</td>
-</tr>
-<tr>
-<td style="text-align:left">22.73%</td>
-<td style="text-align:left">13.49</td>
-<td style="text-align:left">1000</td>
-<td style="text-align:left">Linq</td>
-</tr>
-<tr>
-<td style="text-align:left">100.00%</td>
-<td style="text-align:left">59.35</td>
-<td style="text-align:left">1</td>
-<td style="text-align:left">TOTAL TIME</td>
-</tr>
-</tbody>
-</table>
-<p>根据结果我们可以看到，进行一千次调用所耗时间的一个对比，不使用名称进行检索的时候，检索效率已经降低到一个惊人的程度，这也是为什么Revit新的API中不再把以前的一些常用的Element作为Document公开属性的原因，这些元素可以被低代价地检索到，所用时间几乎可以忽略不计，而节省的内存资源和降低的软件复杂度却是可观的。</p>
-<h3 id="LINQ"><a href="#LINQ" class="headerlink" title="LINQ"></a>LINQ</h3><p>虽然ElementParameterFilter的效率很高，然而它只也只能通过元素的Parameter来进行过滤，很多情况下我们可能无法通过Parameter来获取其名称，例如想要通过名称获取Element的过程中，我们能够在Level的参数列表中找到Name参数，但是在FamilySymbol中找到同样的参数，这个时候使用LINQ反而能够获得比其他方法更高的效率。下面是一段通过名称获取Element的LINQ代码：<br><figure class="highlight fortran"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> static Element GetElementByName(</span><br><span class="line">            Document doc, </span><br><span class="line">            <span class="keyword">Type</span> <span class="keyword">type</span>, </span><br><span class="line">            string <span class="keyword">name</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            var element =</span><br><span class="line">                new FilteredElementCollector(doc)</span><br><span class="line">                    .OfClass(<span class="keyword">type</span>)</span><br><span class="line">                    .FirstOrDefault(</span><br><span class="line">                        elem =&gt; elem.<span class="keyword">Name</span> == <span class="keyword">name</span>);</span><br><span class="line">            <span class="keyword">return</span> element;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
-<p>简单的做个对比：<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/LINQSpeed.png" alt="对比"></p>
-<h3 id="u7ED3_u8BED"><a href="#u7ED3_u8BED" class="headerlink" title="结语"></a>结语</h3><p>好了，本期的文章到此结束，希望你的编码过程同样也充满乐趣！</p>
-<p>欢迎转载，请<a href="http://autumnflavor.com/2016/01/05/Revit-API%E4%B9%8B%E5%85%83%E7%B4%A0%E6%A3%80%E7%B4%A2%E4%BC%98%E5%8C%96/" target="_blank" rel="external">注明出处！</a>欢迎关注微信公众号GoldenBlue_Dev<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/GoldenBlue_weixinPT.jpg" alt="GoldenBlue_Dev"><br>有好的意见或者建议也可联系本人微信号:frobo<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/AutumnFlavorWx.png" alt="froboo"></p>
+        <p>上一篇文章作者用Grasshopper实现了单层凯威特网壳的参数化（<a href="http://autumnflavor.com/2016/11/21/GH-%E5%8D%95%E5%B1%82%E5%87%AF%E5%A8%81%E7%89%B9%E7%BD%91%E6%9E%B6/" target="_blank" rel="external">传送门</a>），利用矢高、网壳直径、径向分段数和扇形数量这四个参数来驱动网壳。这一篇主要介绍用另外一个参数化工具Dynamo来达到单层凯威特空间网壳的参数化。下面是Dy中实现的效果：<br><a href="http://7xpt80.com1.z0.glb.clouddn.com/Dy%E5%87%AF%E5%A8%81%E7%89%B9-%E5%8F%82%E6%95%B0%E5%8F%98%E5%8C%96640.gif" target="_blank" rel="external"></a></p>
 
            
     </div>
@@ -336,13 +251,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/01/05/Revit-API之元素检索优化/">Revit API之元素检索优化</a></p>
+        <p><span>本文标题:</span><a href="/2017/02/18/Dynamo-单层凯威特空间网架/">Dynamo|单层凯威特空间网壳</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
-        <p><span>发布时间:</span>2016年01月05日 - 21时19分</p>
-        <p><span>最后更新:</span>2016年01月05日 - 22时36分</p>
+        <p><span>发布时间:</span>2017年02月18日 - 22时52分</p>
+        <p><span>最后更新:</span>2017年02月18日 - 23时31分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/01/05/Revit-API之元素检索优化/" title="Revit API之元素检索优化">http://http://autumnflavor.com/2016/01/05/Revit-API之元素检索优化/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2016/01/05/Revit-API之元素检索优化/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/02/18/Dynamo-单层凯威特空间网架/" title="Dynamo|单层凯威特空间网壳">http://http://autumnflavor.com/2017/02/18/Dynamo-单层凯威特空间网架/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2017/02/18/Dynamo-单层凯威特空间网架/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -355,12 +270,12 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/01/06/Revit中调用Access数据库/">
-                    Revit中调用Access数据库
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2016/11/21/GH-单层凯威特网架/">
+                    GH | 凯威特单层网壳
                 </a>
             </div>
-        
         
     </nav>
 
@@ -369,7 +284,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u7B80_u4ECB"><span class="toc-number">1.</span> <span class="toc-text">简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u539F_u5219"><span class="toc-number">2.</span> <span class="toc-text">原则</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Anti_patten"><span class="toc-number">3.</span> <span class="toc-text">Anti patten</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u6B63_u786E_u7684_u505A_u6CD5"><span class="toc-number">4.</span> <span class="toc-text">正确的做法</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#ElementParameterFilter"><span class="toc-number">5.</span> <span class="toc-text">ElementParameterFilter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#LINQ"><span class="toc-number">6.</span> <span class="toc-text">LINQ</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7ED3_u8BED"><span class="toc-number">7.</span> <span class="toc-text">结语</span></a></li></ol>
+    
 </div>
 <style>
     .left-col .switch-btn {
@@ -432,7 +347,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/01/05/Revit-API之元素检索优化/" data-title="Revit API之元素检索优化" data-url="http://http://autumnflavor.com/2016/01/05/Revit-API之元素检索优化/"></div>
+    <div class="ds-thread" data-thread-key="2017/02/18/Dynamo-单层凯威特空间网架/" data-title="Dynamo|单层凯威特空间网壳" data-url="http://http://autumnflavor.com/2017/02/18/Dynamo-单层凯威特空间网架/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -457,15 +372,15 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/01/06/Revit中调用Access数据库/" title="上一篇: Revit中调用Access数据库">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+            <a href="/2016/11/21/GH-单层凯威特网架/" title="下一篇: GH | 凯威特单层网壳">
+                <i class="fa fa-angle-right"></i>
+            </a>
         
     </div>
 
