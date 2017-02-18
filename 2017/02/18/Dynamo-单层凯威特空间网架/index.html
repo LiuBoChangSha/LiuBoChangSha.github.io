@@ -15,7 +15,7 @@
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/List%20Node.png">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/List%E5%B1%82%E7%BA%A7.png">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/Dy%E5%87%AF%E5%A8%81%E7%89%B9%20-%20%E5%8A%A8%E7%94%BB640.gif">
-<meta property="og:updated_time" content="2017-02-18T16:08:44.298Z">
+<meta property="og:updated_time" content="2017-02-18T16:10:38.159Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dynamo|单层凯威特空间网壳">
 <meta name="twitter:description" content="上一篇文章作者用Grasshopper实现了单层凯威特网壳的参数化（传送门），利用矢高、网壳直径、径向分段数和扇形数量这四个参数来驱动网壳。自从Dy 1.2版本发布以来，群里边里边一片夸奖，奈何网络太差，办公室和家里居然都下载不动，只好撺掇同样网速也不好的李卓帮忙下了一个。为了直观的感受Dy1.2.1版本的新变化，花了一个下午的时间用Dynamo来实现单层凯威特空间网壳的参数化，主要的参数逻辑和G">
@@ -251,7 +251,7 @@
 <p><img src="http://7xpt80.com1.z0.glb.clouddn.com/List%20Node.png" alt="DyListNode"></p>
 <p>相对于以前单调的最长、最短和交叉，这样的方式的确大大增加了效率。想偷懒的时候可以试探性的设置不同的层级，直接观察效果获得达到想要的数据组织，这对于很多数据处理能力欠佳的同学是非常好的消息。下图演示的是将一个一维数组中的每个数据加入到二维数组中每一列的列首的操作：</p>
 <p><img src="http://7xpt80.com1.z0.glb.clouddn.com/List%E5%B1%82%E7%BA%A7.png" alt=""></p>
-<p>另外Dy有一个DateTime.Now的节点比较有意思，可以驱动Dy来实现一些动画的效果，如下图，随着当前时间秒的变化，网壳的矢高会随之改变：</p>
+<p>另外Dy有一个DateTime.Now的节点比较有意思，可以驱动Dy来实现一些动画的效果，如下图，随着当前时间秒的变化，网壳的矢高会随之改变。这个节点似乎还不太稳定，因为自从用过之后就Dy就打不开了。。</p>
 <p><img src="http://7xpt80.com1.z0.glb.clouddn.com/Dy%E5%87%AF%E5%A8%81%E7%89%B9%20-%20%E5%8A%A8%E7%94%BB640.gif" alt="Dy凯威特时间驱动"></p>
 <p>目前的Dy在一些方面已经做的比GH更好了，不过要超过GH还为时尚早，对于以Revit为主要工作流的项目来说，它已经具有足够的吸引力了，况且Dy宣称未来会对Infraworks、CAD等更多软件的支持，这让Dy的学习价值更高。</p>
 
@@ -265,7 +265,7 @@
         <p><span>本文标题:</span><a href="/2017/02/18/Dynamo-单层凯威特空间网架/">Dynamo|单层凯威特空间网壳</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
         <p><span>发布时间:</span>2017年02月18日 - 22时52分</p>
-        <p><span>最后更新:</span>2017年02月19日 - 00时08分</p>
+        <p><span>最后更新:</span>2017年02月19日 - 00时10分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/02/18/Dynamo-单层凯威特空间网架/" title="Dynamo|单层凯威特空间网壳">http://http://autumnflavor.com/2017/02/18/Dynamo-单层凯威特空间网架/</a>
             <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2017/02/18/Dynamo-单层凯威特空间网架/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
