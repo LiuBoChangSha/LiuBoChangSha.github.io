@@ -231,7 +231,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-              <h3 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h3><p>在Dynamo的Geometry节点分组下有许多几何相关的节点，功能非常强大并且实用。本章主要讲如何利用几何相关节点批量的进行碰撞检测。其实要用Revit API实现硬碰撞检测还是比较简单的，几行代码就能搞定，但是要实现软碰撞则相对困难，因为没有相关的API可以使用，如果要调用第三方的库有涉及到几何转化的问题，要不就需要自己去造车轮子了。而利用Dynamo却能轻松解决，因为Dynamo不已经有实现软硬碰撞的节点，还能直接将Revit中的几何直接转化成Dynamo工作空间的几何。主要的节点是Geometry.DoesIntersect节点和Geometry.DistanceTo节点。如下图，我们可以看到，两个节点的用法完全相同，只是Geometry.DoesIntersect节点输出的是布尔值，而Geometry.DistanceTo会输出两个几何构件之间的实际距离，当距离为零的时候，是发生了硬碰撞，距离不为零但是超过容许值则可认为构件发生了软碰撞。</p>
+              <h3 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h3><p>在Revit中进行设计的时候，常常会需要对构件的位置进行判断，比如是否发生构件碰撞，施工操作空间是否足够等，一些市政管线项目则会对各专业管线的安全距离作出要求。Revit自带的碰撞检测还有NV中的都不太好用。比如设定检测范围时不够灵活，再比如画管线的时候，管线和弯头、设备之间发生的碰撞我们可能认为是正常的，但是软件仍然会输出结果，无效结果过多则等于没有做分析。而Dynamo则能比较完美的解决这些问题。</p>
+<p><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E6%A6%82%E8%A7%88%E5%9B%BE.png" alt="概览"></p>
+<p>Dynamo的Geometry节点分组下有许多几何相关的节点，功能非常强大并且实用。本章主要讲如何利用几何相关节点批量的进行碰撞检测。其实要用Revit API实现硬碰撞检测还是比较简单的，几行代码就能搞定，但是要实现软碰撞则相对困难，因为没有相关的API可以使用，如果要调用第三方的库有涉及到几何转化的问题，要不就需要自己去造车轮子了。而利用Dynamo却能轻松解决这个问题，因为Dynamo不仅已经有实现软硬碰撞的节点，还能直接将Revit中的几何直接转化成Dynamo工作空间的几何。主要使用到的功能节点是Geometry.DoesIntersect节点和Geometry.DistanceTo节点。如下图，可以看到两个节点的用法完全相同，只是Geometry.DoesIntersect节点输出的是布尔值，而Geometry.DistanceTo会输出两个几何构件之间的实际距离，当距离为零的时候，是发生了硬碰撞，距离不为零但是超过容许值则可认为构件发生了软碰撞。</p>
 <p><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E8%8A%82%E7%82%B9.png" alt="碰撞检测节点"><br>
           
            
