@@ -126,7 +126,7 @@
                 
                 <section class="switch-part switch-part2">
                     <div class="widget tagcloud" id="js-tagcloud">
-                        <li><a href="/tags/64位/" style="font-size: 10px;">64位</a></li> <li><a href="/tags/AVF/" style="font-size: 10px;">AVF</a></li> <li><a href="/tags/Access/" style="font-size: 10px;">Access</a></li> <li><a href="/tags/ExporterIFCUtils/" style="font-size: 10px;">ExporterIFCUtils</a></li> <li><a href="/tags/FilteredElementCollector/" style="font-size: 10px;">FilteredElementCollector</a></li> <li><a href="/tags/Modelo/" style="font-size: 10px;">Modelo</a></li> <li><a href="/tags/NewFloor/" style="font-size: 10px;">NewFloor</a></li> <li><a href="/tags/Revit/" style="font-size: 20px;">Revit</a></li> <li><a href="/tags/Revit-API-2014/" style="font-size: 10px;">Revit API 2014</a></li> <li><a href="/tags/VR/" style="font-size: 10px;">VR</a></li> <li><a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a></li> <li><a href="/tags/mdb/" style="font-size: 10px;">mdb</a></li> <li><a href="/tags/oppening/" style="font-size: 10px;">oppening</a></li> <li><a href="/tags/profile/" style="font-size: 10px;">profile</a></li> <li><a href="/tags/shader/" style="font-size: 10px;">shader</a></li> <li><a href="/tags/wall/" style="font-size: 10px;">wall</a></li> <li><a href="/tags/凯威特/" style="font-size: 20px;">凯威特</a></li> <li><a href="/tags/参数化/" style="font-size: 20px;">参数化</a></li> <li><a href="/tags/地形/" style="font-size: 10px;">地形</a></li> <li><a href="/tags/地理空间数据云/" style="font-size: 10px;">地理空间数据云</a></li> <li><a href="/tags/斜楼板/" style="font-size: 10px;">斜楼板</a></li> <li><a href="/tags/族名称/" style="font-size: 10px;">族名称</a></li> <li><a href="/tags/网架/" style="font-size: 20px;">网架</a></li>
+                        <li><a href="/tags/64位/" style="font-size: 10px;">64位</a></li> <li><a href="/tags/AVF/" style="font-size: 10px;">AVF</a></li> <li><a href="/tags/Access/" style="font-size: 10px;">Access</a></li> <li><a href="/tags/Dynamo/" style="font-size: 10px;">Dynamo</a></li> <li><a href="/tags/ExporterIFCUtils/" style="font-size: 10px;">ExporterIFCUtils</a></li> <li><a href="/tags/FilteredElementCollector/" style="font-size: 10px;">FilteredElementCollector</a></li> <li><a href="/tags/Modelo/" style="font-size: 10px;">Modelo</a></li> <li><a href="/tags/NewFloor/" style="font-size: 10px;">NewFloor</a></li> <li><a href="/tags/Revit/" style="font-size: 15px;">Revit</a></li> <li><a href="/tags/Revit-API-2014/" style="font-size: 10px;">Revit API 2014</a></li> <li><a href="/tags/VR/" style="font-size: 10px;">VR</a></li> <li><a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a></li> <li><a href="/tags/mdb/" style="font-size: 10px;">mdb</a></li> <li><a href="/tags/oppening/" style="font-size: 10px;">oppening</a></li> <li><a href="/tags/profile/" style="font-size: 10px;">profile</a></li> <li><a href="/tags/shader/" style="font-size: 10px;">shader</a></li> <li><a href="/tags/wall/" style="font-size: 10px;">wall</a></li> <li><a href="/tags/凯威特/" style="font-size: 15px;">凯威特</a></li> <li><a href="/tags/参数化/" style="font-size: 20px;">参数化</a></li> <li><a href="/tags/地形/" style="font-size: 10px;">地形</a></li> <li><a href="/tags/地理空间数据云/" style="font-size: 10px;">地理空间数据云</a></li> <li><a href="/tags/斜楼板/" style="font-size: 10px;">斜楼板</a></li> <li><a href="/tags/族名称/" style="font-size: 10px;">族名称</a></li> <li><a href="/tags/碰撞检测/" style="font-size: 10px;">碰撞检测</a></li> <li><a href="/tags/网架/" style="font-size: 15px;">网架</a></li>
                     </div>
                 </section>
                 
@@ -203,6 +203,91 @@
     </div>
 </nav>
       <div class="body-wrap">
+  
+    <article id="post-Dynamo-使用Dynamo实现批量碰撞检测" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/" class="article-date">
+      <time datetime="2017-02-24T13:51:34.000Z" itemprop="datePublished">2017-02-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/">Dynamo | 使用Dynamo实现批量碰撞检测</a>
+    </h1>
+  
+
+      </header>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+              <h3 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h3><p>在Dynamo的Geometry节点分组下有许多几何相关的节点，功能非常强大并且实用。本章主要讲如何利用几何相关节点批量的进行碰撞检测。其实要用Revit API实现硬碰撞检测还是比较简单的，几行代码就能搞定，但是要实现软碰撞则相对困难，因为没有相关的API可以使用，如果要调用第三方的库有涉及到几何转化的问题，要不就需要自己去造车轮子了。而利用Dynamo却能轻松解决，因为Dynamo不已经有实现软硬碰撞的节点，还能直接将Revit中的几何直接转化成Dynamo工作空间的几何。主要的节点是Geometry.DoesIntersect节点和Geometry.DistanceTo节点。如下图，我们可以看到，两个节点的用法完全相同，只是Geometry.DoesIntersect节点输出的是布尔值，而Geometry.DistanceTo会输出两个几何构件之间的实际距离，当距离为零的时候，是发生了硬碰撞，距离不为零但是超过容许值则可认为构件发生了软碰撞。</p>
+<p><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E8%8A%82%E7%82%B9.png" alt="碰撞检测节点"><br>
+          
+           
+    </div>
+    
+    <div class="article-info article-info-index">
+      
+      
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Dynamo/">Dynamo</a>
+    </div>
+
+
+      
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dynamo/">Dynamo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/参数化/">参数化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/碰撞检测/">碰撞检测</a></li></ul>
+    </div>
+
+      
+        <p class="article-more-link">
+          <a  href="/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/#more">more >></a>
+        </p>
+      
+      <div class="clearfix"></div>
+    </div>
+    
+  </div>
+  
+</article>
+
+
+
+
+
+
+
+
+    
+        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+        <script>
+            var yiliaConfig = {
+            fancybox: true,
+            mathjax: true,
+            animate: true,
+            isHome: true,
+            isPost: false,
+            isArchive: false,
+            isTag: false,
+            isCategory: false,
+            open_in_new: false
+            }
+        </script>
+        
+
+
+
   
     <article id="post-Dynamo-单层凯威特空间网架" class="article article-type-post" itemscope itemprop="blogPost">
   
@@ -986,91 +1071,6 @@
         <p class="article-more-link">
           <a  href="/2016/01/14/Revit中获取族名称通用代码/#more">more >></a>
         </p>
-      
-      <div class="clearfix"></div>
-    </div>
-    
-  </div>
-  
-</article>
-
-
-
-
-
-
-
-
-    
-        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-        <script>
-            var yiliaConfig = {
-            fancybox: true,
-            mathjax: true,
-            animate: true,
-            isHome: true,
-            isPost: false,
-            isArchive: false,
-            isTag: false,
-            isCategory: false,
-            open_in_new: false
-            }
-        </script>
-        
-
-
-
-  
-    <article id="post-Revit中调用Access数据库" class="article article-type-post" itemscope itemprop="blogPost">
-  
-    <div class="article-meta">
-      <a href="/2016/01/06/Revit中调用Access数据库/" class="article-date">
-      <time datetime="2016-01-06T12:52:08.000Z" itemprop="datePublished">2016-01-06</time>
-</a>
-    </div>
-  
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/01/06/Revit中调用Access数据库/">Revit中调用Access数据库</a>
-    </h1>
-  
-
-      </header>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-          
-        <p>近日着手处理一个ArcGis的导出mdb文档，随手写了一个WinForm程序，运行的很好，但是写进Revit的时候发现了一个问题，由于我的计算机系统是64位，Revit程序也是64位，Office软件是64位的2010，而我在调用Access数据库的时候使用的Sql语句为”Provider=Microsoft.Jet.OLEDB.4.0;” + “Data Source=” + fileName，此时会报错：未在本地计算机上注册“Microsoft.Jet.OLEDB.4.0”提供程序。查阅了一些网络资料，说要把目标平台设置为X86，但是由于我需要在Revit中调用，显然此路不通。</p>
-<p><strong>解决方案</strong>如下：</p>
-<ol>
-<li>下载 <a href="http://download.microsoft.com/download/7/0/3/703ffbcb-dc0c-4e19-b0da-1463960fdcdb/AccessDatabaseEngine.exe" target="_blank" rel="external">Microsoft.ACE.OLEDB.12.0</a> 并安装。</li>
-<li>修改Sql连接串为:”Provider=Microsoft.ACE.OLEDB.12.0;Data Source=文件路径;”此时调用成功。</li>
-</ol>
-
-           
-    </div>
-    
-    <div class="article-info article-info-index">
-      
-      
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Revit-API/">Revit API</a>
-    </div>
-
-
-      
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/64位/">64位</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Access/">Access</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Revit/">Revit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mdb/">mdb</a></li></ul>
-    </div>
-
       
       <div class="clearfix"></div>
     </div>

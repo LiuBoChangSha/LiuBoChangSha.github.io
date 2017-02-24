@@ -3,18 +3,17 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Revit中调用Access数据库 | 秋味笔记</title>
+  <title>Tag: Dynamo | 秋味笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="近日着手处理一个ArcGis的导出mdb文档，随手写了一个WinForm程序，运行的很好，但是写进Revit的时候发现了一个问题，由于我的计算机系统是64位，Revit程序也是64位，Office软件是64位的2010，而我在调用Access数据库的时候使用的Sql语句为”Provider=Microsoft.Jet.OLEDB.4.0;” + “Data Source=” + fileName，">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Revit中调用Access数据库">
-<meta property="og:url" content="http://http://autumnflavor.com/2016/01/06/Revit中调用Access数据库/index.html">
+  <meta name="description" content="BIM, 参数化, 建筑可视化, 数字建造, BIM二次开发">
+<meta property="og:type" content="website">
+<meta property="og:title" content="秋味笔记">
+<meta property="og:url" content="http://http://autumnflavor.com/tags/Dynamo/index.html">
 <meta property="og:site_name" content="秋味笔记">
-<meta property="og:description" content="近日着手处理一个ArcGis的导出mdb文档，随手写了一个WinForm程序，运行的很好，但是写进Revit的时候发现了一个问题，由于我的计算机系统是64位，Revit程序也是64位，Office软件是64位的2010，而我在调用Access数据库的时候使用的Sql语句为”Provider=Microsoft.Jet.OLEDB.4.0;” + “Data Source=” + fileName，">
-<meta property="og:updated_time" content="2016-01-06T12:57:09.271Z">
+<meta property="og:description" content="BIM, 参数化, 建筑可视化, 数字建造, BIM二次开发">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Revit中调用Access数据库">
-<meta name="twitter:description" content="近日着手处理一个ArcGis的导出mdb文档，随手写了一个WinForm程序，运行的很好，但是写进Revit的时候发现了一个问题，由于我的计算机系统是64位，Revit程序也是64位，Office软件是64位的2010，而我在调用Access数据库的时候使用的Sql语句为”Provider=Microsoft.Jet.OLEDB.4.0;” + “Data Source=” + fileName，">
+<meta name="twitter:title" content="秋味笔记">
+<meta name="twitter:description" content="BIM, 参数化, 建筑可视化, 数字建造, BIM二次开发">
   
     <link rel="alternative" href="/atom.xml" title="秋味笔记" type="application/atom+xml">
   
@@ -200,240 +199,57 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-Revit中调用Access数据库" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap">
   
-    <div class="article-meta">
-      <a href="/2016/01/06/Revit中调用Access数据库/" class="article-date">
-      <time datetime="2016-01-06T12:52:08.000Z" itemprop="datePublished">2016-01-06</time>
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2017" class="archive-year">2017</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+          <div class="article-meta">
+              <a href="/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/" class="archive-article-date">
+      <time datetime="2017-02-24T13:51:34.000Z" itemprop="datePublished">02-24</time>
 </a>
-    </div>
+        </div>
+         
   
-  <div class="article-inner">
-    
-      <input type="hidden" class="isFancy" />
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 class="article-title" itemprop="name">
-      Revit中调用Access数据库
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/">Dynamo | 使用Dynamo实现批量碰撞检测</a>
     </h1>
   
 
-      </header>
-      
-      <div class="article-info article-info-post">
-        
-    <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Revit-API/">Revit API</a>
-    </div>
-
-
-        
-    <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/64位/">64位</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Access/">Access</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Revit/">Revit</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mdb/">mdb</a></li></ul>
-    </div>
-
-        <div class="clearfix"></div>
-      </div>
-      
-    
-    <div class="article-entry" itemprop="articleBody">
-      
+        <div class="article-info info-on-archive">
           
-        <p>近日着手处理一个ArcGis的导出mdb文档，随手写了一个WinForm程序，运行的很好，但是写进Revit的时候发现了一个问题，由于我的计算机系统是64位，Revit程序也是64位，Office软件是64位的2010，而我在调用Access数据库的时候使用的Sql语句为”Provider=Microsoft.Jet.OLEDB.4.0;” + “Data Source=” + fileName，此时会报错：未在本地计算机上注册“Microsoft.Jet.OLEDB.4.0”提供程序。查阅了一些网络资料，说要把目标平台设置为X86，但是由于我需要在Revit中调用，显然此路不通。</p>
-<p><strong>解决方案</strong>如下：</p>
-<ol>
-<li>下载 <a href="http://download.microsoft.com/download/7/0/3/703ffbcb-dc0c-4e19-b0da-1463960fdcdb/AccessDatabaseEngine.exe" target="_blank" rel="external">Microsoft.ACE.OLEDB.12.0</a> 并安装。</li>
-<li>修改Sql连接串为:”Provider=Microsoft.ACE.OLEDB.12.0;Data Source=文件路径;”此时调用成功。</li>
-</ol>
-
-           
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Dynamo/">Dynamo</a>
     </div>
-    
+
+
+          
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dynamo/">Dynamo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/参数化/">参数化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/碰撞检测/">碰撞检测</a></li></ul>
+    </div>
+
+        </div>
+        <div class="clearfix"></div>
+    </header>
   </div>
-  
-    
-    <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/01/06/Revit中调用Access数据库/">Revit中调用Access数据库</a></p>
-        <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
-        <p><span>发布时间:</span>2016年01月06日 - 20时52分</p>
-        <p><span>最后更新:</span>2016年01月06日 - 20时57分</p>
-        <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/01/06/Revit中调用Access数据库/" title="Revit中调用Access数据库">http://http://autumnflavor.com/2016/01/06/Revit中调用Access数据库/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2016/01/06/Revit中调用Access数据库/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
-            <script src="/js/clipboard.min.js"></script>
-            <script> var clipboard = new Clipboard('.copy-path'); </script>
-        </p>
-        <p>
-            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
-        </p>
-    </div>
-
-
-
-    <nav id="article-nav">
-        
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/01/14/Revit中获取族名称通用代码/">
-                    Revit中获取族名称通用代码
-                </a>
-            </div>
-        
-        
-            <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/01/05/Revit-API之元素检索优化/">
-                    Revit API之元素检索优化
-                </a>
-            </div>
-        
-    </nav>
-
-  
 </article>
-
-    <div id="toc" class="toc-article">
-    <strong class="toc-title">文章目录</strong>
-    
-</div>
-<style>
-    .left-col .switch-btn {
-        display: none;
-    }
-    .left-col .switch-area {
-        display: none;
-    }
-</style>
-
-<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
-
-<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
-<script>
-    var toc_button = document.getElementById("tocButton");
-    var toc_div = document.getElementById("toc");
-    toc_button.onclick=function() {
-        if (toc_div.style.display == "none") {
-            toc_div.style.display = "block";
-            toc_button.value = "隐藏目录";
-            document.getElementById("switch-btn").style.display = "none";
-            document.getElementById("switch-area").style.display = "none";
-        }
-        else {
-            toc_div.style.display = "none";
-            toc_button.value = "显示目录";
-            document.getElementById("switch-btn").style.display = "block";
-            document.getElementById("switch-area").style.display = "block";
-        }
-    }
-
-    if ($(".toc").length < 1) {
-        $("#toc").css("display","none");
-        $("#tocButton").css("display","none");
-        $(".switch-btn").css("display","block");
-        $(".switch-area").css("display","block");
-    }
-</script>
-
-
-
-
-<div class="share">
-    <div class="bdsharebuttonbox">
-    <a href="#" class="bds_more" data-cmd="more"></a>
-    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
-    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
-    <a href="#" class="bds_copy" data-cmd="copy" title="复制网址"></a>
-    <a href="#" class="bds_mail" data-cmd="mail" title="通过邮件分享"></a>
-    <a href="#" class="bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
-    </div>
-    <script>
-        window._bd_share_config={
-            "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
-    </script>
-</div>
-
-
+  
+  
+    </div></section>
+  
 
     
-      <div class="duoshuo" id="comments">
-    <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/01/06/Revit中调用Access数据库/" data-title="Revit中调用Access数据库" data-url="http://http://autumnflavor.com/2016/01/06/Revit中调用Access数据库/"></div>
-    <!-- 多说评论框 end -->
-    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-    <script type="text/javascript">
-    /*var duoshuoQuery = {short_name:"null"};*/
-    var duoshuoQuery = {short_name:"autumnflavor"};
-    (function() {
-        var ds = document.createElement('script');
-        ds.type = 'text/javascript';ds.async = true;
-        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-        ds.charset = 'UTF-8';
-        (document.getElementsByTagName('head')[0] 
-         || document.getElementsByTagName('body')[0]).appendChild(ds);
-    })();
-    </script>
-    <!-- 多说公共JS代码 end -->
-</div>
-
-    
-
-
-
-
-    <div class="scroll" id="post-nav-button">
-        
-            <a href="/2016/01/14/Revit中获取族名称通用代码/" title="上一篇: Revit中获取族名称通用代码">
-                <i class="fa fa-angle-left"></i>
-            </a>
-        
-
-        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
-
-        
-            <a href="/2016/01/05/Revit-API之元素检索优化/" title="下一篇: Revit API之元素检索优化">
-                <i class="fa fa-angle-right"></i>
-            </a>
-        
-    </div>
-
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/">Dynamo | 使用Dynamo实现批量碰撞检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Dynamo-单层凯威特空间网架/">Dynamo|单层凯威特空间网壳</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/21/GH-单层凯威特网架/">GH | 凯威特单层网壳</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/13/Revit-API-斜楼板/">Revit API 斜楼板</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/没有地形文件的情况下建立项目地形/">没有地形文件的情况下建立项目地形</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/04/Revit-API-Analysis-Visualisation-Framework/">Revit API - Analysis Visualisation Framework</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/13/Revit-API-ExporterIFCUtils获取墙洞口及轮廓线/">Revit API - ExporterIFCUtils获取墙洞口及轮廓线</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/15/Modelo-基于WebGL的可视化解决方案/">Modelo | 基于WebGL的可视化解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/27/Unity3D之Standard-Shader初探/">Unity3D之Standard Shader初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/14/Revit中获取族名称通用代码/">Revit中获取族名称通用代码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/06/Revit中调用Access数据库/">Revit中调用Access数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/05/Revit-API之元素检索优化/">Revit API之元素检索优化</a></li></ul>
-    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
-    <script>
-        $(".post-list").addClass("toc-article");
-        $(".post-list-item a").attr("target","_blank");
-        $("#post-nav-button > a:nth-child(2)").click(function() {
-            $(".fa-bars, .fa-times").toggle();
-            $(".post-list").toggle(300);
-            if ($(".toc").length > 0) {
-                $("#toc, #tocButton").toggle(200);
-            }
-            else {
-                $(".switch-btn, .switch-area").toggle(200);
-            }
-        })
-    </script>
-
-
-
-
-    
-        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
-        <script>
-            var yiliaConfig = {
-            fancybox: true,
-            mathjax: true,
-            animate: true,
-            isHome: false,
-            isPost: true,
-            isArchive: false,
-            isTag: false,
-            isCategory: false,
-            open_in_new: false
-            }
-        </script>
-        
-
 
 </div>
       <footer id="footer">
@@ -463,6 +279,20 @@
 
     </div>
     
+    <script>
+        var yiliaConfig = {
+            fancybox: false,
+            mathjax: true,
+            animate: true,
+            isHome: false,
+            isPost: false,
+            isArchive: false,
+            isTag: true,
+            isCategory: false,
+            open_in_new: false
+        }
+    </script>
+
 
 <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
 <script src="/js/main.js" type="text/javascript"></script>
@@ -520,6 +350,17 @@ MathJax.Hub.Queue(function() {
         };
     })
 </script>
+
+    <button class="hide-labels">TAG 开关</button>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js">
+    </script>
+    <script>
+        $(document).ready(function() {
+            $("button").click(function() {
+                $(".article-info").toggle(200);
+            });
+        });
+    </script>
 
 <script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
 </script>

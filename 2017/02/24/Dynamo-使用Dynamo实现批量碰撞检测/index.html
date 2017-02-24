@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Dynamo | 使用Dynamo实现批量碰撞检测 | 秋味笔记</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="概述在Dynamo的Geometry节点分组下有许多几何相关的节点，功能非常强大并且实用。本章主要讲如何利用几何相关节点批量的进行碰撞检测。其实要用Revit API实现硬碰撞检测还是比较简单的，几行代码就能搞定，但是要实现软碰撞则相对困难，因为没有相关的API可以使用，如果要调用第三方的库有涉及到几何转化的问题，要不就需要自己去造车轮子了。而利用Dynamo却能轻松解决，因为Dynamo不已经有">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Dynamo | 使用Dynamo实现批量碰撞检测">
+<meta property="og:url" content="http://http://autumnflavor.com/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/index.html">
+<meta property="og:site_name" content="秋味笔记">
+<meta property="og:description" content="概述在Dynamo的Geometry节点分组下有许多几何相关的节点，功能非常强大并且实用。本章主要讲如何利用几何相关节点批量的进行碰撞检测。其实要用Revit API实现硬碰撞检测还是比较简单的，几行代码就能搞定，但是要实现软碰撞则相对困难，因为没有相关的API可以使用，如果要调用第三方的库有涉及到几何转化的问题，要不就需要自己去造车轮子了。而利用Dynamo却能轻松解决，因为Dynamo不已经有">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E8%8A%82%E7%82%B9.png">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E6%A6%82%E8%A7%88%E5%9B%BE.png">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/Element%20Collector.png">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/ElementInViewCollector.png">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E5%8F%82%E6%95%B0%E5%88%A4%E6%96%AD.png">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF.png">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E8%8A%82%E7%82%B9-%E8%BF%9B%E8%A1%8C%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B.png">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E7%BB%93%E6%9E%9C.png">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E8%BF%87%E6%BB%A4%E9%87%8D%E5%A4%8D.png">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E6%94%B9%E5%8F%98%E7%A2%B0%E6%92%9E%E6%9E%84%E4%BB%B6%E9%A2%9C%E8%89%B2.png">
+<meta property="og:updated_time" content="2017-02-24T16:08:40.830Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Dynamo | 使用Dynamo实现批量碰撞检测">
+<meta name="twitter:description" content="概述在Dynamo的Geometry节点分组下有许多几何相关的节点，功能非常强大并且实用。本章主要讲如何利用几何相关节点批量的进行碰撞检测。其实要用Revit API实现硬碰撞检测还是比较简单的，几行代码就能搞定，但是要实现软碰撞则相对困难，因为没有相关的API可以使用，如果要调用第三方的库有涉及到几何转化的问题，要不就需要自己去造车轮子了。而利用Dynamo却能轻松解决，因为Dynamo不已经有">
+  
+    <link rel="alternative" href="/atom.xml" title="秋味笔记" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/img/615.png">
+  
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="/font-awesome/css/font-awesome.min.css">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  
+</head>
+<body>
+  <div id="container">
+    <div class="left-col">
+    <div class="overlay"></div>
+<div class="intrude-less">
+    <header id="header" class="inner">
+        <a href="/" class="profilepic">
+            
+            <img lazy-src="/img/avatar.png" class="js-avatar">
+            
+        </a>
+
+        <hgroup>
+          <h1 class="header-author"><a href="/">秋味</a></h1>
+        </hgroup>
+
+        
+        <p class="header-subtitle">前沿BIM、参数化与建筑可视化研究，致力于推进下一代计算机辅助设计。</p>
+        
+                
+
+
+        
+            <div id="switch-btn" class="switch-btn">
+                <div class="icon">
+                    <div class="icon-ctn">
+                        <div class="icon-wrap icon-house" data-idx="0">
+                            <div class="birdhouse"></div>
+                            <div class="birdhouse_holes"></div>
+                        </div>
+                        <div class="icon-wrap icon-ribbon hide" data-idx="1">
+                            <div class="ribbon"></div>
+                        </div>
+                        
+                        <div class="icon-wrap icon-link hide" data-idx="2">
+                            <div class="loopback_l"></div>
+                            <div class="loopback_r"></div>
+                        </div>
+                        
+                        
+                        <div class="icon-wrap icon-me hide" data-idx="3">
+                            <div class="user"></div>
+                            <div class="shoulder"></div>
+                        </div>
+                        
+                    </div>
+                    
+                </div>
+                <div class="tips-box hide">
+                    <div class="tips-arrow"></div>
+                    <ul class="tips-inner">
+                        <li>菜单</li>
+                        <li>标签</li>
+                        
+                        <li>友情链接</li>
+                        
+                        
+                        <li>关于我</li>
+                        
+                    </ul>
+                </div>
+            </div>
+        
+
+        <div id="switch-area" class="switch-area">
+            <div class="switch-wrap">
+                <section class="switch-part switch-part1">
+                    <nav class="header-menu">
+                        <ul>
+                        
+                            <li><a href="/">主页</a></li>
+                        
+                            <li><a href="/archives/">所有文章</a></li>
+                        
+                            <li><a href="/tags/">标签云</a></li>
+                        
+                            <li><a href="/about/">关于我</a></li>
+                        
+                        </ul>
+                    </nav>
+                    <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <li id="新浪微博"><a class="新浪微博" target="_blank" href="http://weibo.com/frobo" title="新浪微博"></a></li>
+                            
+                                <li id="GitHub"><a class="GitHub" target="_blank" href="https://github.com/LiuBoChangSha/LiuBoChangSha.github.io" title="GitHub"></a></li>
+                            
+                                <li id="RSS"><a class="RSS" target="_blank" href="/atom.xml" title="RSS"></a></li>
+                            
+                                <li id="微信"><a class="微信" target="_blank" href="http://7xpt80.com1.z0.glb.clouddn.com/AutumnFlavorWx.png" title="微信"></a></li>
+                            
+                        </ul>
+                    </nav>
+                </section>
+                
+                
+                <section class="switch-part switch-part2">
+                    <div class="widget tagcloud" id="js-tagcloud">
+                        <li><a href="/tags/64位/" style="font-size: 10px;">64位</a></li> <li><a href="/tags/AVF/" style="font-size: 10px;">AVF</a></li> <li><a href="/tags/Access/" style="font-size: 10px;">Access</a></li> <li><a href="/tags/Dynamo/" style="font-size: 10px;">Dynamo</a></li> <li><a href="/tags/ExporterIFCUtils/" style="font-size: 10px;">ExporterIFCUtils</a></li> <li><a href="/tags/FilteredElementCollector/" style="font-size: 10px;">FilteredElementCollector</a></li> <li><a href="/tags/Modelo/" style="font-size: 10px;">Modelo</a></li> <li><a href="/tags/NewFloor/" style="font-size: 10px;">NewFloor</a></li> <li><a href="/tags/Revit/" style="font-size: 15px;">Revit</a></li> <li><a href="/tags/Revit-API-2014/" style="font-size: 10px;">Revit API 2014</a></li> <li><a href="/tags/VR/" style="font-size: 10px;">VR</a></li> <li><a href="/tags/WebGL/" style="font-size: 10px;">WebGL</a></li> <li><a href="/tags/mdb/" style="font-size: 10px;">mdb</a></li> <li><a href="/tags/oppening/" style="font-size: 10px;">oppening</a></li> <li><a href="/tags/profile/" style="font-size: 10px;">profile</a></li> <li><a href="/tags/shader/" style="font-size: 10px;">shader</a></li> <li><a href="/tags/wall/" style="font-size: 10px;">wall</a></li> <li><a href="/tags/凯威特/" style="font-size: 15px;">凯威特</a></li> <li><a href="/tags/参数化/" style="font-size: 20px;">参数化</a></li> <li><a href="/tags/地形/" style="font-size: 10px;">地形</a></li> <li><a href="/tags/地理空间数据云/" style="font-size: 10px;">地理空间数据云</a></li> <li><a href="/tags/斜楼板/" style="font-size: 10px;">斜楼板</a></li> <li><a href="/tags/族名称/" style="font-size: 10px;">族名称</a></li> <li><a href="/tags/碰撞检测/" style="font-size: 10px;">碰撞检测</a></li> <li><a href="/tags/网架/" style="font-size: 15px;">网架</a></li>
+                    </div>
+                </section>
+                
+                
+                
+                <section class="switch-part switch-part3">
+                    <div id="js-friends">
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://hexo.io">Hexo</a>
+                    
+                      <a target="_blank" class="main-nav-link switch-friends-link" href="https://pages.github.com/">GitHub</a>
+                    
+                    </div>
+                </section>
+                
+
+                
+                
+                <section class="switch-part switch-part4">
+                
+                    <div id="js-aboutme">优秀很容易，卓越很难。</div>
+                </section>
+                
+            </div>
+        </div>
+    </header>                
+</div>
+    </div>
+    <div class="mid-col">
+      <nav id="mobile-nav">
+      <div class="overlay">
+          <div class="slider-trigger"></div>
+          <h1 class="header-author js-mobile-header hide"><a href="/" title="回到主页">秋味</a></h1>
+      </div>
+    <div class="intrude-less">
+        <header id="header" class="inner">
+            <a href="/" class="profilepic">
+                <img lazy-src="/img/avatar.png" class="js-avatar">
+            </a>
+            <hgroup>
+              <h1 class="header-author"><a href="/" title="回到主页">秋味</a></h1>
+            </hgroup>
+            
+            <p class="header-subtitle">前沿BIM、参数化与建筑可视化研究，致力于推进下一代计算机辅助设计。</p>
+            
+            <nav class="header-menu">
+                <ul>
+                
+                    <li><a href="/">主页</a></li>
+                
+                    <li><a href="/archives/">所有文章</a></li>
+                
+                    <li><a href="/tags/">标签云</a></li>
+                
+                    <li><a href="/about/">关于我</a></li>
+                
+                <div class="clearfix"></div>
+                </ul>
+            </nav>
+            <nav class="header-nav">
+                        <ul class="social">
+                            
+                                <li id="新浪微博"><a class="新浪微博" target="_blank" href="http://weibo.com/frobo" title="新浪微博"></a></li>
+                            
+                                <li id="GitHub"><a class="GitHub" target="_blank" href="https://github.com/LiuBoChangSha/LiuBoChangSha.github.io" title="GitHub"></a></li>
+                            
+                                <li id="RSS"><a class="RSS" target="_blank" href="/atom.xml" title="RSS"></a></li>
+                            
+                                <li id="微信"><a class="微信" target="_blank" href="http://7xpt80.com1.z0.glb.clouddn.com/AutumnFlavorWx.png" title="微信"></a></li>
+                            
+                        </ul>
+            </nav>
+        </header>                
+    </div>
+</nav>
+      <div class="body-wrap"><article id="post-Dynamo-使用Dynamo实现批量碰撞检测" class="article article-type-post" itemscope itemprop="blogPost">
+  
+    <div class="article-meta">
+      <a href="/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/" class="article-date">
+      <time datetime="2017-02-24T13:51:34.000Z" itemprop="datePublished">2017-02-24</time>
+</a>
+    </div>
+  
+  <div class="article-inner">
+    
+      <input type="hidden" class="isFancy" />
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      Dynamo | 使用Dynamo实现批量碰撞检测
+    </h1>
+  
+
+      </header>
+      
+      <div class="article-info article-info-post">
+        
+    <div class="article-category tagcloud">
+    <a class="article-category-link" href="/categories/Dynamo/">Dynamo</a>
+    </div>
+
+
+        
+    <div class="article-tag tagcloud">
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dynamo/">Dynamo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/参数化/">参数化</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/碰撞检测/">碰撞检测</a></li></ul>
+    </div>
+
+        <div class="clearfix"></div>
+      </div>
+      
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+          
+        <h3 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h3><p>在Dynamo的Geometry节点分组下有许多几何相关的节点，功能非常强大并且实用。本章主要讲如何利用几何相关节点批量的进行碰撞检测。其实要用Revit API实现硬碰撞检测还是比较简单的，几行代码就能搞定，但是要实现软碰撞则相对困难，因为没有相关的API可以使用，如果要调用第三方的库有涉及到几何转化的问题，要不就需要自己去造车轮子了。而利用Dynamo却能轻松解决，因为Dynamo不已经有实现软硬碰撞的节点，还能直接将Revit中的几何直接转化成Dynamo工作空间的几何。主要的节点是Geometry.DoesIntersect节点和Geometry.DistanceTo节点。如下图，我们可以看到，两个节点的用法完全相同，只是Geometry.DoesIntersect节点输出的是布尔值，而Geometry.DistanceTo会输出两个几何构件之间的实际距离，当距离为零的时候，是发生了硬碰撞，距离不为零但是超过容许值则可认为构件发生了软碰撞。</p>
+<p><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E8%8A%82%E7%82%B9.png" alt="碰撞检测节点"><br><a id="more"></a></p>
+<p>在Revit中进行设计的时候，常常会需要对构件的位置进行判断，比如是否发生构件碰撞，施工操作空间是否足够等，一些市政管线项目则会对各专业管线的安全距离作出要求。Revit自带的碰撞检测还有NV中的都不太好用。比如设定检测范围时不够灵活，再比如画管线的时候，管线和弯头、设备之间发生的碰撞我们可能认为是正常的，但是软件仍然会输出结果，无效结果过多则等于没有做分析。而Dynamo则能比较完美的解决这些问题。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E6%A6%82%E8%A7%88%E5%9B%BE.png" alt="概览"></p>
+<h3 id="u5B9E_u73B0_u8FC7_u7A0B"><a href="#u5B9E_u73B0_u8FC7_u7A0B" class="headerlink" title="实现过程"></a>实现过程</h3><h4 id="u6784_u4EF6_u8FC7_u6EE4"><a href="#u6784_u4EF6_u8FC7_u6EE4" class="headerlink" title="构件过滤"></a>构件过滤</h4><p>首先要解决的是如何避免不想检测的范围，比如相同专业的管线直接不检测碰撞，仅对不同专业之间的构件进行检测。这里就需要构件到构件精确的过滤。Dynamo的Selection节点组下边提供了几种常见的过滤器，在View分组下还有一个All Elements In Active View的节点过滤当前视图的所有构件。建议关闭几何图形预览，否则会比较卡。</p>
+<p><img src="http://7xpt80.com1.z0.glb.clouddn.com/Element%20Collector.png" alt="element collector"><img src="http://7xpt80.com1.z0.glb.clouddn.com/ElementInViewCollector.png" alt=""></p>
+<p>然后对获取到的构件进行二次过滤即可得到想要的构件组合。如下图节点可以过滤出当前视图中所有的“专业”参数的参数值为“2”的构件。注意这里的“专业”参数的储存类型是字符串，如果存储类型是其他类型，则输入端节点应当随之改变。</p>
+<p><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E5%8F%82%E6%95%B0%E5%88%A4%E6%96%AD.png" alt="参数判断"></p>
+<p>当然也可以通过简单的脚本来实现过滤，全凭喜好。</p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Copyright (c) 2017, 刘博</span></span><br><span class="line"><span class="comment">#The Author's Blog http://autumnflavor.com</span></span><br><span class="line"><span class="comment">#This Script is for collecting the elements with given parameter value.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Default imports</span></span><br><span class="line"><span class="keyword">import</span> clr</span><br><span class="line"></span><br><span class="line"><span class="comment"># Import RevitAPI</span></span><br><span class="line">clr.<span class="type">AddReference</span>(<span class="string">"RevitAPI"</span>)</span><br><span class="line"><span class="keyword">import</span> <span class="type">Autodesk</span></span><br><span class="line"><span class="keyword">from</span> <span class="type">Autodesk</span>.<span class="type">Revit</span>.<span class="type">DB</span> <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># Import DocumentManager and TransactionManager</span></span><br><span class="line">clr.<span class="type">AddReference</span>(<span class="string">"RevitServices"</span>)</span><br><span class="line"><span class="keyword">import</span> <span class="type">RevitServices</span></span><br><span class="line"><span class="keyword">from</span> <span class="type">RevitServices</span>.<span class="type">Persistence</span> <span class="keyword">import</span> <span class="type">DocumentManager</span></span><br><span class="line"><span class="keyword">from</span> <span class="type">RevitServices</span>.<span class="type">Transactions</span> <span class="keyword">import</span> <span class="type">TransactionManager</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Import ToDSType(bool) extension method</span></span><br><span class="line">clr.<span class="type">AddReference</span>(<span class="string">"RevitNodes"</span>)</span><br><span class="line"><span class="keyword">import</span> <span class="type">Revit</span></span><br><span class="line">clr.<span class="type">ImportExtensions</span>(<span class="type">Revit</span>.<span class="type">Elements</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#The input to this node will be stored in the IN[0] variable.</span></span><br><span class="line"></span><br><span class="line">doc =  <span class="type">DocumentManager</span>.<span class="type">Instance</span>.<span class="type">CurrentDBDocument</span></span><br><span class="line">app =  <span class="type">DocumentManager</span>.<span class="type">Instance</span>.<span class="type">CurrentUIApplication</span>.<span class="type">Application</span></span><br><span class="line"></span><br><span class="line">elements = <span class="type">UnwrapElement</span>(<span class="type">IN</span>[<span class="number">0</span>])</span><br><span class="line">parameter = <span class="type">IN</span>[<span class="number">1</span>]</span><br><span class="line">paramValue = <span class="type">IN</span>[<span class="number">2</span>]</span><br><span class="line"></span><br><span class="line"><span class="literal">result</span> = []</span><br><span class="line"><span class="keyword">if</span> hasattr(elements, <span class="string">"__iter__"</span>):</span><br><span class="line">	<span class="keyword">for</span> elem <span class="keyword">in</span> elements:		</span><br><span class="line">		<span class="keyword">for</span> p <span class="keyword">in</span> elem.<span class="type">Parameters</span>:</span><br><span class="line">			<span class="keyword">if</span> p.<span class="type">Definition</span>.<span class="type">Name</span> == parameter:		</span><br><span class="line">				currentValue = p.<span class="type">AsString</span>()</span><br><span class="line">				<span class="keyword">if</span> (currentValue == paramValue):</span><br><span class="line">					<span class="literal">result</span>.append(elem)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#Assign your output to the OUT variable</span></span><br><span class="line"><span class="type">OUT</span> = <span class="literal">result</span></span><br></pre></td></tr></table></figure>
+<h4 id="u6784_u4EF6_u5206_u7EC4"><a href="#u6784_u4EF6_u5206_u7EC4" class="headerlink" title="构件分组"></a>构件分组</h4><p>按照上一步的方法分别取出“专业”为“1”和“2”的两组构件，此时对每一分租内部的构件应当不进行碰撞检测，而不同组之间的构件应当进行两两检测，此时直接利用Dynamo的笛卡尔积节点就可以得到两两分组。</p>
+<p><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E7%AC%9B%E5%8D%A1%E5%B0%94%E7%A7%AF.png" alt="笛卡尔积"></p>
+<h4 id="u78B0_u649E_u68C0_u6D4B"><a href="#u78B0_u649E_u68C0_u6D4B" class="headerlink" title="碰撞检测"></a>碰撞检测</h4><p>把上一步操作中分组好的构件分别取出来，再讲构件的几何进行两两组合检测分析。这里只演示了硬碰撞检测，因为软碰撞检测是一样的用法，只需要设置一个阈值进行大小判断。</p>
+<p><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E8%8A%82%E7%82%B9-%E8%BF%9B%E8%A1%8C%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B.png" alt=""></p>
+<p><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E7%BB%93%E6%9E%9C.png" alt=""></p>
+<p>碰撞结果中有重复的构件，写一个小脚本过滤一下就好。可以看到脚本节点左侧的输入端对数据类型是没有限制的。脚本可以打包成自定义节点，这样可以对输入端的数据类型做进一步的约束，以免发生不必要的错误。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E8%BF%87%E6%BB%A4%E9%87%8D%E5%A4%8D.png" alt=""></p>
+<figure class="highlight nimrod"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#Copyright (c) 2017, 刘博</span></span><br><span class="line"><span class="comment">#The Author's Blog http://autumnflavor.com</span></span><br><span class="line"><span class="comment">#This Script is for collecting the elements with given parameter value.</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Default imports</span></span><br><span class="line"><span class="keyword">import</span> clr</span><br><span class="line"></span><br><span class="line"><span class="comment"># Import RevitAPI</span></span><br><span class="line">clr.<span class="type">AddReference</span>(<span class="string">"RevitAPI"</span>)</span><br><span class="line"><span class="keyword">import</span> <span class="type">Autodesk</span></span><br><span class="line"><span class="keyword">from</span> <span class="type">Autodesk</span>.<span class="type">Revit</span>.<span class="type">DB</span> <span class="keyword">import</span> *</span><br><span class="line"></span><br><span class="line"><span class="comment"># Import DocumentManager and TransactionManager</span></span><br><span class="line">clr.<span class="type">AddReference</span>(<span class="string">"RevitServices"</span>)</span><br><span class="line"><span class="keyword">import</span> <span class="type">RevitServices</span></span><br><span class="line"><span class="keyword">from</span> <span class="type">RevitServices</span>.<span class="type">Persistence</span> <span class="keyword">import</span> <span class="type">DocumentManager</span></span><br><span class="line"><span class="keyword">from</span> <span class="type">RevitServices</span>.<span class="type">Transactions</span> <span class="keyword">import</span> <span class="type">TransactionManager</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Import ToDSType(bool) extension method</span></span><br><span class="line">clr.<span class="type">AddReference</span>(<span class="string">"RevitNodes"</span>)</span><br><span class="line"><span class="keyword">import</span> <span class="type">Revit</span></span><br><span class="line">clr.<span class="type">ImportExtensions</span>(<span class="type">Revit</span>.<span class="type">Elements</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">#The input to this node will be stored in the IN[0] variable.</span></span><br><span class="line"></span><br><span class="line">doc =  <span class="type">DocumentManager</span>.<span class="type">Instance</span>.<span class="type">CurrentDBDocument</span></span><br><span class="line">app =  <span class="type">DocumentManager</span>.<span class="type">Instance</span>.<span class="type">CurrentUIApplication</span>.<span class="type">Application</span></span><br><span class="line"></span><br><span class="line">elements = <span class="type">UnwrapElement</span>(<span class="type">IN</span>[<span class="number">0</span>])</span><br><span class="line"></span><br><span class="line"><span class="literal">result</span> = []</span><br><span class="line">ids = []</span><br><span class="line"><span class="keyword">if</span> hasattr(elements, <span class="string">"__iter__"</span>):</span><br><span class="line">	<span class="keyword">for</span> elem <span class="keyword">in</span> elements:</span><br><span class="line">		id = elem.<span class="type">Id</span>.<span class="type">IntegerValue</span></span><br><span class="line">		<span class="keyword">if</span> <span class="keyword">not</span> elem.<span class="type">Id</span>.<span class="type">IntegerValue</span> <span class="keyword">in</span> ids:</span><br><span class="line">			ids.append(id)</span><br><span class="line">			<span class="literal">result</span>.append(elem)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">#Assign your output to the OUT variable</span></span><br><span class="line"><span class="type">OUT</span> = <span class="literal">result</span></span><br></pre></td></tr></table></figure>
+<p>将碰撞结果为true的构件取出，可获取到一个碰撞构件清单，在视图中将颜色改变为红色，可在Revit中进行查看。如下图中，蓝色构件为专业1，黄色构件为专业2，红色为检测到的碰撞构件。灰色显示的构件则没有进行判断，成功的运行了算法，对两个不同专业的模型做出了正确的碰撞检测判断结果。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E6%94%B9%E5%8F%98%E7%A2%B0%E6%92%9E%E6%9E%84%E4%BB%B6%E9%A2%9C%E8%89%B2.png" alt=""></p>
+<h3 id="u5410_u69FD_u51E0_u53E5"><a href="#u5410_u69FD_u51E0_u53E5" class="headerlink" title="吐槽几句"></a>吐槽几句</h3><p>这几天我的Dynamo程序变得极度不友好了，单独启动一点问题没有，但是在Revit中启动却常常在进入软件的瞬间直接假死，连文档都来不及打开。现在能不能用这个软件全凭运气，开个十几次大概能成功一次，完全不知道问题出在了哪里，期待尽快出下一个版本可以更新一下。</p>
+
+           
+    </div>
+    
+  </div>
+  
+    
+    <div class="copyright">
+        <p><span>本文标题:</span><a href="/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/">Dynamo | 使用Dynamo实现批量碰撞检测</a></p>
+        <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
+        <p><span>发布时间:</span>2017年02月24日 - 21时51分</p>
+        <p><span>最后更新:</span>2017年02月25日 - 00时08分</p>
+        <p>
+            <span>原始链接:</span><a class="post-url" href="/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/" title="Dynamo | 使用Dynamo实现批量碰撞检测">http://http://autumnflavor.com/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <script src="/js/clipboard.min.js"></script>
+            <script> var clipboard = new Clipboard('.copy-path'); </script>
+        </p>
+        <p>
+            <span>许可协议:</span><i class="fa fa-creative-commons"></i> <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/3.0/cn/" title="中国大陆 (CC BY-NC-SA 3.0 CN)">"署名-非商用-相同方式共享 3.0"</a> 转载请保留原文链接及作者。
+        </p>
+    </div>
+
+
+
+    <nav id="article-nav">
+        
+        
+            <div id="article-nav-older" class="article-nav-title">
+                <a href="/2017/02/18/Dynamo-单层凯威特空间网架/">
+                    Dynamo|单层凯威特空间网壳
+                </a>
+            </div>
+        
+    </nav>
+
+  
+</article>
+
+    <div id="toc" class="toc-article">
+    <strong class="toc-title">文章目录</strong>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5B9E_u73B0_u8FC7_u7A0B"><span class="toc-number">2.</span> <span class="toc-text">实现过程</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#u6784_u4EF6_u8FC7_u6EE4"><span class="toc-number">2.1.</span> <span class="toc-text">构件过滤</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u6784_u4EF6_u5206_u7EC4"><span class="toc-number">2.2.</span> <span class="toc-text">构件分组</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#u78B0_u649E_u68C0_u6D4B"><span class="toc-number">2.3.</span> <span class="toc-text">碰撞检测</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5410_u69FD_u51E0_u53E5"><span class="toc-number">3.</span> <span class="toc-text">吐槽几句</span></a></li></ol>
+</div>
+<style>
+    .left-col .switch-btn {
+        display: none;
+    }
+    .left-col .switch-area {
+        display: none;
+    }
+</style>
+
+<input type="button" id="tocButton" value="隐藏目录"  title="点击按钮隐藏或者显示文章目录">
+
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script>
+    var toc_button = document.getElementById("tocButton");
+    var toc_div = document.getElementById("toc");
+    toc_button.onclick=function() {
+        if (toc_div.style.display == "none") {
+            toc_div.style.display = "block";
+            toc_button.value = "隐藏目录";
+            document.getElementById("switch-btn").style.display = "none";
+            document.getElementById("switch-area").style.display = "none";
+        }
+        else {
+            toc_div.style.display = "none";
+            toc_button.value = "显示目录";
+            document.getElementById("switch-btn").style.display = "block";
+            document.getElementById("switch-area").style.display = "block";
+        }
+    }
+
+    if ($(".toc").length < 1) {
+        $("#toc").css("display","none");
+        $("#tocButton").css("display","none");
+        $(".switch-btn").css("display","block");
+        $(".switch-area").css("display","block");
+    }
+</script>
+
+
+
+
+<div class="share">
+    <div class="bdsharebuttonbox">
+    <a href="#" class="bds_more" data-cmd="more"></a>
+    <a href="#" class="bds_tsina" data-cmd="tsina" title="分享到新浪微博"></a>
+    <a href="#" class="bds_sqq" data-cmd="sqq" title="分享给 QQ 好友"></a>
+    <a href="#" class="bds_copy" data-cmd="copy" title="复制网址"></a>
+    <a href="#" class="bds_mail" data-cmd="mail" title="通过邮件分享"></a>
+    <a href="#" class="bds_weixin" data-cmd="weixin" title="生成文章二维码"></a>
+    </div>
+    <script>
+        window._bd_share_config={
+            "common":{"bdSnsKey":{},"bdText":"","bdMini":"2","bdMiniList":false,"bdPic":"","bdStyle":"0","bdSize":"24"},"share":{}};with(document)0[(getElementsByTagName('head')[0]||body).appendChild(createElement('script')).src='http://bdimg.share.baidu.com/static/api/js/share.js?v=89860593.js?cdnversion='+~(-new Date()/36e5)];
+    </script>
+</div>
+
+
+
+    
+      <div class="duoshuo" id="comments">
+    <!-- 多说评论框 start -->
+    <div class="ds-thread" data-thread-key="2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/" data-title="Dynamo | 使用Dynamo实现批量碰撞检测" data-url="http://http://autumnflavor.com/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/"></div>
+    <!-- 多说评论框 end -->
+    <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+    <script type="text/javascript">
+    /*var duoshuoQuery = {short_name:"null"};*/
+    var duoshuoQuery = {short_name:"autumnflavor"};
+    (function() {
+        var ds = document.createElement('script');
+        ds.type = 'text/javascript';ds.async = true;
+        ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+        ds.charset = 'UTF-8';
+        (document.getElementsByTagName('head')[0] 
+         || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+    </script>
+    <!-- 多说公共JS代码 end -->
+</div>
+
+    
+
+
+
+
+    <div class="scroll" id="post-nav-button">
+        
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
+        
+
+        <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
+
+        
+            <a href="/2017/02/18/Dynamo-单层凯威特空间网架/" title="下一篇: Dynamo|单层凯威特空间网壳">
+                <i class="fa fa-angle-right"></i>
+            </a>
+        
+    </div>
+
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/">Dynamo | 使用Dynamo实现批量碰撞检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Dynamo-单层凯威特空间网架/">Dynamo|单层凯威特空间网壳</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/21/GH-单层凯威特网架/">GH | 凯威特单层网壳</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/13/Revit-API-斜楼板/">Revit API 斜楼板</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/没有地形文件的情况下建立项目地形/">没有地形文件的情况下建立项目地形</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/04/Revit-API-Analysis-Visualisation-Framework/">Revit API - Analysis Visualisation Framework</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/13/Revit-API-ExporterIFCUtils获取墙洞口及轮廓线/">Revit API - ExporterIFCUtils获取墙洞口及轮廓线</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/15/Modelo-基于WebGL的可视化解决方案/">Modelo | 基于WebGL的可视化解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/27/Unity3D之Standard-Shader初探/">Unity3D之Standard Shader初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/14/Revit中获取族名称通用代码/">Revit中获取族名称通用代码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/06/Revit中调用Access数据库/">Revit中调用Access数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/05/Revit-API之元素检索优化/">Revit API之元素检索优化</a></li></ul>
+    <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
+    <script>
+        $(".post-list").addClass("toc-article");
+        $(".post-list-item a").attr("target","_blank");
+        $("#post-nav-button > a:nth-child(2)").click(function() {
+            $(".fa-bars, .fa-times").toggle();
+            $(".post-list").toggle(300);
+            if ($(".toc").length > 0) {
+                $("#toc, #tocButton").toggle(200);
+            }
+            else {
+                $(".switch-btn, .switch-area").toggle(200);
+            }
+        })
+    </script>
+
+
+
+
+    
+        <link rel="stylesheet" href="/fancybox/jquery.fancybox.css" type="text/css">
+        <script>
+            var yiliaConfig = {
+            fancybox: true,
+            mathjax: true,
+            animate: true,
+            isHome: false,
+            isPost: true,
+            isArchive: false,
+            isTag: false,
+            isCategory: false,
+            open_in_new: false
+            }
+        </script>
+        
+
+
+</div>
+      <footer id="footer">
+    <div class="outer">
+        <div id="footer-info">
+            <div class="footer-left">
+                &copy; 2017 秋味
+            </div>
+            <div class="footer-right">
+                Powered by <a href="http://hexo.io/" target="_blank" title="快速、简洁且高效的静态博客框架">Hexo</a>, Theme <a href="https://github.com/MOxFIVE/hexo-theme-yelee">YeLee</a>
+            </div>
+        </div>
+        <div class="visit">
+            <span id="busuanzi_container_site_pv" style='display:none'>
+                <span id="site-visit" >本站到访数:
+                    <span id="busuanzi_value_site_uv"></span>
+                </span>
+            </span>
+            <span id="busuanzi_container_page_pv" style='display:none'>
+                <span id="page-visit">, 本页阅读量:
+                    <span id="busuanzi_value_page_pv"></span>
+                </span>
+            </span>
+        </div>
+    </div>
+</footer>
+
+    </div>
+    
+
+<script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="/js/main.js" type="text/javascript"></script>
+
+    <script>
+        $(document).ready(function() {
+            var iPad = window.navigator.userAgent.indexOf('iPad');
+            if (iPad > -1 || $(".left-col").css("display") === "none") {
+                var bgColorList = ["#9db3f4", "#414141", "#e5a859", "#f5dfc6", "#c084a0", "#847e72", "#cd8390", "#996731"];
+                var bgColor = Math.ceil(Math.random() * (bgColorList.length - 1));
+                $("body").css({"background-color": bgColorList[bgColor], "background-size": "cover"});
+            }
+            else {
+                var backgroundnum = 5;
+                var backgroundimg = "url(/background/bg-x.jpg)".replace(/x/gi, Math.ceil(Math.random() * backgroundnum));
+                $("body").css({"background": backgroundimg, "background-attachment": "fixed", "background-size": "cover"});
+            }
+        })
+    </script>
+
+
+
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';                 
+    }       
+});
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+
+
+<div class="scroll" id="scroll">
+    <a href="#" title="返回顶部"><i class="fa fa-arrow-up"></i></a>
+    <a href="#comments" title="查看评论"><i class="fa fa-comments-o"></i></a>
+    <a href="#footer" title="转到底部"><i class="fa fa-arrow-down"></i></a>
+</div>
+
+<script>
+    $(document).ready(function() {
+        if ($("#comments").length < 1) {
+            $("#scroll > a:nth-child(2)").hide();
+        };
+    })
+</script>
+
+<script async src="https://dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js">
+</script>
+  </div>
+</body>
+</html>
