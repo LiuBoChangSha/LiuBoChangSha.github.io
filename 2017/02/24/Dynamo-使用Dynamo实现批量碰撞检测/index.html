@@ -21,7 +21,7 @@
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E7%BB%93%E6%9E%9C.png">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E8%BF%87%E6%BB%A4%E9%87%8D%E5%A4%8D.png">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E6%94%B9%E5%8F%98%E7%A2%B0%E6%92%9E%E6%9E%84%E4%BB%B6%E9%A2%9C%E8%89%B2.png">
-<meta property="og:updated_time" content="2017-02-24T16:16:45.281Z">
+<meta property="og:updated_time" content="2017-02-24T16:22:15.560Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dynamo | 使用Dynamo实现批量碰撞检测">
 <meta name="twitter:description" content="概述在Revit中进行设计的时候，常常会需要对构件的位置进行判断，比如是否发生构件碰撞，施工操作空间是否足够等，一些市政管线项目则会对各专业管线的安全距离作出要求。Revit自带的碰撞检测还有NV中的都不太好用。比如设定检测范围时不够灵活，再比如画管线的时候，管线和弯头、设备之间发生的碰撞我们可能认为是正常的，但是软件仍然会输出结果，无效结果过多则等于没有做分析。而Dynamo则能比较完美的解决这">
@@ -254,8 +254,9 @@
           
         <h3 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h3><p>在Revit中进行设计的时候，常常会需要对构件的位置进行判断，比如是否发生构件碰撞，施工操作空间是否足够等，一些市政管线项目则会对各专业管线的安全距离作出要求。Revit自带的碰撞检测还有NV中的都不太好用。比如设定检测范围时不够灵活，再比如画管线的时候，管线和弯头、设备之间发生的碰撞我们可能认为是正常的，但是软件仍然会输出结果，无效结果过多则等于没有做分析。而Dynamo则能比较完美的解决这些问题。</p>
 <p><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E6%A6%82%E8%A7%88%E5%9B%BE.png" alt="概览"></p>
+<a id="more"></a>
 <p>Dynamo的Geometry节点分组下有许多几何相关的节点，功能非常强大并且实用。本章主要讲如何利用几何相关节点批量的进行碰撞检测。其实要用Revit API实现硬碰撞检测还是比较简单的，几行代码就能搞定，但是要实现软碰撞则相对困难，因为没有相关的API可以使用，如果要调用第三方的库有涉及到几何转化的问题，要不就需要自己去造车轮子了。而利用Dynamo却能轻松解决这个问题，因为Dynamo不仅已经有实现软硬碰撞的节点，还能直接将Revit中的几何直接转化成Dynamo工作空间的几何。主要使用到的功能节点是Geometry.DoesIntersect节点和Geometry.DistanceTo节点。如下图，可以看到两个节点的用法完全相同，只是Geometry.DoesIntersect节点输出的是布尔值，而Geometry.DistanceTo会输出两个几何构件之间的实际距离，当距离为零的时候，是发生了硬碰撞，距离不为零但是超过容许值则可认为构件发生了软碰撞。</p>
-<p><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E8%8A%82%E7%82%B9.png" alt="碰撞检测节点"><br><a id="more"></a></p>
+<p><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E7%A2%B0%E6%92%9E%E6%A3%80%E6%B5%8B%E8%8A%82%E7%82%B9.png" alt="碰撞检测节点"></p>
 <h3 id="u5B9E_u73B0_u8FC7_u7A0B"><a href="#u5B9E_u73B0_u8FC7_u7A0B" class="headerlink" title="实现过程"></a>实现过程</h3><h4 id="u6784_u4EF6_u8FC7_u6EE4"><a href="#u6784_u4EF6_u8FC7_u6EE4" class="headerlink" title="构件过滤"></a>构件过滤</h4><p>首先要解决的是如何避免不想检测的范围，比如相同专业的管线直接不检测碰撞，仅对不同专业之间的构件进行检测。这里就需要构件到构件精确的过滤。Dynamo的Selection节点组下边提供了几种常见的过滤器，在View分组下还有一个All Elements In Active View的节点过滤当前视图的所有构件。建议关闭几何图形预览，否则会比较卡。</p>
 <p><img src="http://7xpt80.com1.z0.glb.clouddn.com/Element%20Collector.png" alt="element collector"><img src="http://7xpt80.com1.z0.glb.clouddn.com/ElementInViewCollector.png" alt=""></p>
 <p>然后对获取到的构件进行二次过滤即可得到想要的构件组合。如下图节点可以过滤出当前视图中所有的“专业”参数的参数值为“2”的构件。注意这里的“专业”参数的储存类型是字符串，如果存储类型是其他类型，则输入端节点应当随之改变。</p>
@@ -283,7 +284,7 @@
         <p><span>本文标题:</span><a href="/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/">Dynamo | 使用Dynamo实现批量碰撞检测</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
         <p><span>发布时间:</span>2017年02月24日 - 21时51分</p>
-        <p><span>最后更新:</span>2017年02月25日 - 00时16分</p>
+        <p><span>最后更新:</span>2017年02月25日 - 00时22分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/" title="Dynamo | 使用Dynamo实现批量碰撞检测">http://http://autumnflavor.com/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/</a>
             <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
