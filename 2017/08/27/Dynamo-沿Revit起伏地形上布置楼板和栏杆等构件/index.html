@@ -3,11 +3,11 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Dynamo|沿Revit起伏地形上布置楼板和栏杆等构件 | 秋味笔记</title>
+  <title>Dynamo|沿Revit起伏地形上布置道路和栏杆等构件 | 秋味笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="概述虽然Revit已经是一个三维软件了，但是作为一个建筑偏向的软件，其布置构件的方式仍然沿用了以往的平面布置模式。这样做的好处是既沿用了原来的绘图习惯，同时在绘制规则建筑时效率较高。缺点是要在Revit中按空间曲面或曲线来布置构件会比较困难。这种困难在设计地形、总图，或是市政相关项目的时候变得异常明显，因为这些项目往往难以找到一个“标高”或是平面来描述它。本章主要记录如何在Revit中根据地形来布">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Dynamo|沿Revit起伏地形上布置楼板和栏杆等构件">
+<meta property="og:title" content="Dynamo|沿Revit起伏地形上布置道路和栏杆等构件">
 <meta property="og:url" content="http://http://autumnflavor.com/2017/08/27/Dynamo-沿Revit起伏地形上布置楼板和栏杆等构件/index.html">
 <meta property="og:site_name" content="秋味笔记">
 <meta property="og:description" content="概述虽然Revit已经是一个三维软件了，但是作为一个建筑偏向的软件，其布置构件的方式仍然沿用了以往的平面布置模式。这样做的好处是既沿用了原来的绘图习惯，同时在绘制规则建筑时效率较高。缺点是要在Revit中按空间曲面或曲线来布置构件会比较困难。这种困难在设计地形、总图，或是市政相关项目的时候变得异常明显，因为这些项目往往难以找到一个“标高”或是平面来描述它。本章主要记录如何在Revit中根据地形来布">
@@ -17,9 +17,9 @@
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E6%A5%BC%E6%9D%BF%E6%95%88%E6%9E%9C.png">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E6%A0%8F%E6%9D%86%E7%AD%89.png">
 <meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png">
-<meta property="og:updated_time" content="2017-08-27T14:03:50.128Z">
+<meta property="og:updated_time" content="2017-08-27T14:14:08.374Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Dynamo|沿Revit起伏地形上布置楼板和栏杆等构件">
+<meta name="twitter:title" content="Dynamo|沿Revit起伏地形上布置道路和栏杆等构件">
 <meta name="twitter:description" content="概述虽然Revit已经是一个三维软件了，但是作为一个建筑偏向的软件，其布置构件的方式仍然沿用了以往的平面布置模式。这样做的好处是既沿用了原来的绘图习惯，同时在绘制规则建筑时效率较高。缺点是要在Revit中按空间曲面或曲线来布置构件会比较困难。这种困难在设计地形、总图，或是市政相关项目的时候变得异常明显，因为这些项目往往难以找到一个“标高”或是平面来描述它。本章主要记录如何在Revit中根据地形来布">
   
     <link rel="alternative" href="/atom.xml" title="秋味笔记" type="application/atom+xml">
@@ -223,7 +223,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Dynamo|沿Revit起伏地形上布置楼板和栏杆等构件
+      Dynamo|沿Revit起伏地形上布置道路和栏杆等构件
     </h1>
   
 
@@ -248,12 +248,12 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h3><p>虽然Revit已经是一个三维软件了，但是作为一个建筑偏向的软件，其布置构件的方式仍然沿用了以往的平面布置模式。这样做的好处是既沿用了原来的绘图习惯，同时在绘制规则建筑时效率较高。缺点是要在Revit中按空间曲面或曲线来布置构件会比较困难。这种困难在设计地形、总图，或是市政相关项目的时候变得异常明显，因为这些项目往往难以找到一个“标高”或是平面来描述它。本章主要记录如何在Revit中根据地形来布置楼板，以及栏杆等构件。<br><a id="more"></a></p>
-<h3 id="u697C_u677F"><a href="#u697C_u677F" class="headerlink" title="楼板"></a>楼板</h3><p>沿地形上绘制楼板在用于小区的坡道、市政道路的时候比较方便，绘制成果也美观。实现原理其实很简单，利用楼板的重设形状功能添加对应的点即可。不过如果认为来设点，过程实在太过于繁琐，而且容易出错。我们要借助于Dynamo来实现这个过程，以保证效率和准确。原本要用电池来实现这个过程还是比较费心的，不过一番搜索发现Dynamo上已经有插件可以做到了：Clockwork。这里就不造车轮子，只简单介绍其用法。首先下载Clockwork，截止到现在，最新版是Clockwork for Dynamo 1.X: <img src="http://7xpt80.com1.z0.glb.clouddn.com/Clockwork.png" alt="Clockwork"></p>
+        <h3 id="u6982_u8FF0"><a href="#u6982_u8FF0" class="headerlink" title="概述"></a>概述</h3><p>虽然Revit已经是一个三维软件了，但是作为一个建筑偏向的软件，其布置构件的方式仍然沿用了以往的平面布置模式。这样做的好处是既沿用了原来的绘图习惯，同时在绘制规则建筑时效率较高。缺点是要在Revit中按空间曲面或曲线来布置构件会比较困难。这种困难在设计地形、总图，或是市政相关项目的时候变得异常明显，因为这些项目往往难以找到一个“标高”或是平面来描述它。本章主要记录如何在Revit中根据地形来布置道路、栏杆等构件。<br><a id="more"></a></p>
+<h3 id="u9053_u8DEF_uFF08_u697C_u677F_uFF09"><a href="#u9053_u8DEF_uFF08_u697C_u677F_uFF09" class="headerlink" title="道路（楼板）"></a>道路（楼板）</h3><p>沿地形上绘制楼板在用于小区的坡道、市政道路的时候比较方便，绘制成果也美观。实现原理其实很简单，利用楼板的重设形状功能添加对应的点即可。不过如果认为来设点，过程实在太过于繁琐，而且容易出错。我们要借助于Dynamo来实现这个过程，以保证效率和准确。原本要用电池来实现这个过程还是比较费心的，不过一番搜索发现Dynamo上已经有插件可以做到了：Clockwork。这里就不造车轮子，只简单介绍其用法。首先下载Clockwork，截止到现在，最新版是Clockwork for Dynamo 1.X: <img src="http://7xpt80.com1.z0.glb.clouddn.com/Clockwork.png" alt="Clockwork"></p>
 <p>需要做的准备工作很简单，首先将要绘制楼板的区域用模型线画出来，然后利用场地中的拆分表面功能将地形切开。<img src="http://7xpt80.com1.z0.glb.clouddn.com/%E5%88%87%E5%BC%80%E5%9C%B0%E5%BD%A2.png" alt=""></p>
 <p>地形切开后，利用同样的轮廓线建立平面上的楼板，此时，我们就有了平面楼板，和楼板需要附着的地形表面。接下来使用Clockwork的SlabShapeByPoingts电池即可将楼板重建。电池非常简单，只需要将刚才的轮廓区域的地形和楼板分别选取进来。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E6%A5%BC%E6%9D%BF%E7%94%B5%E6%B1%A0.png" alt=""></p>
 <p>下图是建好后，楼板的效果<img src="http://7xpt80.com1.z0.glb.clouddn.com/%E6%A5%BC%E6%9D%BF%E6%95%88%E6%9E%9C.png" alt=""></p>
-<h3 id="u680F_u6746"><a href="#u680F_u6746" class="headerlink" title="栏杆"></a>栏杆</h3><p>Revit 2017版已经改进了自带的栏杆功能，开始可以沿地形布置栏杆了。这里强行用Dynamo来做显得有点勉强了。不过用Dy的好处是，对电池稍作修改，即可用来画市政管线，来布置路灯杆等等。我们知道使用Infraworks来做这些事情是很迅速的，拉一条线就可以做到了，在Revit中使用Dynamo，其实也可以实现类似的效果。核心的电池仍然很简单，向地形表面做投影即可。不过无论是Curve.Project电池还是Point.Project接受的都是几何电池，因此比较难的是如何将TopoGraphy地形转变为Surface。暂时还没有找到相关的电池，这里写了一个Code Block来实现。<br><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">iA=<span class="keyword">List</span>.GetItemAtIndex(T.<span class="keyword">Mesh</span>.VertexPositions,T.<span class="keyword">Mesh</span>.FaceIndices.A);</span><br><span class="line">iB=<span class="keyword">List</span>.GetItemAtIndex(T.<span class="keyword">Mesh</span>.VertexPositions,T.<span class="keyword">Mesh</span>.FaceIndices.B);</span><br><span class="line">iC=<span class="keyword">List</span>.GetItemAtIndex(T.<span class="keyword">Mesh</span>.VertexPositions,T.<span class="keyword">Mesh</span>.FaceIndices.<span class="keyword">C</span>);</span><br><span class="line">TopoSurf=PolySurface.ByJoinedSurfaces(Surface.ByPerimeterPoints(<span class="keyword">List</span>.<span class="keyword">Transpose</span>(<span class="list">&#123;iA,iB,iC&#125;</span>)));</span><br></pre></td></tr></table></figure></p>
+<h3 id="u680F_u6746_u548C_u5176_u4ED6_u6CBF_u7EBF_u6761_u5E03_u7F6E_u7684_u6784_u4EF6"><a href="#u680F_u6746_u548C_u5176_u4ED6_u6CBF_u7EBF_u6761_u5E03_u7F6E_u7684_u6784_u4EF6" class="headerlink" title="栏杆和其他沿线条布置的构件"></a>栏杆和其他沿线条布置的构件</h3><p>Revit 2017版已经改进了自带的栏杆功能，开始可以沿地形布置栏杆了。这里强行用Dynamo来做显得有点勉强了。不过用Dy的好处是，对电池稍作修改，即可用来画市政管线，来布置路灯杆等等。我们知道使用Infraworks来做这些事情是很迅速的，拉一条线就可以做到了，在Revit中使用Dynamo，其实也可以实现类似的效果。核心的电池仍然很简单，向地形表面做投影即可。不过无论是Curve.Project电池还是Point.Project接受的都是几何电池，因此比较难的是如何将TopoGraphy地形转变为Surface。暂时还没有找到相关的电池，这里写了一个Code Block来实现。<br><figure class="highlight mathematica"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">iA=<span class="keyword">List</span>.GetItemAtIndex(T.<span class="keyword">Mesh</span>.VertexPositions,T.<span class="keyword">Mesh</span>.FaceIndices.A);</span><br><span class="line">iB=<span class="keyword">List</span>.GetItemAtIndex(T.<span class="keyword">Mesh</span>.VertexPositions,T.<span class="keyword">Mesh</span>.FaceIndices.B);</span><br><span class="line">iC=<span class="keyword">List</span>.GetItemAtIndex(T.<span class="keyword">Mesh</span>.VertexPositions,T.<span class="keyword">Mesh</span>.FaceIndices.<span class="keyword">C</span>);</span><br><span class="line">TopoSurf=PolySurface.ByJoinedSurfaces(Surface.ByPerimeterPoints(<span class="keyword">List</span>.<span class="keyword">Transpose</span>(<span class="list">&#123;iA,iB,iC&#125;</span>)));</span><br></pre></td></tr></table></figure></p>
 <p><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E6%A0%8F%E6%9D%86%E7%AD%89.png" alt=""><br>获取到投影点以后，后边就可以尽情DIY了，可以布置栏杆，或者沿线布置其他构件皆可。这里随便画了几个，效果如下：<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/%E6%9C%80%E7%BB%88%E6%95%88%E6%9E%9C.png" alt=""></p>
 
            
@@ -263,12 +263,12 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2017/08/27/Dynamo-沿Revit起伏地形上布置楼板和栏杆等构件/">Dynamo|沿Revit起伏地形上布置楼板和栏杆等构件</a></p>
+        <p><span>本文标题:</span><a href="/2017/08/27/Dynamo-沿Revit起伏地形上布置楼板和栏杆等构件/">Dynamo|沿Revit起伏地形上布置道路和栏杆等构件</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
         <p><span>发布时间:</span>2017年08月27日 - 19时24分</p>
-        <p><span>最后更新:</span>2017年08月27日 - 22时03分</p>
+        <p><span>最后更新:</span>2017年08月27日 - 22时14分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2017/08/27/Dynamo-沿Revit起伏地形上布置楼板和栏杆等构件/" title="Dynamo|沿Revit起伏地形上布置楼板和栏杆等构件">http://http://autumnflavor.com/2017/08/27/Dynamo-沿Revit起伏地形上布置楼板和栏杆等构件/</a>
+            <span>原始链接:</span><a class="post-url" href="/2017/08/27/Dynamo-沿Revit起伏地形上布置楼板和栏杆等构件/" title="Dynamo|沿Revit起伏地形上布置道路和栏杆等构件">http://http://autumnflavor.com/2017/08/27/Dynamo-沿Revit起伏地形上布置楼板和栏杆等构件/</a>
             <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2017/08/27/Dynamo-沿Revit起伏地形上布置楼板和栏杆等构件/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
@@ -296,7 +296,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u697C_u677F"><span class="toc-number">2.</span> <span class="toc-text">楼板</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u680F_u6746"><span class="toc-number">3.</span> <span class="toc-text">栏杆</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u6982_u8FF0"><span class="toc-number">1.</span> <span class="toc-text">概述</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u9053_u8DEF_uFF08_u697C_u677F_uFF09"><span class="toc-number">2.</span> <span class="toc-text">道路（楼板）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u680F_u6746_u548C_u5176_u4ED6_u6CBF_u7EBF_u6761_u5E03_u7F6E_u7684_u6784_u4EF6"><span class="toc-number">3.</span> <span class="toc-text">栏杆和其他沿线条布置的构件</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -359,7 +359,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2017/08/27/Dynamo-沿Revit起伏地形上布置楼板和栏杆等构件/" data-title="Dynamo|沿Revit起伏地形上布置楼板和栏杆等构件" data-url="http://http://autumnflavor.com/2017/08/27/Dynamo-沿Revit起伏地形上布置楼板和栏杆等构件/"></div>
+    <div class="ds-thread" data-thread-key="2017/08/27/Dynamo-沿Revit起伏地形上布置楼板和栏杆等构件/" data-title="Dynamo|沿Revit起伏地形上布置道路和栏杆等构件" data-url="http://http://autumnflavor.com/2017/08/27/Dynamo-沿Revit起伏地形上布置楼板和栏杆等构件/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -396,7 +396,7 @@
         
     </div>
 
-    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/27/Dynamo-沿Revit起伏地形上布置楼板和栏杆等构件/">Dynamo|沿Revit起伏地形上布置楼板和栏杆等构件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/">Dynamo | 使用Dynamo实现批量碰撞检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Dynamo-单层凯威特空间网架/">Dynamo|单层凯威特空间网壳</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/21/GH-单层凯威特网架/">GH | 凯威特单层网壳</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/13/Revit-API-斜楼板/">Revit API 斜楼板</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/没有地形文件的情况下建立项目地形/">没有地形文件的情况下建立项目地形</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/04/Revit-API-Analysis-Visualisation-Framework/">Revit API - Analysis Visualisation Framework</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/13/Revit-API-ExporterIFCUtils获取墙洞口及轮廓线/">Revit API - ExporterIFCUtils获取墙洞口及轮廓线</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/15/Modelo-基于WebGL的可视化解决方案/">Modelo | 基于WebGL的可视化解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/27/Unity3D之Standard-Shader初探/">Unity3D之Standard Shader初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/14/Revit中获取族名称通用代码/">Revit中获取族名称通用代码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/06/Revit中调用Access数据库/">Revit中调用Access数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/05/Revit-API之元素检索优化/">Revit API之元素检索优化</a></li></ul>
+    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2017/08/27/Dynamo-沿Revit起伏地形上布置楼板和栏杆等构件/">Dynamo|沿Revit起伏地形上布置道路和栏杆等构件</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/24/Dynamo-使用Dynamo实现批量碰撞检测/">Dynamo | 使用Dynamo实现批量碰撞检测</a></li><li class="post-list-item"><a class="post-list-link" href="/2017/02/18/Dynamo-单层凯威特空间网架/">Dynamo|单层凯威特空间网壳</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/21/GH-单层凯威特网架/">GH | 凯威特单层网壳</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/11/13/Revit-API-斜楼板/">Revit API 斜楼板</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/16/没有地形文件的情况下建立项目地形/">没有地形文件的情况下建立项目地形</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/07/04/Revit-API-Analysis-Visualisation-Framework/">Revit API - Analysis Visualisation Framework</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/06/13/Revit-API-ExporterIFCUtils获取墙洞口及轮廓线/">Revit API - ExporterIFCUtils获取墙洞口及轮廓线</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/02/15/Modelo-基于WebGL的可视化解决方案/">Modelo | 基于WebGL的可视化解决方案</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/27/Unity3D之Standard-Shader初探/">Unity3D之Standard Shader初探</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/14/Revit中获取族名称通用代码/">Revit中获取族名称通用代码</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/06/Revit中调用Access数据库/">Revit中调用Access数据库</a></li><li class="post-list-item"><a class="post-list-link" href="/2016/01/05/Revit-API之元素检索优化/">Revit API之元素检索优化</a></li></ul>
     <script src="http://7.url.cn/edu/jslib/comb/require-2.1.6,jquery-1.9.1.min.js"></script>
     <script>
         $(".post-list").addClass("toc-article");
