@@ -3,22 +3,25 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Revit API - ExporterIFCUtils获取墙洞口及轮廓线 | 秋味笔记</title>
+  <title>Dynamo | 使用Dynamo实现动态时钟和Strandbeest | 秋味笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="好久没有更新博客了，刚开始定的目标是一个月写四篇，这也是叶大神当时给自己定的目标，听起来很容易实现，然而一个月过了以后我都不记得还有博客了……很多东西看起来简单，难在持之以恒。今年无论是工作上还是生活上事情太多，完全打乱了我的节奏。
-下面进入本篇的主题，在Revit API中有一些类的功能比较特殊，它能够解决一些非常棘手的问题，但是这些类的命名方式和其他类有比价大的区别，因此这些功能往往隐藏得比较">
+  <meta name="description" content="以前一直以为用GH做动画很蠢，直到看到了陈辉大神的动画，当场就跪下了。不过我很少做动画，直到现在用GH做动画还停留在拖滑块的程度。Dynamo用得还不如GH，所以更加不忍直视。
+动态时钟动态时钟还是比较好实现的，首先获取到系统时间，然后把时分秒分别解析出来，换算成钟表上每个指针的旋转角度，传入参数即可。这里要注意dynamo中有和时间差有关的节点时，需要点击选择“周期性”模式来运行，“手动”和“自">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Revit API - ExporterIFCUtils获取墙洞口及轮廓线">
-<meta property="og:url" content="http://http://autumnflavor.com/2016/06/13/Revit-API-ExporterIFCUtils获取墙洞口及轮廓线/index.html">
+<meta property="og:title" content="Dynamo | 使用Dynamo实现动态时钟和Strandbeest">
+<meta property="og:url" content="http://http://autumnflavor.com/2017/09/10/Dynamo-使用Dynamo实现动态时钟和Strandbeest/index.html">
 <meta property="og:site_name" content="秋味笔记">
-<meta property="og:description" content="好久没有更新博客了，刚开始定的目标是一个月写四篇，这也是叶大神当时给自己定的目标，听起来很容易实现，然而一个月过了以后我都不记得还有博客了……很多东西看起来简单，难在持之以恒。今年无论是工作上还是生活上事情太多，完全打乱了我的节奏。
-下面进入本篇的主题，在Revit API中有一些类的功能比较特殊，它能够解决一些非常棘手的问题，但是这些类的命名方式和其他类有比价大的区别，因此这些功能往往隐藏得比较">
-<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/GetInstanceCutoutFromWall.png">
-<meta property="og:updated_time" content="2016-06-13T13:58:13.105Z">
+<meta property="og:description" content="以前一直以为用GH做动画很蠢，直到看到了陈辉大神的动画，当场就跪下了。不过我很少做动画，直到现在用GH做动画还停留在拖滑块的程度。Dynamo用得还不如GH，所以更加不忍直视。
+动态时钟动态时钟还是比较好实现的，首先获取到系统时间，然后把时分秒分别解析出来，换算成钟表上每个指针的旋转角度，传入参数即可。这里要注意dynamo中有和时间差有关的节点时，需要点击选择“周期性”模式来运行，“手动”和“自">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/image/DyClockDyClock.png">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/image/DyClockclockgif20170910_140206.gif">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/image/Strandbeeststrandbeestgif20170910_211257.gif">
+<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/image/Strandbeeststrandbeestgif20170910_212238.gif">
+<meta property="og:updated_time" content="2017-09-10T13:29:29.232Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Revit API - ExporterIFCUtils获取墙洞口及轮廓线">
-<meta name="twitter:description" content="好久没有更新博客了，刚开始定的目标是一个月写四篇，这也是叶大神当时给自己定的目标，听起来很容易实现，然而一个月过了以后我都不记得还有博客了……很多东西看起来简单，难在持之以恒。今年无论是工作上还是生活上事情太多，完全打乱了我的节奏。
-下面进入本篇的主题，在Revit API中有一些类的功能比较特殊，它能够解决一些非常棘手的问题，但是这些类的命名方式和其他类有比价大的区别，因此这些功能往往隐藏得比较">
+<meta name="twitter:title" content="Dynamo | 使用Dynamo实现动态时钟和Strandbeest">
+<meta name="twitter:description" content="以前一直以为用GH做动画很蠢，直到看到了陈辉大神的动画，当场就跪下了。不过我很少做动画，直到现在用GH做动画还停留在拖滑块的程度。Dynamo用得还不如GH，所以更加不忍直视。
+动态时钟动态时钟还是比较好实现的，首先获取到系统时间，然后把时分秒分别解析出来，换算成钟表上每个指针的旋转角度，传入参数即可。这里要注意dynamo中有和时间差有关的节点时，需要点击选择“周期性”模式来运行，“手动”和“自">
   
     <link rel="alternative" href="/atom.xml" title="秋味笔记" type="application/atom+xml">
   
@@ -204,11 +207,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-Revit-API-ExporterIFCUtils获取墙洞口及轮廓线" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Dynamo-使用Dynamo实现动态时钟和Strandbeest" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/06/13/Revit-API-ExporterIFCUtils获取墙洞口及轮廓线/" class="article-date">
-      <time datetime="2016-06-13T11:56:12.000Z" itemprop="datePublished">2016-06-13</time>
+      <a href="/2017/09/10/Dynamo-使用Dynamo实现动态时钟和Strandbeest/" class="article-date">
+      <time datetime="2017-09-10T12:18:45.000Z" itemprop="datePublished">2017-09-10</time>
 </a>
     </div>
   
@@ -221,7 +224,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Revit API - ExporterIFCUtils获取墙洞口及轮廓线
+      Dynamo | 使用Dynamo实现动态时钟和Strandbeest
     </h1>
   
 
@@ -230,13 +233,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Revit-API/">Revit API</a>
+    <a class="article-category-link" href="/categories/Dynamo/">Dynamo</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ExporterIFCUtils/">ExporterIFCUtils</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/oppening/">oppening</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/profile/">profile</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/wall/">wall</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dynamo/">Dynamo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Strandbeest/">Strandbeest</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/时钟/">时钟</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -246,28 +249,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>好久没有更新博客了，刚开始定的目标是一个月写四篇，这也是叶大神当时给自己定的目标，听起来很容易实现，然而一个月过了以后我都不记得还有博客了……很多东西看起来简单，难在持之以恒。今年无论是工作上还是生活上事情太多，完全打乱了我的节奏。</p>
-<p>下面进入本篇的主题，在Revit API中有一些类的功能比较特殊，它能够解决一些非常棘手的问题，但是这些类的命名方式和其他类有比价大的区别，因此这些功能往往隐藏得比较深，不深入探索一下都不会知道API原来还有这样的功能。笔者有时也不知不觉造了好多车轮子以后才发现API竟然提供了相应的功能，只能吐一口老血。</p>
-<p>本篇要讲的是ExporterIFCUtils这个类，这是一个毫不起眼的类，甚至不再Revit.DB的Assembly中，因为我没有想要导出IFC，所以也从对它未给予过重视。今天才发现其中有很多通用功能，并不完全是基于导出IFC设定的。其中包括获取墙立面轮廓线和墙洞口轮廓线的功能，这两个功能要通过几何分析来实现的话着实是一件让人蛋疼的工作。<br><a id="more"></a></p>
-<h3 id="u83B7_u53D6_u95E8_u7A97_u6D1E_u53E3"><a href="#u83B7_u53D6_u95E8_u7A97_u6D1E_u53E3" class="headerlink" title="获取门窗洞口"></a>获取门窗洞口</h3><ul>
-<li>GetInstanceCutoutFromWall<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static CurveLoop GetInstanceCutoutFromW<span class="literal">all</span>(</span><br><span class="line">	Document pADoc,</span><br><span class="line">	W<span class="literal">all</span> pVW<span class="literal">all</span>,</span><br><span class="line">	FamilyInstance pFamInst,</span><br><span class="line">	<span class="keyword">out</span> XYZ pCutDir</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>门窗的几何中包含了门框、窗框的信息，而对建筑设计来说洞口的尺寸往往更重要，而要通过几何分析把洞口的尺寸找出来是很费劲的，比如通过墙的几何可以获取洞口，但是这个洞口属于哪个门窗需要进一步的几何判断。这个GetInstanceCutoutFromWall()获取的刚好就是洞口的轮廓线，返回一个CurveLoop对象。<br><figure class="highlight ceylon"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">Wall wall = door.Host as Wall;</span><br><span class="line">Document <span class="annotation">doc</span> = door.Document;</span><br><span class="line">XYZ dir = wall.Orientation;</span><br><span class="line">CurveLoop curveLoop = ExporterIFCUtils.GetInstanceCutoutFromWall(</span><br><span class="line">                    <span class="annotation">doc</span>, wall, door, <span class="keyword">out</span> dir);</span><br><span class="line">foreach (Curve curve <span class="keyword">in</span> curveLoop)</span><br><span class="line">&#123;  </span><br><span class="line">  <span class="annotation">doc</span>.Create.NewModelCurve(curve, SketchPlane.Create(<span class="annotation">doc</span>, <span class="keyword">new</span> Plane(dir, curve.GetEndPoint(<span class="number">0</span>))));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>调用方式非常简洁直观，下边是得到的窗户的轮廓线。<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/GetInstanceCutoutFromWall.png" alt="洞口轮廓"></p>
-<h3 id="u83B7_u53D6_u5899_u7ACB_u9762_u8F6E_u5ED3"><a href="#u83B7_u53D6_u5899_u7ACB_u9762_u8F6E_u5ED3" class="headerlink" title="获取墙立面轮廓"></a>获取墙立面轮廓</h3><ul>
-<li>GetDoor2DArcsFromFamily<figure class="highlight pf"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">public static IList<span class="variable">&lt;CurveLoop&gt;</span> GetElevationProfile(</span><br><span class="line">	W<span class="literal">all</span> pVW<span class="literal">all</span></span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-<p>这个方法意外地不能执行，报错信息是Autodesk.Revit.Exceptions.ArgumentException: The wall does not have an elevation profile.墙没有立面轮廓，很奇怪，因此要获取墙立面目前来看只能通过几何分析的方式。<a href="http://thebuildingcoder.typepad.com/blog/2015/04/curved-wall-elevation-profile-and-creator-class-update.html" target="_blank" rel="external">BuildingCoder</a>有详细的解决方案。</p>
-<h3 id="u5176_u4ED6_u6709_u8DA3_u7684_u529F_u80FD"><a href="#u5176_u4ED6_u6709_u8DA3_u7684_u529F_u80FD" class="headerlink" title="其他有趣的功能"></a>其他有趣的功能</h3><ul>
-<li>GetDoor2DArcsFromFamily</li>
-</ul>
-<p>获取门在二维视图中标示开启方向的指示弧线。</p>
-<ul>
-<li>SortCurveLoops</li>
-</ul>
-<p>可以区分轮廓线的“里”“外”。</p>
+        <p>以前一直以为用GH做动画很蠢，直到看到了陈辉大神的动画，当场就跪下了。不过我很少做动画，直到现在用GH做动画还停留在拖滑块的程度。Dynamo用得还不如GH，所以更加不忍直视。<br></p>
+<h3 id="u52A8_u6001_u65F6_u949F"><a href="#u52A8_u6001_u65F6_u949F" class="headerlink" title="动态时钟"></a>动态时钟</h3><p>动态时钟还是比较好实现的，首先获取到系统时间，然后把时分秒分别解析出来，换算成钟表上每个指针的旋转角度，传入参数即可。<br><br><img src="http://7xpt80.com1.z0.glb.clouddn.com/image/DyClockDyClock.png" alt="dynamoclock"><br><br>这里要注意dynamo中有和时间差有关的节点时，需要点击选择“周期性”模式来运行，“手动”和“自动”模式都不会生效。完成以后就是如下的效果：<br><br><img src="http://7xpt80.com1.z0.glb.clouddn.com/image/DyClockclockgif20170910_140206.gif" alt="clock"><br><br>Code Block的注释如下：<br><br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 如果是24小时制，则需要换算成12小时制时间</span></span><br><span class="line">hNow = time[<span class="number">0</span>]&gt;<span class="number">12</span>?time[<span class="number">0</span>]-<span class="number">12</span>:time[<span class="number">0</span>];</span><br><span class="line">minNow = time[<span class="number">1</span>];</span><br><span class="line"><span class="comment">// 秒数后有好几位小数，指针时钟做不到那么精确，取整</span></span><br><span class="line">secNow = Math.Round(time[<span class="number">2</span>],<span class="number">0</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 秒针每秒钟跳一次</span></span><br><span class="line">secAng = <span class="number">360</span>/<span class="number">60</span>*secNow;</span><br><span class="line"><span class="comment">// 分针每分钟跳一次</span></span><br><span class="line">minAng = <span class="number">360</span>/<span class="number">60</span>*minNow;</span><br><span class="line"><span class="comment">// 时针也是每分钟跳一次</span></span><br><span class="line">hAng = <span class="number">360</span>/<span class="number">12</span>*(hNow+minNow/<span class="number">60</span>);</span><br></pre></td></tr></table></figure></p>
+<h3 id="Strandbeest"><a href="#Strandbeest" class="headerlink" title="Strandbeest"></a>Strandbeest</h3><p>这个其实很早就想做了，最开始是看到李卓给发的视频，<a href="http://www.redhotbim.com/2015/01/strandbeest-with-dynamo-and-revit.html" target="_blank" rel="external">RedHotBIM</a>做了一个酷炫的Dy动画，搜了一下发现是Dynamo在推上发起的一个挑战，当然没几个人响应，就RedHotBIM给力。。<br><br>因为想在Revit中直接看效果，所以没有选择RedHotBIM直接在Dynamo中做几何的方式，而是和实现动态时钟时一样做了族。一条腿的时候其实表现还能接受的<br><br><img src="http://7xpt80.com1.z0.glb.clouddn.com/image/Strandbeeststrandbeestgif20170910_211257.gif" alt="singleLeg"><br><br>拼了四条腿刚刚够站起来就已经卡的不行了，阿西吧，一点都不像海边的风力仿生怪兽，像一个奄奄一息瘸腿螃蟹<br><br><img src="http://7xpt80.com1.z0.glb.clouddn.com/image/Strandbeeststrandbeestgif20170910_212238.gif" alt="Strandbeest"><br><br>倒腾了半天，还是没法解决卡顿的问题，暂时看来用族来解决这个问题应该是不行的。今天已经很晚了，后边有时间再用Dynamo直接几何实现Strandbeest，然后DirectShape它试试看吧。且听下回分解。</p>
 
            
     </div>
@@ -276,13 +260,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/06/13/Revit-API-ExporterIFCUtils获取墙洞口及轮廓线/">Revit API - ExporterIFCUtils获取墙洞口及轮廓线</a></p>
+        <p><span>本文标题:</span><a href="/2017/09/10/Dynamo-使用Dynamo实现动态时钟和Strandbeest/">Dynamo | 使用Dynamo实现动态时钟和Strandbeest</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
-        <p><span>发布时间:</span>2016年06月13日 - 19时56分</p>
-        <p><span>最后更新:</span>2016年06月13日 - 21时58分</p>
+        <p><span>发布时间:</span>2017年09月10日 - 20时18分</p>
+        <p><span>最后更新:</span>2017年09月10日 - 21时29分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/06/13/Revit-API-ExporterIFCUtils获取墙洞口及轮廓线/" title="Revit API - ExporterIFCUtils获取墙洞口及轮廓线">http://http://autumnflavor.com/2016/06/13/Revit-API-ExporterIFCUtils获取墙洞口及轮廓线/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2016/06/13/Revit-API-ExporterIFCUtils获取墙洞口及轮廓线/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/09/10/Dynamo-使用Dynamo实现动态时钟和Strandbeest/" title="Dynamo | 使用Dynamo实现动态时钟和Strandbeest">http://http://autumnflavor.com/2017/09/10/Dynamo-使用Dynamo实现动态时钟和Strandbeest/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2017/09/10/Dynamo-使用Dynamo实现动态时钟和Strandbeest/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -295,16 +279,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/07/04/Revit-API-Analysis-Visualisation-Framework/">
-                    Revit API - Analysis Visualisation Framework
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/02/15/Modelo-基于WebGL的可视化解决方案/">
-                    Modelo | 基于WebGL的可视化解决方案
+                <a href="/2017/09/02/BIM-如何利用Autodesk-Remake将照片转换为三维模型/">
+                    BIM | 如何利用Autodesk Remake将照片转换为三维模型
                 </a>
             </div>
         
@@ -315,7 +293,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u83B7_u53D6_u95E8_u7A97_u6D1E_u53E3"><span class="toc-number">1.</span> <span class="toc-text">获取门窗洞口</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u83B7_u53D6_u5899_u7ACB_u9762_u8F6E_u5ED3"><span class="toc-number">2.</span> <span class="toc-text">获取墙立面轮廓</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5176_u4ED6_u6709_u8DA3_u7684_u529F_u80FD"><span class="toc-number">3.</span> <span class="toc-text">其他有趣的功能</span></a></li></ol>
+    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#u52A8_u6001_u65F6_u949F"><span class="toc-number">1.</span> <span class="toc-text">动态时钟</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Strandbeest"><span class="toc-number">2.</span> <span class="toc-text">Strandbeest</span></a></li></ol>
 </div>
 <style>
     .left-col .switch-btn {
@@ -378,7 +356,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/06/13/Revit-API-ExporterIFCUtils获取墙洞口及轮廓线/" data-title="Revit API - ExporterIFCUtils获取墙洞口及轮廓线" data-url="http://http://autumnflavor.com/2016/06/13/Revit-API-ExporterIFCUtils获取墙洞口及轮廓线/"></div>
+    <div class="ds-thread" data-thread-key="2017/09/10/Dynamo-使用Dynamo实现动态时钟和Strandbeest/" data-title="Dynamo | 使用Dynamo实现动态时钟和Strandbeest" data-url="http://http://autumnflavor.com/2017/09/10/Dynamo-使用Dynamo实现动态时钟和Strandbeest/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -403,15 +381,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/07/04/Revit-API-Analysis-Visualisation-Framework/" title="上一篇: Revit API - Analysis Visualisation Framework">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/02/15/Modelo-基于WebGL的可视化解决方案/" title="下一篇: Modelo | 基于WebGL的可视化解决方案">
+            <a href="/2017/09/02/BIM-如何利用Autodesk-Remake将照片转换为三维模型/" title="下一篇: BIM | 如何利用Autodesk Remake将照片转换为三维模型">
                 <i class="fa fa-angle-right"></i>
             </a>
         
