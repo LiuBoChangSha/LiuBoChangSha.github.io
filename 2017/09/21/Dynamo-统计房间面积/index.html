@@ -3,26 +3,19 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Unity3D之Standard Shader初探 | 秋味笔记</title>
+  <title>Dynamo | 统计房间面积 | 秋味笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Standard shader简介  Unity5 除了个人版免费以外，还带来了诸多让人兴奋的变化，本篇文章将主要探索一下Unity5中全新的着色器——Standard Shader。名字很一般，但是它很有内涵，是一个基于物理着色（Physically Based Shading，PBS）的多功能着色器和以往的Shader相比，它的确能够出色地处理各种材料的表面材质，性能优异适用性广泛。  下图是">
+  <meta name="description" content="在建筑设计中常常需要统计房间面积，Revit软件中有对应的房间图元可以自动计算每个房间的面积，并且在明细表中可以方便的进行统计。但是计算规则稍稍复杂一点的时候，明细表实现起来就不太优雅了：比如阳台面积算一半，入户花园有的城市算全面积，有的算一半。明细表实现起来需要添加额外的参数，而参数需要手动来同步，一旦有遗漏就会造成统计错误。在这样的场景中使用Dynamo来实现会非常省心。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Unity3D之Standard Shader初探">
-<meta property="og:url" content="http://http://autumnflavor.com/2016/01/27/Unity3D之Standard-Shader初探/index.html">
+<meta property="og:title" content="Dynamo | 统计房间面积">
+<meta property="og:url" content="http://http://autumnflavor.com/2017/09/21/Dynamo-统计房间面积/index.html">
 <meta property="og:site_name" content="秋味笔记">
-<meta property="og:description" content="Standard shader简介  Unity5 除了个人版免费以外，还带来了诸多让人兴奋的变化，本篇文章将主要探索一下Unity5中全新的着色器——Standard Shader。名字很一般，但是它很有内涵，是一个基于物理着色（Physically Based Shading，PBS）的多功能着色器和以往的Shader相比，它的确能够出色地处理各种材料的表面材质，性能优异适用性广泛。  下图是">
-<meta property="og:image" content="http://docs.unity3d.com/uploads/Main/StandardShaderIntroVikingScene.png">
-<meta property="og:image" content="http://docs.unity3d.com/uploads/Main/StandardShaderParameterRenderMode.png">
-<meta property="og:image" content="http://docs.unity3d.com/uploads/Main/StandardShaderTransparencySkyBoxReflection.png">
-<meta property="og:image" content="http://docs.unity3d.com/uploads/Main/StandardShaderFadeHologram.png">
-<meta property="og:image" content="http://docs.unity3d.com/uploads/Main/StandardShaderCutoutGrassExample.png">
-<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/transparent.jpg">
-<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/GoldenBlue_weixinPT.jpg">
-<meta property="og:image" content="http://7xpt80.com1.z0.glb.clouddn.com/AutumnFlavorWx.png">
-<meta property="og:updated_time" content="2016-11-13T07:50:13.340Z">
+<meta property="og:description" content="在建筑设计中常常需要统计房间面积，Revit软件中有对应的房间图元可以自动计算每个房间的面积，并且在明细表中可以方便的进行统计。但是计算规则稍稍复杂一点的时候，明细表实现起来就不太优雅了：比如阳台面积算一半，入户花园有的城市算全面积，有的算一半。明细表实现起来需要添加额外的参数，而参数需要手动来同步，一旦有遗漏就会造成统计错误。在这样的场景中使用Dynamo来实现会非常省心。">
+<meta property="og:image" content="http://http://autumnflavor.com/imgs/countAreaForRomms.png">
+<meta property="og:updated_time" content="2017-09-21T12:39:19.886Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Unity3D之Standard Shader初探">
-<meta name="twitter:description" content="Standard shader简介  Unity5 除了个人版免费以外，还带来了诸多让人兴奋的变化，本篇文章将主要探索一下Unity5中全新的着色器——Standard Shader。名字很一般，但是它很有内涵，是一个基于物理着色（Physically Based Shading，PBS）的多功能着色器和以往的Shader相比，它的确能够出色地处理各种材料的表面材质，性能优异适用性广泛。  下图是">
+<meta name="twitter:title" content="Dynamo | 统计房间面积">
+<meta name="twitter:description" content="在建筑设计中常常需要统计房间面积，Revit软件中有对应的房间图元可以自动计算每个房间的面积，并且在明细表中可以方便的进行统计。但是计算规则稍稍复杂一点的时候，明细表实现起来就不太优雅了：比如阳台面积算一半，入户花园有的城市算全面积，有的算一半。明细表实现起来需要添加额外的参数，而参数需要手动来同步，一旦有遗漏就会造成统计错误。在这样的场景中使用Dynamo来实现会非常省心。">
   
     <link rel="alternative" href="/atom.xml" title="秋味笔记" type="application/atom+xml">
   
@@ -208,11 +201,11 @@
         </header>                
     </div>
 </nav>
-      <div class="body-wrap"><article id="post-Unity3D之Standard-Shader初探" class="article article-type-post" itemscope itemprop="blogPost">
+      <div class="body-wrap"><article id="post-Dynamo-统计房间面积" class="article article-type-post" itemscope itemprop="blogPost">
   
     <div class="article-meta">
-      <a href="/2016/01/27/Unity3D之Standard-Shader初探/" class="article-date">
-      <time datetime="2016-01-27T13:30:20.000Z" itemprop="datePublished">2016-01-27</time>
+      <a href="/2017/09/21/Dynamo-统计房间面积/" class="article-date">
+      <time datetime="2017-09-21T12:23:36.000Z" itemprop="datePublished">2017-09-21</time>
 </a>
     </div>
   
@@ -225,7 +218,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Unity3D之Standard Shader初探
+      Dynamo | 统计房间面积
     </h1>
   
 
@@ -234,13 +227,13 @@
       <div class="article-info article-info-post">
         
     <div class="article-category tagcloud">
-    <a class="article-category-link" href="/categories/Unity3D/">Unity3D</a>
+    <a class="article-category-link" href="/categories/Dynamo/">Dynamo</a>
     </div>
 
 
         
     <div class="article-tag tagcloud">
-        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shader/">shader</a></li></ul>
+        <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Dynamo/">Dynamo</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/房间/">房间</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/面积/">面积</a></li></ul>
     </div>
 
         <div class="clearfix"></div>
@@ -250,49 +243,7 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <h3 id="Standard_shader_u7B80_u4ECB"><a href="#Standard_shader_u7B80_u4ECB" class="headerlink" title="Standard shader简介"></a>Standard shader简介</h3><p>  Unity5 除了个人版免费以外，还带来了诸多让人兴奋的变化，本篇文章将主要探索一下Unity5中全新的着色器——<em>Standard Shader</em>。名字很一般，但是它很有<code>内涵</code>，是一个<code>基于物理着色</code>（Physically Based Shading，<code>PBS</code>）的多功能着色器和以往的Shader相比，它的确能够出色地处理各种材料的表面材质，性能优异适用性广泛。<br>  下图是Unity官方放出的Viking Village场景的截图，所有物体的材质全部使用Standard Shader，可见其功能之强大。</p>
-<p><img src="http://docs.unity3d.com/uploads/Main/StandardShaderIntroVikingScene.png" alt="Standard Shader"><br><a id="more"></a><br>  以下是一个Unity官方放出的Demo，用来展示PBS技术的效果。Demo中大部分材质都是用的是Standard（Specular Setup） Shader，即Standard Shader高光版。<br>  <a href="http://www.iqiyi.com/w_19rquxac31.html" target="_blank" rel="external">刷不出来点此链接</a></p>
-<embed src="http://player.video.qiyi.com/f0ce2fa43772bfdf95737b603bf3fe6c/0/0/w_19rquxac31.swf-albumId=2110313409-tvId=2110313409-isPurchase=0-cnId=8" allowfullscreen="true" quality="high" width="480" height="350" align="middle" allowscriptaccess="always" type="application/x-shockwave-flash">
-
-<p>对于Standard的更多资料可以参考：</p>
-<ul>
-<li>官方技术文档：<a href="http://docs.unity3d.com/Manual/shader-StandardShader.html" target="_blank" rel="external">Unity User Manual</a></li>
-<li>大神的博客：<a href="http://blog.csdn.net/poem_qianmo/article/details/49556461" target="_blank" rel="external">浅墨Unity3D Shader编程</a></li>
-</ul>
-<h3 id="u4F7F_u7528Standard_Shader"><a href="#u4F7F_u7528Standard_Shader" class="headerlink" title="使用Standard Shader"></a>使用Standard Shader</h3><p>本文仅是初探，不做太深入的探索，不过仅仅是初步的了解，Standard Shader已经带给我太多惊喜。<br>Standard Shader有四种渲染模式，分别是</p>
-<ul>
-<li>Opaque （不透明）</li>
-<li>Cutout （剪贴）</li>
-<li>Fade （消隐）</li>
-<li>Transparent （透明）</li>
-</ul>
-<p><img src="http://docs.unity3d.com/uploads/Main/StandardShaderParameterRenderMode.png" alt=""></p>
-<p>通过切换不同的渲染模式即可实现非常绚丽的显示效果，<a href="http://docs.unity3d.com/Manual/StandardShaderMaterialParameterRenderingMode.html" target="_blank" rel="external">Unity Manual</a>中展示了几张图片，效果简直像用了美图秀秀的自拍照！</p>
-<ul>
-<li><code>透明模式</code></li>
-</ul>
-<p><img src="http://docs.unity3d.com/uploads/Main/StandardShaderTransparencySkyBoxReflection.png" alt="Transparent"></p>
-<ul>
-<li><code>消隐模式</code></li>
-</ul>
-<p><img src="http://docs.unity3d.com/uploads/Main/StandardShaderFadeHologram.png" alt="Fade"></p>
-<ul>
-<li><code>剪贴模式</code></li>
-</ul>
-<p><img src="http://docs.unity3d.com/uploads/Main/StandardShaderCutoutGrassExample.png" alt="Cutout"></p>
-<p>除此之外还可以设置金属光泽和表面光滑度等等参数来实现不同的效果，这里不作过多的介绍。</p>
-<h3 id="u4EE3_u7801_u5B9E_u73B0"><a href="#u4EE3_u7801_u5B9E_u73B0" class="headerlink" title="代码实现"></a>代码实现</h3><p>由于工作的关系，秋味需要使用代码来实现渲染模式的切换，然而UI上的这些操作当然是没有对应的API来支撑，所以需要和传统的Shader一样来修改设置参数。在开发<a href="http://forum.unity3d.com/threads/material-rendering-mode-broken.314983/" target="_blank" rel="external">论坛</a>稍作搜索就可以发现有人已经做过了^_^，使用大公司产品就是靠谱！秋味对代码稍作修改使它更易于使用，代码分享在Github：<a href="https://github.com/LiuBoChangSha/Unity_StandardShader/blob/master/SetStandardShader" target="_blank" rel="external">SetStandardShader</a>，有兴趣的可以自行下载使用。</p>
-<p>调用它也非常简单，比如我希望通过材质颜色的Alpha通道来决定是否使用Transparent的渲染模式，只需要使用以下几行简单的的代码</p>
-<figure class="highlight processing"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">   <span class="keyword">public</span> <span class="keyword">static</span> Material CreateMaterial(Color <span class="built_in">color</span>)&#123;</span><br><span class="line">       <span class="comment">// 默认使用的是Opaque模式</span></span><br><span class="line">	Material mat = <span class="keyword">new</span> Material(Shader.Find(<span class="string">"Standard"</span>));		</span><br><span class="line">	mat.<span class="built_in">color</span> = <span class="built_in">color</span>;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// 判断Alpha通道，这里随意取一个值</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="built_in">color</span>.a &lt; <span class="number">0.92</span>) &#123;</span><br><span class="line">           <span class="comment">// 切换到Transparent模式</span></span><br><span class="line">		mat.SetMode(SetStandardShader.RenderingMode.Transparent);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">       <span class="comment">// 也可以设置表面粗糙度等，有待以后进一步完善</span></span><br><span class="line">	mat.SetSmoothness((<span class="built_in">float</span>)aMat.Smoothness);</span><br><span class="line">	<span class="keyword">return</span> mat;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这是调用以后显示的效果</p>
-<p><img src="http://7xpt80.com1.z0.glb.clouddn.com/transparent.jpg" alt="Transparent"></p>
-<h3 id="u5F15_u7528"><a href="#u5F15_u7528" class="headerlink" title="引用"></a>引用</h3><ul>
-<li>官方技术文档：<a href="http://docs.unity3d.com/Manual/shader-StandardShader.html" target="_blank" rel="external">Unity User Manual</a></li>
-<li>深入理解Unity5中的Standard Shader (一)&amp;屏幕水幕特效的实现：<a href="http://blog.csdn.net/poem_qianmo/article/details/49556461" target="_blank" rel="external">浅墨Unity3D Shader编程</a></li>
-<li>官方技术论坛文章：<a href="http://forum.unity3d.com/threads/material-rendering-mode-broken.314983/" target="_blank" rel="external">PEANU7回复</a></li>
-</ul>
-<h3 id="u7ED3_u8BED"><a href="#u7ED3_u8BED" class="headerlink" title="结语"></a>结语</h3><p>Standard Shader非常强大，今天的探索到此结束，以后再做更加深入的了解。</p>
-<p>欢迎转载，请<a href="http://autumnflavor.com/2016/01/05/Revit-API%E4%B9%8B%E5%85%83%E7%B4%A0%E6%A3%80%E7%B4%A2%E4%BC%98%E5%8C%96/" target="_blank" rel="external">注明出处！</a>欢迎关注微信公众号GoldenBlue_Dev<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/GoldenBlue_weixinPT.jpg" alt="GoldenBlue_Dev"><br>有好的意见或者建议也可联系本人微信号:frobo<br><img src="http://7xpt80.com1.z0.glb.clouddn.com/AutumnFlavorWx.png" alt="froboo"></p>
+        <p>在建筑设计中常常需要统计房间面积，Revit软件中有对应的房间图元可以自动计算每个房间的面积，并且在明细表中可以方便的进行统计。但是计算规则稍稍复杂一点的时候，明细表实现起来就不太优雅了：比如阳台面积算一半，入户花园有的城市算全面积，有的算一半。明细表实现起来需要添加额外的参数，而参数需要手动来同步，一旦有遗漏就会造成统计错误。在这样的场景中使用Dynamo来实现会非常省心。<br><br><img src="/imgs/countAreaForRomms.png" alt="统计房间面积"></p>
 
            
     </div>
@@ -301,13 +252,13 @@
   
     
     <div class="copyright">
-        <p><span>本文标题:</span><a href="/2016/01/27/Unity3D之Standard-Shader初探/">Unity3D之Standard Shader初探</a></p>
+        <p><span>本文标题:</span><a href="/2017/09/21/Dynamo-统计房间面积/">Dynamo | 统计房间面积</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
-        <p><span>发布时间:</span>2016年01月27日 - 21时30分</p>
-        <p><span>最后更新:</span>2016年11月13日 - 15时50分</p>
+        <p><span>发布时间:</span>2017年09月21日 - 20时23分</p>
+        <p><span>最后更新:</span>2017年09月21日 - 20时39分</p>
         <p>
-            <span>原始链接:</span><a class="post-url" href="/2016/01/27/Unity3D之Standard-Shader初探/" title="Unity3D之Standard Shader初探">http://http://autumnflavor.com/2016/01/27/Unity3D之Standard-Shader初探/</a>
-            <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2016/01/27/Unity3D之Standard-Shader初探/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
+            <span>原始链接:</span><a class="post-url" href="/2017/09/21/Dynamo-统计房间面积/" title="Dynamo | 统计房间面积">http://http://autumnflavor.com/2017/09/21/Dynamo-统计房间面积/</a>
+            <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2017/09/21/Dynamo-统计房间面积/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
             <script src="/js/clipboard.min.js"></script>
             <script> var clipboard = new Clipboard('.copy-path'); </script>
         </p>
@@ -320,16 +271,10 @@
 
     <nav id="article-nav">
         
-            <div id="article-nav-newer" class="article-nav-title">
-                <a href="/2016/02/15/Modelo-基于WebGL的可视化解决方案/">
-                    Modelo | 基于WebGL的可视化解决方案
-                </a>
-            </div>
-        
         
             <div id="article-nav-older" class="article-nav-title">
-                <a href="/2016/01/14/Revit中获取族名称通用代码/">
-                    Revit中获取族名称通用代码
+                <a href="/2017/09/10/Dynamo-使用Dynamo实现动态时钟和Strandbeest/">
+                    Dynamo | 使用Dynamo实现动态时钟和Strandbeest
                 </a>
             </div>
         
@@ -340,7 +285,7 @@
 
     <div id="toc" class="toc-article">
     <strong class="toc-title">文章目录</strong>
-    <ol class="toc"><li class="toc-item toc-level-3"><a class="toc-link" href="#Standard_shader_u7B80_u4ECB"><span class="toc-number">1.</span> <span class="toc-text">Standard shader简介</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4F7F_u7528Standard_Shader"><span class="toc-number">2.</span> <span class="toc-text">使用Standard Shader</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u4EE3_u7801_u5B9E_u73B0"><span class="toc-number">3.</span> <span class="toc-text">代码实现</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u5F15_u7528"><span class="toc-number">4.</span> <span class="toc-text">引用</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#u7ED3_u8BED"><span class="toc-number">5.</span> <span class="toc-text">结语</span></a></li></ol>
+    
 </div>
 <style>
     .left-col .switch-btn {
@@ -403,7 +348,7 @@
     
       <div class="duoshuo" id="comments">
     <!-- 多说评论框 start -->
-    <div class="ds-thread" data-thread-key="2016/01/27/Unity3D之Standard-Shader初探/" data-title="Unity3D之Standard Shader初探" data-url="http://http://autumnflavor.com/2016/01/27/Unity3D之Standard-Shader初探/"></div>
+    <div class="ds-thread" data-thread-key="2017/09/21/Dynamo-统计房间面积/" data-title="Dynamo | 统计房间面积" data-url="http://http://autumnflavor.com/2017/09/21/Dynamo-统计房间面积/"></div>
     <!-- 多说评论框 end -->
     <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
     <script type="text/javascript">
@@ -428,15 +373,13 @@
 
     <div class="scroll" id="post-nav-button">
         
-            <a href="/2016/02/15/Modelo-基于WebGL的可视化解决方案/" title="上一篇: Modelo | 基于WebGL的可视化解决方案">
-                <i class="fa fa-angle-left"></i>
-            </a>
+            <a href="/" title="回到主页"><i class="fa fa-home"></i></a>
         
 
         <a title="文章列表"><i class="fa fa-bars"></i><i class="fa fa-times"></i></a>
 
         
-            <a href="/2016/01/14/Revit中获取族名称通用代码/" title="下一篇: Revit中获取族名称通用代码">
+            <a href="/2017/09/10/Dynamo-使用Dynamo实现动态时钟和Strandbeest/" title="下一篇: Dynamo | 使用Dynamo实现动态时钟和Strandbeest">
                 <i class="fa fa-angle-right"></i>
             </a>
         
