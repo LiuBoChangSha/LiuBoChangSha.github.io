@@ -5,17 +5,23 @@
   
   <title>Dynamo | 统计房间面积 | 秋味笔记</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在建筑设计中常常需要统计房间面积，Revit软件中有对应的房间图元可以自动计算每个房间的面积，并且在明细表中可以方便的进行统计。但是计算规则稍稍复杂一点的时候，明细表实现起来就不太优雅了：比如阳台面积算一半，入户花园有的城市算全面积，有的算一半。明细表实现起来需要添加额外的参数，而参数需要手动来同步，一旦有遗漏就会造成统计错误。在这样的场景中使用Dynamo来实现会非常省心。">
+  <meta name="description" content="在建筑设计中常常需要统计房间面积，Revit软件中有对应的房间图元可以自动计算每个房间的面积，并且在明细表中可以方便的进行统计。但是计算规则稍稍复杂一点的时候，明细表实现起来就不太优雅了：比如阳台面积算一半，入户花园有的城市算全面积，有的算一半。明细表实现起来需要添加额外的参数，而参数需要手动来同步，一旦有遗漏就会造成统计错误。在这样的场景中使用Dynamo来实现会非常省心。
+左边提取出来的房间和">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Dynamo | 统计房间面积">
 <meta property="og:url" content="http://http://autumnflavor.com/2017/09/21/Dynamo-统计房间面积/index.html">
 <meta property="og:site_name" content="秋味笔记">
-<meta property="og:description" content="在建筑设计中常常需要统计房间面积，Revit软件中有对应的房间图元可以自动计算每个房间的面积，并且在明细表中可以方便的进行统计。但是计算规则稍稍复杂一点的时候，明细表实现起来就不太优雅了：比如阳台面积算一半，入户花园有的城市算全面积，有的算一半。明细表实现起来需要添加额外的参数，而参数需要手动来同步，一旦有遗漏就会造成统计错误。在这样的场景中使用Dynamo来实现会非常省心。">
-<meta property="og:image" content="http://http://autumnflavor.com/imgs/countAreaForRomms.png">
-<meta property="og:updated_time" content="2017-09-21T12:39:19.886Z">
+<meta property="og:description" content="在建筑设计中常常需要统计房间面积，Revit软件中有对应的房间图元可以自动计算每个房间的面积，并且在明细表中可以方便的进行统计。但是计算规则稍稍复杂一点的时候，明细表实现起来就不太优雅了：比如阳台面积算一半，入户花园有的城市算全面积，有的算一半。明细表实现起来需要添加额外的参数，而参数需要手动来同步，一旦有遗漏就会造成统计错误。在这样的场景中使用Dynamo来实现会非常省心。
+左边提取出来的房间和">
+<meta property="og:image" content="https://github.com/LiuBoChangSha/LiuBoChangSha.github.io/blob/master/imgs/%E7%BB%9F%E8%AE%A1%E6%88%BF%E9%97%B4%E9%9D%A2%E7%A7%AF/sampleRooms.png?raw=true">
+<meta property="og:image" content="https://github.com/LiuBoChangSha/LiuBoChangSha.github.io/blob/master/imgs/%E7%BB%9F%E8%AE%A1%E6%88%BF%E9%97%B4%E9%9D%A2%E7%A7%AF/countAreaForRomms.png?raw=true">
+<meta property="og:image" content="http://http://autumnflavor.com/">
+<meta property="og:image" content="http://http://autumnflavor.com/">
+<meta property="og:updated_time" content="2017-09-21T12:58:55.480Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Dynamo | 统计房间面积">
-<meta name="twitter:description" content="在建筑设计中常常需要统计房间面积，Revit软件中有对应的房间图元可以自动计算每个房间的面积，并且在明细表中可以方便的进行统计。但是计算规则稍稍复杂一点的时候，明细表实现起来就不太优雅了：比如阳台面积算一半，入户花园有的城市算全面积，有的算一半。明细表实现起来需要添加额外的参数，而参数需要手动来同步，一旦有遗漏就会造成统计错误。在这样的场景中使用Dynamo来实现会非常省心。">
+<meta name="twitter:description" content="在建筑设计中常常需要统计房间面积，Revit软件中有对应的房间图元可以自动计算每个房间的面积，并且在明细表中可以方便的进行统计。但是计算规则稍稍复杂一点的时候，明细表实现起来就不太优雅了：比如阳台面积算一半，入户花园有的城市算全面积，有的算一半。明细表实现起来需要添加额外的参数，而参数需要手动来同步，一旦有遗漏就会造成统计错误。在这样的场景中使用Dynamo来实现会非常省心。
+左边提取出来的房间和">
   
     <link rel="alternative" href="/atom.xml" title="秋味笔记" type="application/atom+xml">
   
@@ -243,7 +249,9 @@
     <div class="article-entry" itemprop="articleBody">
       
           
-        <p>在建筑设计中常常需要统计房间面积，Revit软件中有对应的房间图元可以自动计算每个房间的面积，并且在明细表中可以方便的进行统计。但是计算规则稍稍复杂一点的时候，明细表实现起来就不太优雅了：比如阳台面积算一半，入户花园有的城市算全面积，有的算一半。明细表实现起来需要添加额外的参数，而参数需要手动来同步，一旦有遗漏就会造成统计错误。在这样的场景中使用Dynamo来实现会非常省心。<br><br><img src="/imgs/countAreaForRomms.png" alt="统计房间面积"></p>
+        <p><img src="https://github.com/LiuBoChangSha/LiuBoChangSha.github.io/blob/master/imgs/%E7%BB%9F%E8%AE%A1%E6%88%BF%E9%97%B4%E9%9D%A2%E7%A7%AF/sampleRooms.png?raw=true" alt="sampleRooms"><br><br>在建筑设计中常常需要统计房间面积，Revit软件中有对应的房间图元可以自动计算每个房间的面积，并且在明细表中可以方便的进行统计。但是计算规则稍稍复杂一点的时候，明细表实现起来就不太优雅了：比如阳台面积算一半，入户花园有的城市算全面积，有的算一半。明细表实现起来需要添加额外的参数，而参数需要手动来同步，一旦有遗漏就会造成统计错误。在这样的场景中使用Dynamo来实现会非常省心。<br></p>
+<p><img src="https://github.com/LiuBoChangSha/LiuBoChangSha.github.io/blob/master/imgs/%E7%BB%9F%E8%AE%A1%E6%88%BF%E9%97%B4%E9%9D%A2%E7%A7%AF/countAreaForRomms.png?raw=true" alt="统计房间面积"><br><br>左边提取出来的房间和面积是单独的，需要进行归类统计，做到这一步以后，可以写一个Python脚本，来控制统计过程。比如阳台面积折半：<br><br><figure class="highlight stata"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">#<span class="keyword">Copyright</span> (c) 2017, 刘博</span><br><span class="line">#The Author's Blog http:<span class="comment">//autumnflavor.com</span></span><br><span class="line">#This Script is <span class="keyword">for</span> counting the area <span class="keyword">for</span> rooms.</span><br><span class="line"></span><br><span class="line">#该节点的输入内容将存储为 <span class="keyword">IN</span> 变量中的一个列表。</span><br><span class="line">dataEnteringNode = <span class="keyword">IN</span></span><br><span class="line">names = <span class="keyword">IN</span>[0]</span><br><span class="line">vals = <span class="keyword">IN</span>[1]</span><br><span class="line"></span><br><span class="line">resultNames = []</span><br><span class="line">resultVals = []</span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> <span class="keyword">range</span>(len(names)):</span><br><span class="line">	name = names[i];</span><br><span class="line">	<span class="keyword">if</span> name not <span class="keyword">in</span> resultNames:</span><br><span class="line">		resultNames.<span class="keyword">append</span>(name)</span><br><span class="line">		resultVals.<span class="keyword">append</span>(0)</span><br><span class="line">	index = resultNames.<span class="literal">index</span>(name)</span><br><span class="line">	area = vals[i]</span><br><span class="line">	<span class="keyword">if</span> name == <span class="string">"阳台"</span>:</span><br><span class="line">		area *=0.5</span><br><span class="line">	resultVals[index] += area</span><br><span class="line"></span><br><span class="line">#将输出内容指定给 <span class="keyword">OUT</span> 变量。</span><br><span class="line"><span class="keyword">OUT</span> = [resultNames, resultVals]</span><br></pre></td></tr></table></figure></p>
+<p><img src="/" alt="脚本结果"><br><br>到这里房间面积已经统计出来了，此时可以将结果输出到Excel中，进行成果的保存。Dynamo 1.3自带了Excel.WriteToFile节点，在节点种将“OverWrite”参数设置成”true”，则Excel会根据值的调整自动覆盖写入，无需手动操作，有效地节约了时间，并且避免了修改频繁造成版本对不上的问题。<br><br><img src="/" alt="导出Excel"><br></p>
 
            
     </div>
@@ -255,7 +263,7 @@
         <p><span>本文标题:</span><a href="/2017/09/21/Dynamo-统计房间面积/">Dynamo | 统计房间面积</a></p>
         <p><span>文章作者:</span><a href="/" title="访问 秋味 的个人博客">秋味</a></p>
         <p><span>发布时间:</span>2017年09月21日 - 20时23分</p>
-        <p><span>最后更新:</span>2017年09月21日 - 20时39分</p>
+        <p><span>最后更新:</span>2017年09月21日 - 20时58分</p>
         <p>
             <span>原始链接:</span><a class="post-url" href="/2017/09/21/Dynamo-统计房间面积/" title="Dynamo | 统计房间面积">http://http://autumnflavor.com/2017/09/21/Dynamo-统计房间面积/</a>
             <span class="copy-path" data-clipboard-text="原文: http://http://autumnflavor.com/2017/09/21/Dynamo-统计房间面积/　　作者: 秋味" title="点击复制文章链接"><i class="fa fa-clipboard"></i></span>
